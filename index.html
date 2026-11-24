@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Vendas & Metas</title>
+  <style>
+    /* ================= CORES (PRETO & ROSA) ================= */
+    :root {
+      --bg: #0b0b0f;
+      --surface: #14141b;
+      --surface-2: #1d1d27;
+      --border: #2a2a38;
+      --text: #f8f8fc;
+      --muted: #a0a0b5;
+      --accent: #ff2e88;
+      --accent-soft: rgba(255, 46, 136, 0.16);
+      --accent-glow: rgba(255, 46, 136, 0.45);
+      --accent-2: #ff7eb6;
+      --btn-text: #ffffff;
+    }
+
+    /* ================= TEMA ALTERNATIVO (PRETO & BRANCO) ================= */
+    body.tema-pb {
+      --bg: #080808;
+      --surface: #131313;
+      --surface-2: #1e1e1e;
+      --border: #2e2e2e;
+      --text: #ffffff;
+      --muted: #9e9e9e;
+      --accent: #ffffff;
+      --accent-soft: rgba(255, 255, 255, 0.12);
+      --accent-glow: rgba(255, 255, 255, 0.35);
+      --accent-2: #d4d4d4;
+      --btn-text: #080808;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 16px 60px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* TOPO */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand h1 { font-size: 1.55rem; letter-spacing: -0.5px; }
+    .brand h1 span { color: var(--accent); }
+    .brand p { font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
+
+    .header-acoes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* BOTÕES */
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.15s, opacity 0.2s, border-color 0.2s;
+    }
+
+    button:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--btn-text);
+      padding: 11px 18px;
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+
+    .btn-primary:hover { opacity: 0.92; }
+
+    .btn-outline {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); }
+
+    /* ABAS */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      background: var(--surface);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--muted);
+      padding: 9px 18px;
+      border-radius: 8px;
+    }
+
+    .tab-btn.ativa {
+      background: var(--accent);
+      color: var(--btn-text);
+    }
+
+    .tab-conteudo { display: none; flex-direction: column; gap: 20px; }
+    .tab-conteudo.ativa { display: flex; }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .card-titulo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-titulo h2 { font-size: 1.08rem; font-weight: 700; }
+
+    .badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* RESUMO SUPERIOR */
+    .grid-resumo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .kpi {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .kpi span { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+    .kpi strong { font-size: 1.5rem; letter-spacing: -0.5px; }
+
+    .kpi.destaque {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 24px var(--accent-soft);
+    }
+
+    .kpi.destaque strong { color: var(--accent); }
+
+    /* ILUSTRAÇÃO INTERATIVA + METAS */
+    .grid-principal {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 780px) {
+      .grid-principal { grid-template-columns: 1fr; }
+    }
+
+    .lista-metas { display: flex; flex-direction: column; gap: 12px; }
+
+    .meta-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .meta-item.batida {
+      border-color: var(--accent);
+      box-shadow: 0 0 18px var(--accent-soft);
+    }
+
+    .meta-topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .meta-nome { font-weight: 700; font-size: 0.98rem; }
+
+    .meta-comissao {
+      font-size: 0.82rem;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .meta-valores {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .barra-fundo {
+      width: 100%;
+      height: 10px;
+      background: var(--bg);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .barra-preenchida {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      border-radius: 999px;
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* CENA INTERATIVA DO FOGUETE */
+    .palco-ilustracao {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      gap: 14px;
+      min-height: 310px;
+    }
+
+    .trilha-svg { width: 100%; max-width: 280px; height: 230px; overflow: visible; }
+
+    .frase-motivacao {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 12px;
+      width: 100%;
+    }
+
+    /* GRÁFICO DIA A DIA */
+    .grafico-wrap { width: 100%; overflow-x: auto; padding-top: 10px; }
+
+    .grafico-area {
+      position: relative;
+      height: 220px;
+      min-width: 480px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 26px 10px 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .linha-meta-diaria {
+      position: absolute;
+      left: 0;
+      right: 0;
+      border-top: 2px dashed var(--accent);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .linha-meta-label {
+      position: absolute;
+      right: 6px;
+      top: -20px;
+      font-size: 0.74rem;
+      color: var(--accent);
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .coluna-dia {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .barra-dia {
+      width: 100%;
+      max-width: 36px;
+      min-height: 4px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px 8px 2px 2px;
+      transition: height 0.45s ease, background 0.25s, transform 0.2s;
+    }
+
+    .barra-dia.com-venda { background: var(--accent-soft); border-color: var(--accent); }
+    .barra-dia.meta-batida { background: var(--accent); box-shadow: 0 0 14px var(--accent-glow); }
+    .coluna-dia:hover .barra-dia { transform: translateY(-3px); }
+
+    .dia-label { position: absolute; bottom: -24px; font-size: 0.75rem; color: var(--muted); }
+
+    .tooltip-dia {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      background: var(--text);
+      color: var(--bg);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 5;
+    }
+
+    .coluna-dia:hover .tooltip-dia { opacity: 1; }
+
+    /* HISTÓRICO */
+    .lista-vendas {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .item-venda {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 12px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .venda-info { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 220px; }
+    .venda-info small { color: var(--muted); font-size: 0.82rem; }
+
+    .venda-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .tag.destaque { border-color: var(--accent); color: var(--accent); }
+    .tag.clicavel { cursor: pointer; }
+    .tag.clicavel:hover { border-color: var(--accent); }
+
+    .venda-obs {
+      font-size: 0.82rem;
+      color: var(--accent-2);
+      margin-top: 2px;
+    }
+
+    .venda-direita {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .venda-acoes { display: flex; gap: 6px; }
+
+    .btn-mini {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      border-radius: 8px;
+    }
+
+    .btn-mini:hover { color: var(--text); border-color: var(--accent); }
+    .btn-mini.excluir:hover { color: #ff5c7c; border-color: #ff5c7c; }
+
+    /* ABA META DIÁRIA & FORMULÁRIOS */
+    .controles-diaria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .campo { display: flex; flex-direction: column; gap: 6px; }
+    .campo label { font-size: 0.83rem; color: var(--muted); font-weight: 600; }
+
+    input, select, textarea {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.94rem;
+      outline: none;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+
+    /* MODAL */
+    .modal-fundo {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 50;
+    }
+
+    .modal-fundo.aberto { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 92vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .box-ajuste {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .linha-dupla {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .resumo-valor-final {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 10px;
+    }
+
+    .resumo-valor-final span { font-size: 0.85rem; font-weight: 600; }
+    .resumo-valor-final strong { font-size: 1.2rem; color: var(--accent); }
+
+    /* BOTÕES OPCIONAIS NO MODAL */
+    .pills-opcionais {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-btn {
+      background: var(--surface-2);
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      border-radius: 999px;
+    }
+
+    .pill-btn.ativo {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .bloco-opcional { display: none; }
+    .bloco-opcional.visivel { display: flex; flex-direction: column; gap: 6px; }
+
+    .preview-img {
+      max-height: 120px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      display: none;
+      margin-top: 4px;
+    }
+
+    .modal-acoes {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    /* VISUALIZADOR DE IMAGEM (FOTO / FICHA) */
+    .lightbox-img {
+      width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <main class="container">
+    <!-- CABEÇALHO -->
+    <header>
+      <div class="brand">
+        <h1>Minhas <span>Vendas</span> & Metas</h1>
+        <p>Acompanhe seu progresso diário e destrave suas comissões.</p>
+      </div>
+      <div class="header-acoes">
+        <button id="btn-tema" class="btn-outline">Preto & Branco</button>
+        <button id="btn-abrir-modal" class="btn-primary">+ Adicionar Venda</button>
+      </div>
+    </header>
+
+    <!-- NAVEGAÇÃO DE ABAS -->
+    <nav class="tabs">
+      <button class="tab-btn ativa" data-tab="inicio">Página Inicial</button>
+      <button class="tab-btn" data-tab="diaria">Meta Diária</button>
+    </nav>
+
+    <!-- ================= ABA 1: PÁGINA INICIAL ================= -->
+    <section id="tab-inicio" class="tab-conteudo ativa">
+      <div class="grid-resumo">
+        <div class="kpi destaque">
+          <span>Total Vendido</span>
+          <strong id="kpi-vendido">R$ 0,00</strong>
+        </div>
+        <div class="kpi">
+          <span>Comissão Garantida</span>
+          <strong id="kpi-comissao">R$ 0,00</strong>
+        </div>
+        <div class="kpi">
+          <span>Próxima Meta</span>
+          <strong id="kpi-falta">R$ 30.000,00</strong>
+        </div>
+        <div class="kpi">
+          <span>Vendas Registradas</span>
+          <strong id="kpi-qtd">0</strong>
+        </div>
+      </div>
+
+      <!-- METAS + ILUSTRAÇÃO INTERATIVA -->
+      <div class="grid-principal">
+        <div class="card">
+          <div class="card-titulo">
+            <h2>Escada de Metas & Comissões</h2>
+            <span id="badge-status" class="badge">Em busca da 3ª Meta</span>
+          </div>
+          <div class="lista-metas" id="lista-metas"></div>
+        </div>
+
+        <div class="card palco-ilustracao">
+          <div class="card-titulo" style="width:100%; margin-bottom:0;">
+            <h2>Decolagem da Meta</h2>
+            <span id="pct-topo" class="badge">0%</span>
+          </div>
+
+          <svg class="trilha-svg" viewBox="0 0 260 220" aria-label="Progresso interativo das metas">
+            <line x1="55" y1="200" x2="55" y2="20" stroke="var(--border)" stroke-width="6" stroke-linecap="round"/>
+            <line id="svg-trilha-ativa" x1="55" y1="200" x2="55" y2="200" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
+
+            <g id="marco-3">
+              <circle cx="55" cy="92" r="8" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
+              <text x="76" y="96" fill="var(--muted)" font-size="12" font-weight="600">3ª Meta · R$ 30 mil (+R$ 300)</text>
+            </g>
+            <g id="marco-2">
+              <circle cx="55" cy="56" r="8" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
+              <text x="76" y="60" fill="var(--muted)" font-size="12" font-weight="600">2ª Meta · R$ 40 mil (+R$ 400)</text>
+            </g>
+            <g id="marco-1">
+              <circle cx="55" cy="20" r="10" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
+              <text x="76" y="24" fill="var(--muted)" font-size="12" font-weight="700">1ª Meta · R$ 50 mil (+R$ 500)</text>
+            </g>
+
+            <g id="svg-foguete" transform="translate(55, 200)" style="transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);">
+              <circle cx="0" cy="0" r="15" fill="var(--accent-soft)"/>
+              <path d="M0 -13 C6 -6 6 4 0 10 C-6 4 -6 -6 0 -13 Z" fill="var(--accent)"/>
+              <circle cx="0" cy="-3" r="2.6" fill="var(--btn-text)"/>
+              <path d="M-5 5 L-10 11 L-3 9 Z" fill="var(--accent-2)"/>
+              <path d="M5 5 L10 11 L3 9 Z" fill="var(--accent-2)"/>
+            </g>
+          </svg>
+
+          <div id="frase-motivacao" class="frase-motivacao">
+            Registre sua primeira venda para dar a partida!
+          </div>
+        </div>
+      </div>
+
+      <!-- GRÁFICO DIA A DIA -->
+      <div class="card">
+        <div class="card-titulo">
+          <h2>Gráfico de Vendas — Dia a Dia</h2>
+          <span class="badge" id="badge-grafico-meta">Meta diária: R$ 0,00</span>
+        </div>
+        <div class="grafico-wrap">
+          <div class="grafico-area" id="grafico-area"></div>
+        </div>
+      </div>
+
+      <!-- HISTÓRICO DE VENDAS -->
+      <div class="card">
+        <div class="card-titulo">
+          <h2>Histórico de Vendas</h2>
+          <button id="btn-limpar" class="btn-outline" style="padding:6px 12px; font-size:0.8rem;">Zerar Mês</button>
+        </div>
+        <ul class="lista-vendas" id="lista-vendas"></ul>
+      </div>
+    </section>
+
+    <!-- ================= ABA 2: META DIÁRIA ================= -->
+    <section id="tab-diaria" class="tab-conteudo">
+      <div class="card">
+        <div class="card-titulo">
+          <h2>Calculadora Automática de Meta Diária</h2>
+          <span class="badge">Atualiza sozinho</span>
+        </div>
+
+        <div class="controles-diaria">
+          <div class="campo">
+            <label for="select-meta-alvo">Qual meta você quer mirar?</label>
+            <select id="select-meta-alvo">
+              <option value="30000">3ª Meta — R$ 30.000 (Comissão R$ 300)</option>
+              <option value="40000">2ª Meta — R$ 40.000 (Comissão R$ 400)</option>
+              <option value="50000" selected>1ª Meta — R$ 50.000 (Comissão R$ 500)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="input-dias-totais">Dias de trabalho no mês</label>
+            <input type="number" id="input-dias-totais" min="1" max="31" value="26">
+          </div>
+
+          <div class="campo">
+            <label for="input-dias-restantes">Dias restantes (incluindo hoje)</label>
+            <input type="number" id="input-dias-restantes" min="1" max="31" value="15">
+          </div>
+        </div>
+
+        <div class="grid-resumo">
+          <div class="kpi">
+            <span>Meta Diária Base</span>
+            <strong id="diaria-base">R$ 0,00</strong>
+          </div>
+          <div class="kpi destaque">
+            <span>Ritmo Necessário / Dia</span>
+            <strong id="diaria-recalculada">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Vendido Hoje</span>
+            <strong id="diaria-hoje">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Falta Hoje</span>
+            <strong id="diaria-falta-hoje">R$ 0,00</strong>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <div class="meta-valores">
+            <span>Progresso da Meta de Hoje</span>
+            <strong id="diaria-pct-hoje">0%</strong>
+          </div>
+          <div class="barra-fundo" style="height: 14px;">
+            <div id="diaria-barra-hoje" class="barra-preenchida"></div>
+          </div>
+          <p id="diaria-feedback" class="frase-motivacao" style="margin-top: 14px; text-align: center;"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= MODAL: ADICIONAR / EDITAR VENDA ================= -->
+  <div class="modal-fundo" id="modal-venda">
+    <div class="modal">
+      <div class="card-titulo" style="margin-bottom:0;">
+        <h2 id="modal-titulo">Registrar Nova Venda</h2>
+        <span class="badge">Data/Hora automática</span>
+      </div>
+
+      <form id="form-venda" style="display:flex; flex-direction:column; gap:12px;">
+        <input type="hidden" id="venda-edit-id">
+
+        <!-- SERVIÇO / PRODUTO -->
+        <div class="campo">
+          <label for="venda-servico">Procedimento ou Produto</label>
+          <select id="venda-servico" required>
+            <optgroup label="Procedimentos (Valor Fixo)">
+              <option value="Aplicação de Lóbulo Direito" data-fixo="75">Aplicação de Lóbulo Direito — R$ 75,00</option>
+              <option value="Aplicação de Lóbulo Esquerdo" data-fixo="75">Aplicação de Lóbulo Esquerdo — R$ 75,00</option>
+              <option value="Aplicação dos Dois Lóbulos" data-fixo="150">Aplicação dos Dois Lóbulos — R$ 150,00</option>
+              <option value="Aplicação de Piercing" data-fixo="150">Aplicação de Piercing — R$ 150,00</option>
+              <option value="Serviço de Remoção" data-fixo="30">Serviço de Remoção — R$ 30,00</option>
+              <option value="Serviço de Troca" data-fixo="30">Serviço de Troca — R$ 30,00</option>
+              <option value="Serviço de Limpeza" data-fixo="100">Serviço de Limpeza — R$ 100,00</option>
+              <option value="Serviço de Lobuloplastia" data-fixo="350">Serviço de Lobuloplastia — R$ 350,00</option>
+            </optgroup>
+            <optgroup label="Tatuagem & Joias (Valor Manual)">
+              <option value="Tatuagem" data-fixo="manual">Tatuagem — Valor manual</option>
+              <option value="Piercing de Titânio" data-fixo="manual">Piercing de Titânio — Valor manual</option>
+              <option value="Piercing de Aço Cirúrgico" data-fixo="manual">Piercing de Aço Cirúrgico — Valor manual</option>
+              <option value="Piercing de Ouro" data-fixo="manual">Piercing de Ouro — Valor manual</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- VALOR BASE -->
+        <div class="campo">
+          <label for="venda-valor-base" id="label-valor-base">Valor Fixo (R$)</label>
+          <input type="number" id="venda-valor-base" step="0.01" min="0" required>
+        </div>
+
+        <!-- EDIÇÃO E OBSERVAÇÕES DE VALOR (AGREGA OU RETIRA DA META) -->
+        <div class="box-ajuste">
+          <label style="font-size:0.83rem; font-weight:700; color:var(--text);">Edição / Ajuste de Valor (Opcional)</label>
+          <div class="linha-dupla">
+            <select id="venda-ajuste-tipo">
+              <option value="nenhum">Sem ajuste</option>
+              <option value="mais">+ Acrescentar valor</option>
+              <option value="menos">- Retirar / Desconto</option>
+            </select>
+            <input type="number" id="venda-ajuste-valor" placeholder="Valor do ajuste" step="0.01" min="0" disabled>
+          </div>
+          <input type="text" id="venda-obs" placeholder="Observação do valor (ex: desconto, taxa extra...)">
+        </div>
+
+        <div class="resumo-valor-final">
+          <span>Valor Final que entra na Meta:</span>
+          <strong id="preview-valor-final">R$ 75,00</strong>
+        </div>
+
+        <!-- BOTÕES OPCIONAIS -->
+        <div class="campo">
+          <label>Informações Opcionais (clique para adicionar)</label>
+          <div class="pills-opcionais">
+            <button type="button" class="pill-btn" data-alvo="opt-cliente">+ Nome Cliente</button>
+            <button type="button" class="pill-btn" data-alvo="opt-pagamento">+ Pagamento</button>
+            <button type="button" class="pill-btn" data-alvo="opt-foto">+ Foto</button>
+            <button type="button" class="pill-btn" data-alvo="opt-ficha">+ Ficha Cadastral</button>
+          </div>
+        </div>
+
+        <div id="opt-cliente" class="bloco-opcional">
+          <label for="venda-cliente">Nome do Cliente</label>
+          <input type="text" id="venda-cliente" placeholder="Ex: Ana Beatriz">
+        </div>
+
+        <div id="opt-pagamento" class="bloco-opcional">
+          <label for="venda-pagamento">Método de Pagamento</label>
+          <select id="venda-pagamento">
+            <option value="">Não informado</option>
+            <option value="Pix">Pix</option>
+            <option value="Crédito">Crédito</option>
+            <option value="Débito">Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+          </select>
+        </div>
+
+        <div id="opt-foto" class="bloco-opcional">
+          <label for="venda-foto">Foto do Procedimento / Joia</label>
+          <input type="file" id="venda-foto" accept="image/*">
+          <img id="preview-foto" class="preview-img" alt="Prévia da foto">
+        </div>
+
+        <div id="opt-ficha" class="bloco-opcional">
+          <label for="venda-ficha">Ficha Cadastral do Cliente (scaneada / foto)</label>
+          <input type="file" id="venda-ficha" accept="image/*">
+          <img id="preview-ficha" class="preview-img" alt="Prévia da ficha">
+        </div>
+
+        <div class="modal-acoes">
+          <button type="button" id="btn-fechar-modal" class="btn-outline">Cancelar</button>
+          <button type="submit" class="btn-primary" id="btn-salvar-venda">Finalizar Venda</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL VISUALIZADOR DE IMAGEM (FOTO / FICHA) -->
+  <div class="modal-fundo" id="modal-imagem">
+    <div class="modal" style="max-width:600px;">
+      <div class="card-titulo" style="margin-bottom:0;">
+        <h2 id="lightbox-titulo">Visualização</h2>
+        <button type="button" id="btn-fechar-lightbox" class="btn-outline" style="padding:6px 12px;">Fechar</button>
+      </div>
+      <img id="lightbox-img" class="lightbox-img" alt="Anexo da venda">
+    </div>
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    const METAS = [
+      { id: 3, nome: '3ª Meta', alvo: 30000, comissao: 300 },
+      { id: 2, nome: '2ª Meta', alvo: 40000, comissao: 400 },
+      { id: 1, nome: '1ª Meta', alvo: 50000, comissao: 500 }
+    ];
+
+    let vendas = JSON.parse(localStorage.getItem('vendas_v2')) || [];
+    let configDiaria = JSON.parse(localStorage.getItem('config_diaria_v2')) || {
+      metaAlvo: 50000,
+      diasTotais: 26,
+      diasRestantes: Math.max(1, new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate() - new Date().getDate() + 1)
+    };
+    let nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
+
+    // Imagens temporárias do formulário
+    let fotoTemp = '';
+    let fichaTemp = '';
+
+    // UTILITÁRIOS
+    function hojeISO(d = new Date()) {
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function formatarDataHoraAtual(d = new Date()) {
+      const data = d.toLocaleDateString('pt-BR');
+      const hora = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      return `${data} às ${hora}`;
+    }
+
+    function formatarMoeda(v) {
+      return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function calcularNivel(total) {
+      if (total >= 50000) return 3;
+      if (total >= 40000) return 2;
+      if (total >= 30000) return 1;
+      return 0;
+    }
+
+    function calcularComissao(total) {
+      if (total >= 50000) return 500;
+      if (total >= 40000) return 400;
+      if (total >= 30000) return 300;
+      return 0;
+    }
+
+    function salvar() {
+      try {
+        localStorage.setItem('vendas_v2', JSON.stringify(vendas));
+        localStorage.setItem('config_diaria_v2', JSON.stringify(configDiaria));
+      } catch (e) {
+        alert('Limite de armazenamento do navegador atingido pelas imagens. Tente excluir vendas antigas ou salvar sem foto.');
+      }
+    }
+
+    // COMPRESSÃO DE IMAGEM PARA CABER NO NAVEGADOR
+    function comprimirImagem(file, callback) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxW = 700;
+          const escala = Math.min(1, maxW / img.width);
+          canvas.width = img.width * escala;
+          canvas.height = img.height * escala;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          callback(canvas.toDataURL('image/jpeg', 0.72));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ABAS
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('ativa'));
+        document.querySelectorAll('.tab-conteudo').forEach(c => c.classList.remove('ativa'));
+        btn.classList.add('ativa');
+        document.getElementById(`tab-${btn.dataset.tab}`).classList.add('ativa');
+      });
+    });
+
+    // ALTERNAR TEMA
+    const btnTema = document.getElementById('btn-tema');
+    if (localStorage.getItem('tema_pb') === '1') {
+      document.body.classList.add('tema-pb');
+      btnTema.textContent = 'Preto & Rosa';
+    }
+    btnTema.addEventListener('click', () => {
+      document.body.classList.toggle('tema-pb');
+      const isPB = document.body.classList.contains('tema-pb');
+      btnTema.textContent = isPB ? 'Preto & Rosa' : 'Preto & Branco';
+      localStorage.setItem('tema_pb', isPB ? '1' : '0');
+    });
+
+    // LÓGICA DO MODAL DE VENDA
+    const modal = document.getElementById('modal-venda');
+    const elServico = document.getElementById('venda-servico');
+    const elValorBase = document.getElementById('venda-valor-base');
+    const elLabelBase = document.getElementById('label-valor-base');
+    const elAjusteTipo = document.getElementById('venda-ajuste-tipo');
+    const elAjusteValor = document.getElementById('venda-ajuste-valor');
+    const elPreviewFinal = document.getElementById('preview-valor-final');
+
+    function atualizarCampoServico(manterValor = false) {
+      const opt = elServico.options[elServico.selectedIndex];
+      const fixo = opt.dataset.fixo;
+      if (fixo === 'manual') {
+        elLabelBase.textContent = 'Valor Manual (R$)';
+        elValorBase.readOnly = false;
+        if (!manterValor) elValorBase.value = '';
+        elValorBase.placeholder = 'Digite o valor (ex: 250.00)';
+      } else {
+        elLabelBase.textContent = 'Valor Fixo do Procedimento (R$)';
+        elValorBase.readOnly = true;
+        elValorBase.value = fixo;
+      }
+      calcularValorFinalPreview();
+    }
+
+    function calcularValorFinalPreview() {
+      const base = parseFloat(elValorBase.value) || 0;
+      const tipo = elAjusteTipo.value;
+      const ajuste = parseFloat(elAjusteValor.value) || 0;
+      let final = base;
+      if (tipo === 'mais') final += ajuste;
+      if (tipo === 'menos') final = Math.max(0, final - ajuste);
+      elPreviewFinal.textContent = formatarMoeda(final);
+      return final;
+    }
+
+    elServico.addEventListener('change', () => atualizarCampoServico(false));
+    elValorBase.addEventListener('input', calcularValorFinalPreview);
+    elAjusteTipo.addEventListener('change', () => {
+      elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
+      if (elAjusteValor.disabled) elAjusteValor.value = '';
+      calcularValorFinalPreview();
+    });
+    elAjusteValor.addEventListener('input', calcularValorFinalPreview);
+
+    // BOTÕES OPCIONAIS (PILLS)
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('ativo');
+        document.getElementById(btn.dataset.alvo).classList.toggle('visivel');
+      });
+    });
+
+    // UPLOAD DE FOTO E FICHA
+    document.getElementById('venda-foto').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      comprimirImagem(file, dataUrl => {
+        fotoTemp = dataUrl;
+        const img = document.getElementById('preview-foto');
+        img.src = dataUrl;
+        img.style.display = 'block';
+      });
+    });
+
+    document.getElementById('venda-ficha').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      comprimirImagem(file, dataUrl => {
+        fichaTemp = dataUrl;
+        const img = document.getElementById('preview-ficha');
+        img.src = dataUrl;
+        img.style.display = 'block';
+      });
+    });
+
+    function resetarModal() {
+      document.getElementById('form-venda').reset();
+      document.getElementById('venda-edit-id').value = '';
+      document.getElementById('modal-titulo').textContent = 'Registrar Nova Venda';
+      document.getElementById('btn-salvar-venda').textContent = 'Finalizar Venda';
+      elAjusteValor.disabled = true;
+      fotoTemp = '';
+      fichaTemp = '';
+      document.getElementById('preview-foto').style.display = 'none';
+      document.getElementById('preview-ficha').style.display = 'none';
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('ativo'));
+      document.querySelectorAll('.bloco-opcional').forEach(b => b.classList.remove('visivel'));
+      atualizarCampoServico(false);
+    }
+
+    document.getElementById('btn-abrir-modal').addEventListener('click', () => {
+      resetarModal();
+      modal.classList.add('aberto');
+    });
+
+    document.getElementById('btn-fechar-modal').addEventListener('click', () => modal.classList.remove('aberto'));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('aberto'); });
+
+    // EDITAR VENDA EXISTENTE
+    function editarVenda(id) {
+      const v = vendas.find(item => item.id === id);
+      if (!v) return;
+      resetarModal();
+
+      document.getElementById('venda-edit-id').value = v.id;
+      document.getElementById('modal-titulo').textContent = 'Editar Venda';
+      document.getElementById('btn-salvar-venda').textContent = 'Salvar Alterações';
+
+      elServico.value = v.servico || 'Tatuagem';
+      atualizarCampoServico(true);
+      elValorBase.value = v.valorBase ?? v.valor;
+
+      elAjusteTipo.value = v.ajusteTipo || 'nenhum';
+      elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
+      elAjusteValor.value = v.ajusteValor || '';
+      document.getElementById('venda-obs').value = v.obs || '';
+
+      if (v.cliente) {
+        ativarOpcional('opt-cliente');
+        document.getElementById('venda-cliente').value = v.cliente;
+      }
+      if (v.pagamento) {
+        ativarOpcional('opt-pagamento');
+        document.getElementById('venda-pagamento').value = v.pagamento;
+      }
+      if (v.foto) {
+        ativarOpcional('opt-foto');
+        fotoTemp = v.foto;
+        const img = document.getElementById('preview-foto');
+        img.src = v.foto;
+        img.style.display = 'block';
+      }
+      if (v.ficha) {
+        ativarOpcional('opt-ficha');
+        fichaTemp = v.ficha;
+        const img = document.getElementById('preview-ficha');
+        img.src = v.ficha;
+        img.style.display = 'block';
+      }
+
+      calcularValorFinalPreview();
+      modal.classList.add('aberto');
+    }
+
+    function ativarOpcional(idAlvo) {
+      document.getElementById(idAlvo).classList.add('visivel');
+      const pill = document.querySelector(`.pill-btn[data-alvo="${idAlvo}"]`);
+      if (pill) pill.classList.add('ativo');
+    }
+
+    // SALVAR VENDA (NOVA OU EDITADA)
+    document.getElementById('form-venda').addEventListener('submit', e => {
+      e.preventDefault();
+      const valorFinal = calcularValorFinalPreview();
+      if (valorFinal <= 0) {
+        alert('O valor final da venda precisa ser maior que zero.');
+        return;
+      }
+
+      const editId = Number(document.getElementById('venda-edit-id').value);
+      const agora = new Date();
+
+      const dadosVenda = {
+        id: editId || Date.now(),
+        servico: elServico.value,
+        valorBase: parseFloat(elValorBase.value) || 0,
+        ajusteTipo: elAjusteTipo.value,
+        ajusteValor: parseFloat(elAjusteValor.value) || 0,
+        obs: document.getElementById('venda-obs').value.trim(),
+        valor: valorFinal,
+        cliente: document.getElementById('venda-cliente').value.trim(),
+        pagamento: document.getElementById('venda-pagamento').value,
+        foto: fotoTemp,
+        ficha: fichaTemp
+      };
+
+      if (editId) {
+        const idx = vendas.findIndex(v => v.id === editId);
+        if (idx !== -1) {
+          dadosVenda.data = vendas[idx].data;
+          dadosVenda.dataHora = vendas[idx].dataHora;
+          vendas[idx] = dadosVenda;
+        }
+      } else {
+        dadosVenda.data = hojeISO(agora);
+        dadosVenda.dataHora = formatarDataHoraAtual(agora);
+        vendas.unshift(dadosVenda);
+      }
+
+      salvar();
+
+      const novoTotal = vendas.reduce((s, v) => s + v.valor, 0);
+      const novoNivel = calcularNivel(novoTotal);
+      if (novoNivel > nivelAnterior) dispararConfete();
+      nivelAnterior = novoNivel;
+
+      modal.classList.remove('aberto');
+      atualizarTudo();
+    });
+
+    function removerVenda(id) {
+      vendas = vendas.filter(v => v.id !== id);
+      nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
+      salvar();
+      atualizarTudo();
+    }
+
+    document.getElementById('btn-limpar').addEventListener('click', () => {
+      if (vendas.length === 0) return;
+      if (confirm('Tem certeza que deseja zerar todas as vendas deste mês?')) {
+        vendas = [];
+        nivelAnterior = 0;
+        salvar();
+        atualizarTudo();
+      }
+    });
+
+    // VISUALIZAR FOTO OU FICHA
+    const modalImg = document.getElementById('modal-imagem');
+    function abrirAnexo(id, tipo) {
+      const v = vendas.find(item => item.id === id);
+      if (!v || !v[tipo]) return;
+      document.getElementById('lightbox-titulo').textContent = tipo === 'foto' ? 'Foto da Venda' : 'Ficha Cadastral';
+      document.getElementById('lightbox-img').src = v[tipo];
+      modalImg.classList.add('aberto');
+    }
+    document.getElementById('btn-fechar-lightbox').addEventListener('click', () => modalImg.classList.remove('aberto'));
+    modalImg.addEventListener('click', e => { if (e.target === modalImg) modalImg.classList.remove('aberto'); });
+
+    // CONTROLES DA ABA META DIÁRIA
+    const elSelectMeta = document.getElementById('select-meta-alvo');
+    const elDiasTotais = document.getElementById('input-dias-totais');
+    const elDiasRestantes = document.getElementById('input-dias-restantes');
+
+    elSelectMeta.value = configDiaria.metaAlvo;
+    elDiasTotais.value = configDiaria.diasTotais;
+    elDiasRestantes.value = configDiaria.diasRestantes;
+
+    [elSelectMeta, elDiasTotais, elDiasRestantes].forEach(el => {
+      el.addEventListener('change', () => {
+        configDiaria.metaAlvo = Number(elSelectMeta.value);
+        configDiaria.diasTotais = Math.max(1, Number(elDiasTotais.value) || 1);
+        configDiaria.diasRestantes = Math.max(1, Number(elDiasRestantes.value) || 1);
+        salvar();
+        atualizarTudo();
+      });
+    });
+
+    // ATUALIZAÇÃO GERAL DA TELA
+    function atualizarTudo() {
+      const total = vendas.reduce((s, v) => s + v.valor, 0);
+      const comissao = calcularComissao(total);
+
+      document.getElementById('kpi-vendido').textContent = formatarMoeda(total);
+      document.getElementById('kpi-comissao').textContent = formatarMoeda(comissao);
+      document.getElementById('kpi-qtd').textContent = vendas.length;
+
+      const proxima = METAS.find(m => total < m.alvo);
+      document.getElementById('kpi-falta').textContent = proxima ? formatarMoeda(proxima.alvo - total) : 'Todas batidas!';
+      document.getElementById('badge-status').textContent = proxima ? `Rumo à ${proxima.nome}` : '1ª Meta Batida!';
+
+      // CARDS DAS 3 METAS
+      const elMetas = document.getElementById('lista-metas');
+      elMetas.innerHTML = '';
+      METAS.forEach(m => {
+        const pct = Math.min((total / m.alvo) * 100, 100);
+        const batida = total >= m.alvo;
+        const falta = Math.max(0, m.alvo - total);
+
+        elMetas.innerHTML += `
+          <div class="meta-item ${batida ? 'batida' : ''}">
+            <div class="meta-topo">
+              <span class="meta-nome">${m.nome} — ${formatarMoeda(m.alvo)}</span>
+              <span class="meta-comissao">${batida ? '✓ ' : ''}Comissão ${formatarMoeda(m.comissao)}</span>
+            </div>
+            <div class="meta-valores">
+              <span>${batida ? 'Meta alcançada!' : 'Faltam ' + formatarMoeda(falta)}</span>
+              <strong>${pct.toFixed(1)}%</strong>
+            </div>
+            <div class="barra-fundo">
+              <div class="barra-preenchida" style="width:${pct}%"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      // FOGUETE INTERATIVO
+      const pctMax = Math.min((total / 50000) * 100, 100);
+      const yAtual = 200 - (pctMax / 100) * 180;
+      document.getElementById('pct-topo').textContent = `${pctMax.toFixed(1)}%`;
+      document.getElementById('svg-trilha-ativa').setAttribute('y2', yAtual);
+      document.getElementById('svg-foguete').setAttribute('transform', `translate(55, ${yAtual})`);
+
+      [
+        { id: 'marco-3', alvo: 30000 },
+        { id: 'marco-2', alvo: 40000 },
+        { id: 'marco-1', alvo: 50000 }
+      ].forEach(marco => {
+        const g = document.getElementById(marco.id);
+        const circle = g.querySelector('circle');
+        const text = g.querySelector('text');
+        if (total >= marco.alvo) {
+          circle.setAttribute('fill', 'var(--accent)');
+          circle.setAttribute('stroke', 'var(--accent)');
+          text.setAttribute('fill', 'var(--text)');
+        } else {
+          circle.setAttribute('fill', 'var(--surface-2)');
+          circle.setAttribute('stroke', 'var(--border)');
+          text.setAttribute('fill', 'var(--muted)');
+        }
+      });
+
+      const elFrase = document.getElementById('frase-motivacao');
+      if (total === 0) elFrase.textContent = 'Registre sua primeira venda para dar a partida!';
+      else if (total < 30000) elFrase.textContent = `Faltam ${formatarMoeda(30000 - total)} para garantir seus primeiros R$ 300 de comissão!`;
+      else if (total < 40000) elFrase.textContent = `3ª Meta batida! R$ 300 garantidos — bora buscar os R$ 400!`;
+      else if (total < 50000) elFrase.textContent = `2ª Meta no bolso (R$ 400)! Faltam só ${formatarMoeda(50000 - total)} para o topo!`;
+      else elFrase.textContent = `1ª META BATIDA! Você destravou a comissão máxima de R$ 500!`;
+
+      // META DIÁRIA
+      const metaBaseDia = configDiaria.metaAlvo / configDiaria.diasTotais;
+      const faltaAlvo = Math.max(0, configDiaria.metaAlvo - total);
+      const ritmoNecessario = faltaAlvo / configDiaria.diasRestantes;
+      const hoje = hojeISO();
+      const vendidoHoje = vendas.filter(v => v.data === hoje).reduce((s, v) => s + v.valor, 0);
+      const alvoHoje = faltaAlvo === 0 ? metaBaseDia : Math.max(ritmoNecessario, 0);
+      const faltaHoje = Math.max(0, alvoHoje - vendidoHoje);
+      const pctHoje = alvoHoje > 0 ? Math.min((vendidoHoje / alvoHoje) * 100, 100) : 100;
+
+      document.getElementById('diaria-base').textContent = formatarMoeda(metaBaseDia);
+      document.getElementById('diaria-recalculada').textContent = formatarMoeda(ritmoNecessario);
+      document.getElementById('diaria-hoje').textContent = formatarMoeda(vendidoHoje);
+      document.getElementById('diaria-falta-hoje').textContent = formatarMoeda(faltaHoje);
+      document.getElementById('diaria-pct-hoje').textContent = `${pctHoje.toFixed(1)}%`;
+      document.getElementById('diaria-barra-hoje').style.width = `${pctHoje}%`;
+
+      const elFeedbackDia = document.getElementById('diaria-feedback');
+      if (faltaAlvo === 0) elFeedbackDia.textContent = 'Você já bateu a meta escolhida! Tudo que vender hoje é lucro extra.';
+      else if (vendidoHoje >= alvoHoje) elFeedbackDia.textContent = 'Meta de hoje batida! Você está no ritmo perfeito para fechar o mês no topo.';
+      else elFeedbackDia.textContent = `Vendendo mais ${formatarMoeda(faltaHoje)} hoje, você mantém o ritmo exato para bater a meta!`;
+
+      renderizarGrafico(metaBaseDia);
+
+      // HISTÓRICO
+      const elLista = document.getElementById('lista-vendas');
+      if (vendas.length === 0) {
+        elLista.innerHTML = `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhuma venda registrada ainda. Clique em <strong>+ Adicionar Venda</strong> para começar.</li>`;
+      } else {
+        elLista.innerHTML = vendas.map(v => {
+          const nomeItem = v.servico || v.desc || 'Venda';
+          const ajusteTxt = v.ajusteTipo === 'mais' && v.ajusteValor > 0
+            ? `<span class="tag destaque">+${formatarMoeda(v.ajusteValor)}</span>`
+            : (v.ajusteTipo === 'menos' && v.ajusteValor > 0
+              ? `<span class="tag destaque">-${formatarMoeda(v.ajusteValor)}</span>`
+              : '');
+
+          return `
+            <li class="item-venda">
+              <div class="venda-info">
+                <strong>${nomeItem}</strong>
+                <small>${v.dataHora || v.data}</small>
+                <div class="venda-tags">
+                  ${v.cliente ? `<span class="tag">Cliente: ${v.cliente}</span>` : ''}
+                  ${v.pagamento ? `<span class="tag">${v.pagamento}</span>` : ''}
+                  ${ajusteTxt}
+                  ${v.foto ? `<span class="tag clicavel" onclick="abrirAnexo(${v.id}, 'foto')">Ver Foto</span>` : ''}
+                  ${v.ficha ? `<span class="tag clicavel" onclick="abrirAnexo(${v.id}, 'ficha')">Ver Ficha</span>` : ''}
+                </div>
+                ${v.obs ? `<div class="venda-obs">Obs: ${v.obs}</div>` : ''}
+              </div>
+              <div class="venda-direita">
+                <strong>${formatarMoeda(v.valor)}</strong>
+                <div class="venda-acoes">
+                  <button class="btn-mini" onclick="editarVenda(${v.id})">Editar</button>
+                  <button class="btn-mini excluir" onclick="removerVenda(${v.id})">Excluir</button>
+                </div>
+              </div>
+            </li>
+          `;
+        }).join('');
+      }
+    }
+
+    function renderizarGrafico(metaDia) {
+      document.getElementById('badge-grafico-meta').textContent = `Meta diária: ${formatarMoeda(metaDia)}`;
+      const dias = [];
+      for (let i = 13; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const iso = hojeISO(d);
+        const label = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+        const soma = vendas.filter(v => v.data === iso).reduce((s, v) => s + v.valor, 0);
+        dias.push({ iso, label, soma });
+      }
+
+      const maiorValor = Math.max(metaDia * 1.15, ...dias.map(d => d.soma), 100);
+      const area = document.getElementById('grafico-area');
+      const posMetaPct = Math.min((metaDia / maiorValor) * 100, 96);
+
+      let html = `
+        <div class="linha-meta-diaria" style="bottom: calc(30px + ${posMetaPct}% * 0.75);">
+          <span class="linha-meta-label">Meta: ${formatarMoeda(metaDia)}</span>
+        </div>
+      `;
+
+      dias.forEach(d => {
+        const alturaPct = Math.max((d.soma / maiorValor) * 100, d.soma > 0 ? 4 : 1);
+        const classe = d.soma >= metaDia ? 'meta-batida' : (d.soma > 0 ? 'com-venda' : '');
+        html += `
+          <div class="coluna-dia">
+            <div class="tooltip-dia">${d.label}: ${formatarMoeda(d.soma)}</div>
+            <div class="barra-dia ${classe}" style="height: ${alturaPct * 0.85}%;"></div>
+            <span class="dia-label">${d.label}</span>
+          </div>
+        `;
+      });
+
+      area.innerHTML = html;
+    }
+
+    function dispararConfete() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const cores = document.body.classList.contains('tema-pb')
+        ? ['#ffffff', '#cccccc', '#888888']
+        : ['#ff2e88', '#ff7eb6', '#ffffff', '#ffd1e6'];
+
+      const particulas = Array.from({ length: 90 }, () => ({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * 120,
+        r: 4 + Math.random() * 5,
+        cor: cores[Math.floor(Math.random() * cores.length)],
+        vy: 3 + Math.random() * 4,
+        vx: (Math.random() - 0.5) * 3
+      }));
+
+      let frames = 0;
+      function animar() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particulas.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          ctx.fillStyle = p.cor;
+          ctx.fillRect(p.x, p.y, p.r, p.r * 1.4);
+        });
+        frames++;
+        if (frames < 120) requestAnimationFrame(animar);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      animar();
+    }
+
+    atualizarTudo();
+  </script>
+</body>
+</html>

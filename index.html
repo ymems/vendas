@@ -3,70 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio Flow — Protótipo de Vendas, Metas & Gestão</title>
+  <title>TATTO TATUAGEM & PIERCING — Gestão Corporativa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ================= TEMA PADRÃO: PRETO & ROSA ================= */
     :root {
-      --bg: #0b0b0f;
-      --surface: #14141c;
-      --surface-2: #1c1c27;
-      --border: #2a2a3a;
-      --text: #f7f7fb;
-      --muted: #9a9ab0;
-      --accent: #ff2e88;
-      --accent-2: #ff7eb6;
-      --accent-soft: rgba(255, 46, 136, 0.14);
-      --accent-glow: rgba(255, 46, 136, 0.38);
+      --bg: #0a0a0d;
+      --surface: #121217;
+      --surface-2: #191920;
+      --surface-3: #22222c;
+      --border: #2a2a36;
+      --border-strong: #3c3c4d;
+      --text: #f4f4f7;
+      --muted: #9898a8;
+      --accent: #e12b78;
+      --accent-2: #f472a8;
+      --accent-soft: rgba(225, 43, 120, 0.12);
+      --accent-line: rgba(225, 43, 120, 0.45);
       --btn-text: #ffffff;
-      --soon-bg: rgba(255, 190, 92, 0.14);
-      --soon-text: #ffbe5c;
+      --warn-bg: rgba(235, 170, 56, 0.14);
+      --warn-text: #f3bd5c;
+      --warn-line: rgba(235, 170, 56, 0.4);
+      --ok-bg: rgba(46, 184, 114, 0.14);
+      --ok-text: #5cd696;
+      --danger-bg: rgba(229, 72, 77, 0.14);
+      --danger-text: #ff8084;
     }
 
-    /* ================= TEMA ALTERNATIVO: PRETO & BRANCO ================= */
     body.tema-pb {
-      --bg: #090909;
-      --surface: #131313;
-      --surface-2: #1d1d1d;
-      --border: #2e2e2e;
-      --text: #ffffff;
-      --muted: #9e9e9e;
+      --bg: #080808;
+      --surface: #111111;
+      --surface-2: #181818;
+      --surface-3: #222222;
+      --border: #2b2b2b;
+      --border-strong: #454545;
+      --text: #f7f7f7;
+      --muted: #9a9a9a;
       --accent: #ffffff;
       --accent-2: #cfcfcf;
-      --accent-soft: rgba(255, 255, 255, 0.12);
-      --accent-glow: rgba(255, 255, 255, 0.28);
-      --btn-text: #090909;
-      --soon-bg: rgba(255, 255, 255, 0.1);
-      --soon-text: #d9d9d9;
+      --accent-soft: rgba(255, 255, 255, 0.10);
+      --accent-line: rgba(255, 255, 255, 0.42);
+      --btn-text: #0a0a0a;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 60px;
-      transition: background 0.25s, color 0.25s;
+      padding-bottom: 72px;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s, color 0.25s;
     }
 
-    /* BARRA DE APRESENTAÇÃO (SELETOR DE PERFIL) */
+    .fonte-loja { font-family: 'Cormorant Garamond', Georgia, serif !important; letter-spacing: 0.05em; }
+    .num { font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.01em; }
+
     .barra-prototipo {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 10px 16px;
+      padding: 10px 20px;
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(10px);
     }
 
     .barra-prototipo-inner {
-      max-width: 1040px;
+      max-width: 1140px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -79,561 +89,215 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.82rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--muted);
       font-weight: 600;
     }
 
-    .dot-live {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    .seletor-perfis {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
+    .dot-live { width: 7px; height: 7px; background: var(--accent); transform: rotate(45deg); }
+    .barra-direita-topo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .seletor-perfis { display: flex; gap: 6px; flex-wrap: wrap; }
 
     .perfil-btn {
-      background: var(--surface-2);
+      background: transparent;
       color: var(--muted);
       border: 1px solid var(--border);
-      padding: 6px 13px;
-      border-radius: 999px;
-      font-size: 0.82rem;
+      padding: 6px 14px;
+      border-radius: 5px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .perfil-btn:hover { color: var(--text); border-color: var(--border-strong); }
+    .perfil-btn.ativo { background: var(--accent); color: var(--btn-text); border-color: var(--accent); }
+
+    .btn-tema-topo {
+      background: var(--surface-2);
+      color: var(--muted);
+      border: 1px solid var(--border-strong);
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.72rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
     }
+    .btn-tema-topo:hover { color: var(--text); border-color: var(--accent); }
 
-    .perfil-btn.ativo {
-      background: var(--accent);
-      color: var(--btn-text);
-      border-color: var(--accent);
-      box-shadow: 0 0 14px var(--accent-glow);
-    }
-
-    /* CONTAINER PRINCIPAL */
-    .container {
-      max-width: 1040px;
-      margin: 24px auto 0;
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
+    .container { max-width: 1140px; margin: 0 auto; padding: 28px 20px 0; display: flex; flex-direction: column; gap: 22px; }
 
     header.topo {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 16px;
+      align-items: flex-end;
+      gap: 20px;
       flex-wrap: wrap;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
+    header.topo::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 90px; height: 2px; background: var(--accent); }
 
-    .titulo-sistema h1 {
-      font-size: 1.6rem;
-      letter-spacing: -0.5px;
+    .marca-bloco { display: flex; align-items: center; gap: 16px; }
+    .monograma {
+      width: 52px; height: 52px;
+      border: 1px solid var(--accent-line);
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; flex-shrink: 0;
     }
+    .monograma::before { content: ''; position: absolute; inset: 3px; border: 1px solid var(--border); }
+    .monograma span { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.7rem; font-weight: 700; color: var(--accent); line-height: 1; }
 
-    .titulo-sistema h1 span { color: var(--accent); }
-    .titulo-sistema p { color: var(--muted); font-size: 0.9rem; margin-top: 3px; }
+    .titulo-sistema .sobretitulo { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); font-weight: 600; display: block; margin-bottom: 3px; }
+    .titulo-sistema h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.05rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.05; text-transform: uppercase; }
+    .titulo-sistema h1 em { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--accent); font-weight: 600; padding: 0 2px; }
+    .titulo-sistema p { color: var(--muted); font-size: 0.82rem; margin-top: 5px; font-weight: 500; }
 
-    .acoes-topo {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .acoes-topo { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 
-    /* BOTÕES GERAIS */
-    button {
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: transform 0.15s, opacity 0.2s, border-color 0.2s;
-    }
+    button { cursor: pointer; border: none; border-radius: 6px; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.01em; transition: all 0.18s ease; }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
 
-    button:active { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: var(--btn-text); padding: 11px 18px; }
+    .btn-primary:hover:not(:disabled) { opacity: 0.92; }
+    .btn-outline { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); padding: 10px 15px; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-    .btn-primary {
-      background: var(--accent);
-      color: var(--btn-text);
-      padding: 11px 18px;
-      box-shadow: 0 0 18px var(--accent-glow);
-    }
+    .badge { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-line); padding: 4px 10px; border-radius: 4px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .badge-warn { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-line); padding: 4px 10px; border-radius: 4px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .badge-ok { background: var(--ok-bg); color: var(--ok-text); padding: 4px 10px; border-radius: 4px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
 
-    .btn-outline {
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-    }
-
-    .btn-outline:hover { border-color: var(--accent); }
-
-    .badge {
-      background: var(--accent-soft);
-      color: var(--accent);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 700;
-    }
-
-    .badge-soon {
-      background: var(--soon-bg);
-      color: var(--soon-text);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-
-    /* VISÕES POR PERFIL */
     .visao-perfil { display: none; flex-direction: column; gap: 20px; }
     .visao-perfil.ativa { display: flex; }
 
-    /* SUB-ABAS INTERNAS LIMPAS */
-    .subtabs {
-      display: flex;
-      gap: 8px;
-      background: var(--surface);
-      padding: 6px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      width: fit-content;
-      flex-wrap: wrap;
-    }
-
-    .subtab-btn {
-      background: transparent;
-      color: var(--muted);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.86rem;
-    }
-
-    .subtab-btn.ativa {
-      background: var(--accent);
-      color: var(--btn-text);
-    }
-
+    .barra-sub { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .subtabs { display: flex; gap: 4px; background: var(--surface); padding: 5px; border-radius: 6px; border: 1px solid var(--border); flex-wrap: wrap; }
+    .subtab-btn { background: transparent; color: var(--muted); padding: 8px 14px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; }
+    .subtab-btn:hover { color: var(--text); }
+    .subtab-btn.ativa { background: var(--surface-3); color: var(--text); border-bottom: 2px solid var(--accent); }
     .subtab-painel { display: none; flex-direction: column; gap: 20px; }
     .subtab-painel.ativa { display: flex; }
 
-    /* CARDS & GRIDS */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-    }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .card-header h2 { font-size: 0.94rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: var(--text); }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
+    .filtro-interno-card { display: flex; align-items: center; gap: 8px; background: var(--surface-2); border: 1px solid var(--border-strong); padding: 4px 8px 4px 12px; border-radius: 6px; }
+    .filtro-interno-card label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; white-space: nowrap; }
+    .filtro-interno-card select { border: none; background: var(--bg); padding: 6px 10px; font-size: 0.8rem; font-weight: 600; width: auto; min-width: 195px; }
 
-    .card-header h2 { font-size: 1.06rem; font-weight: 700; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; }
+    .grid-equal { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
+    @media (max-width: 840px) { .grid-2 { grid-template-columns: 1fr; } }
 
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-    }
-
-    .grid-equal {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-    }
-
-    @media (max-width: 800px) {
-      .grid-2 { grid-template-columns: 1fr; }
-    }
-
-    .kpi {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-    }
-
-    .kpi span { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
-    .kpi strong { font-size: 1.45rem; letter-spacing: -0.5px; }
-    .kpi.destaque { border-color: var(--accent); box-shadow: inset 0 0 22px var(--accent-soft); }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 6px; padding: 16px 18px; }
+    .kpi span { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 700; margin-bottom: 8px; }
+    .kpi strong { font-size: 1.48rem; font-weight: 700; color: var(--text); }
+    .kpi.destaque { border-left-color: var(--accent); background: linear-gradient(90deg, var(--accent-soft) 0%, var(--surface) 75%); }
     .kpi.destaque strong { color: var(--accent); }
 
-    /* METAS */
     .lista-metas { display: flex; flex-direction: column; gap: 12px; }
+    .meta-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; }
+    .meta-item.batida { border-color: var(--accent); }
+    .meta-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.82rem; }
+    .barra-fundo { width: 100%; height: 8px; background: var(--bg); border-radius: 2px; overflow: hidden; border: 1px solid var(--border); }
+    .barra-preenchida { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-2), var(--accent)); transition: width 0.5s ease; }
 
-    .meta-item {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 14px 16px;
-    }
+    .palco-medidor { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 12px; }
+    .trilha-svg { width: 100%; max-width: 275px; height: 210px; overflow: visible; }
+    .frase-box { width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 11px 14px; font-size: 0.8rem; font-weight: 500; }
 
-    .meta-item.batida {
-      border-color: var(--accent);
-      box-shadow: 0 0 16px var(--accent-soft);
-    }
-
-    .meta-linha {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 7px;
-      font-size: 0.88rem;
-    }
-
-    .barra-fundo {
-      width: 100%;
-      height: 10px;
-      background: var(--bg);
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .barra-preenchida {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent-2), var(--accent));
-      border-radius: 999px;
-      transition: width 0.55s ease;
-    }
-
-    /* FOGUETE INTERATIVO */
-    .palco-foguete {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      text-align: center;
-    }
-
-    .trilha-svg { width: 100%; max-width: 270px; height: 215px; overflow: visible; }
-
-    .frase-box {
-      width: 100%;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    /* GRÁFICO DIA A DIA */
     .grafico-wrap { width: 100%; overflow-x: auto; }
-
-    .grafico-area {
-      position: relative;
-      height: 210px;
-      min-width: 500px;
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      padding: 26px 8px 28px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .linha-meta-diaria {
-      position: absolute;
-      left: 0;
-      right: 0;
-      border-top: 2px dashed var(--accent);
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .linha-meta-label {
-      position: absolute;
-      right: 6px;
-      top: -20px;
-      font-size: 0.72rem;
-      color: var(--accent);
-      background: var(--surface);
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-weight: 700;
-    }
-
-    .coluna-dia {
-      flex: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      position: relative;
-    }
-
-    .barra-dia {
-      width: 100%;
-      max-width: 34px;
-      min-height: 4px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 7px 7px 2px 2px;
-      transition: height 0.4s ease;
-    }
-
+    .grafico-area { position: relative; height: 210px; min-width: 520px; display: flex; align-items: flex-end; gap: 10px; padding: 26px 8px 28px; border-bottom: 1px solid var(--border); }
+    .linha-meta-diaria { position: absolute; left: 0; right: 0; border-top: 1px dashed var(--accent); pointer-events: none; }
+    .linha-meta-label { position: absolute; right: 6px; top: -20px; font-size: 0.68rem; color: var(--accent); background: var(--surface); border: 1px solid var(--border); padding: 2px 7px; font-weight: 700; }
+    .coluna-dia { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
+    .barra-dia { width: 100%; max-width: 28px; min-height: 4px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 2px 2px 0 0; transition: height 0.4s ease; }
     .barra-dia.com-venda { background: var(--accent-soft); border-color: var(--accent); }
-    .barra-dia.meta-batida { background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
-
-    .dia-label { position: absolute; bottom: -23px; font-size: 0.73rem; color: var(--muted); }
-
-    .tooltip-dia {
-      position: absolute;
-      bottom: calc(100% + 4px);
-      background: var(--text);
-      color: var(--bg);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 7px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.15s;
-    }
-
+    .barra-dia.meta-batida { background: var(--accent); border-color: var(--accent); }
+    .dia-label { position: absolute; bottom: -22px; font-size: 0.7rem; color: var(--muted); }
+    .tooltip-dia { position: absolute; bottom: calc(100% + 5px); background: var(--text); color: var(--bg); font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; }
     .coluna-dia:hover .tooltip-dia { opacity: 1; }
 
-    /* FILTROS & HISTÓRICO */
-    .barra-filtros {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
+    .barra-filtros { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    @media (max-width: 680px) { .barra-filtros { grid-template-columns: 1fr; } }
 
-    @media (max-width: 680px) {
-      .barra-filtros { grid-template-columns: 1fr; }
-    }
-
-    .lista-vendas {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 420px;
-      overflow-y: auto;
-    }
-
-    .item-venda {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 14px;
-      border-radius: 12px;
-      flex-wrap: wrap;
-    }
-
+    .lista-vendas { list-style: none; display: flex; flex-direction: column; gap: 10px; max-height: 460px; overflow-y: auto; }
+    .item-venda { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; background: var(--surface-2); border: 1px solid var(--border); padding: 14px 16px; border-radius: 6px; flex-wrap: wrap; }
+    .item-venda.pendente-borda { border-left: 3px solid var(--warn-text); }
     .venda-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
 
-    .tag {
-      font-size: 0.74rem;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
+    .tag { font-size: 0.7rem; font-weight: 600; padding: 3px 8px; border-radius: 4px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+    .tag.accent { border-color: var(--accent-line); color: var(--accent); background: var(--accent-soft); }
+    .tag.warn { border-color: var(--warn-line); color: var(--warn-text); background: var(--warn-bg); }
+    .tag.ok { color: var(--ok-text); background: var(--ok-bg); border-color: rgba(46, 184, 114, 0.35); }
+    .tag.danger { color: var(--danger-text); background: var(--danger-bg); border-color: rgba(229, 72, 77, 0.35); }
 
-    .tag.accent { border-color: var(--accent); color: var(--accent); }
+    .btn-mini { background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); padding: 6px 10px; font-size: 0.73rem; border-radius: 4px; }
+    .btn-mini:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-mini.ok { border-color: rgba(46, 184, 114, 0.5); color: var(--ok-text); }
+    .btn-mini.danger { border-color: rgba(229, 72, 77, 0.5); color: var(--danger-text); }
 
-    .btn-mini {
-      background: var(--bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 5px 10px;
-      font-size: 0.76rem;
-      border-radius: 8px;
-    }
-
-    .btn-mini:hover { border-color: var(--accent); }
-
-    /* FORMULÁRIOS E CAMPOS */
     .campo { display: flex; flex-direction: column; gap: 6px; }
-    .campo label { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
-
-    input, select, textarea {
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.92rem;
-      outline: none;
-      width: 100%;
-    }
-
+    .campo label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+    input, select, textarea { background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; font-size: 0.85rem; outline: none; width: 100%; }
+    input:disabled, select:disabled { opacity: 0.55; cursor: not-allowed; }
     input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 
-    /* ÁREA DO CLIENTE (CATÁLOGO + ANAMNESE + ASSINATURA) */
-    .catalogo-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.92rem;
-    }
-
+    .catalogo-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
     .catalogo-item:last-child { border-bottom: none; }
+    .catalogo-item strong { color: var(--accent); font-weight: 700; white-space: nowrap; }
+    .catalogo-item small { display: block; color: var(--muted); font-size: 0.75rem; margin-top: 3px; line-height: 1.45; }
 
-    .canvas-assinatura {
-      width: 100%;
-      height: 140px;
-      background: var(--bg);
-      border: 1px dashed var(--accent);
-      border-radius: 12px;
-      cursor: crosshair;
-      touch-action: none;
-    }
+    .nota-regra-servico { background: var(--surface-2); border: 1px solid var(--border-strong); border-left: 3px solid var(--accent); padding: 10px 12px; border-radius: 5px; font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+    .bloqueio-ficha-box { max-width: 520px; margin: 14px auto; background: var(--surface-2); border: 1px solid var(--border-strong); border-top: 3px solid var(--accent); border-radius: 8px; padding: 28px 24px; text-align: center; display: flex; flex-direction: column; gap: 14px; }
+    .codigo-destaque-gerado { background: var(--bg); border: 1px dashed var(--accent); border-radius: 8px; padding: 16px; text-align: center; display: flex; flex-direction: column; gap: 6px; }
+    .codigo-destaque-gerado strong { font-size: 1.75rem; letter-spacing: 0.12em; color: var(--accent); }
 
-    .check-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 8px;
-    }
+    .secao-ficha-bloco { background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+    .secao-ficha-titulo { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
 
-    .check-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface-2);
-      padding: 9px 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      font-size: 0.86rem;
-    }
+    .canvas-assinatura { width: 100%; height: 150px; background: var(--bg); border: 1px dashed var(--accent-line); border-radius: 6px; cursor: crosshair; touch-action: none; }
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 8px; }
+    .check-item { display: flex; align-items: center; gap: 8px; background: var(--bg); padding: 9px 12px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.78rem; cursor: pointer; }
+    .check-item input { width: auto; accent-color: var(--accent); }
 
-    .check-item input { width: auto; }
-
-    /* MODAIS */
-    .modal-fundo {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 60;
-    }
-
+    .modal-fundo { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 60; }
     .modal-fundo.aberto { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 8px; padding: 24px; width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
 
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      width: 100%;
-      max-width: 540px;
-      max-height: 92vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .carrinho-box {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .carrinho-lista {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .carrinho-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.86rem;
-      background: var(--bg);
-      padding: 7px 10px;
-      border-radius: 8px;
-    }
-
-    .resumo-final {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--accent-soft);
-      border: 1px solid var(--accent);
-      padding: 11px 14px;
-      border-radius: 10px;
-    }
-
+    .carrinho-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 13px; display: flex; flex-direction: column; gap: 10px; }
+    .carrinho-lista { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .carrinho-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; background: var(--bg); padding: 8px 10px; border-radius: 4px; border: 1px solid var(--border); }
+    .resumo-final { display: flex; justify-content: space-between; align-items: center; background: var(--accent-soft); border: 1px solid var(--accent-line); padding: 12px 16px; border-radius: 6px; }
     .resumo-final strong { font-size: 1.2rem; color: var(--accent); }
 
     .pills { display: flex; flex-wrap: wrap; gap: 7px; }
-    .pill-btn {
-      background: var(--surface-2);
-      color: var(--muted);
-      border: 1px dashed var(--border);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-    }
-    .pill-btn.ativo { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
-
+    .pill-btn { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); padding: 6px 12px; border-radius: 4px; font-size: 0.74rem; }
+    .pill-btn.ativo { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
     .bloco-opt { display: none; flex-direction: column; gap: 6px; }
     .bloco-opt.visivel { display: flex; }
 
-    /* RECIBO ESTILIZADO */
-    .recibo-card {
-      background: var(--bg);
-      border: 1px solid var(--accent);
-      border-radius: 14px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
+    .recibo-card { background: var(--bg); border: 1px solid var(--border-strong); padding: 22px; border-radius: 6px; display: flex; flex-direction: column; gap: 14px; }
+    .assinatura-preview { background: #ffffff; border: 1px solid var(--border-strong); border-radius: 6px; padding: 12px; text-align: center; }
+    .assinatura-preview img { max-width: 100%; max-height: 115px; object-fit: contain; }
     #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 100; }
 
     @media print {
+      body { background: #ffffff !important; color: #111111 !important; padding: 0 !important; }
       body * { visibility: hidden; }
-      #modal-recibo, #modal-recibo * { visibility: visible; }
-      #modal-recibo { position: fixed; inset: 0; background: #fff; color: #000; }
+      .modal-fundo.aberto, .modal-fundo.aberto * { visibility: visible; }
+      .modal-fundo.aberto { position: absolute; inset: 0; background: #ffffff !important; backdrop-filter: none !important; align-items: flex-start; padding: 0; }
+      .modal-fundo.aberto .modal { background: #ffffff !important; color: #111111 !important; border: none !important; max-width: 100% !important; max-height: none !important; overflow: visible !important; padding: 10px !important; box-shadow: none !important; }
+      .modal-fundo.aberto .recibo-card { background: #ffffff !important; color: #111111 !important; border: 1px solid #cccccc !important; }
+      .modal-fundo.aberto .tag { background: #f2f2f2 !important; color: #111111 !important; border: 1px solid #bbbbbb !important; }
+      .modal-fundo.aberto small, .modal-fundo.aberto strong, .modal-fundo.aberto span, .modal-fundo.aberto div, .modal-fundo.aberto p, .modal-fundo.aberto h3 { color: #111111 !important; }
       .no-print { display: none !important; }
     }
   </style>
@@ -641,190 +305,85 @@
 <body>
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- BARRA DE MODO APRESENTAÇÃO -->
   <div class="barra-prototipo no-print">
     <div class="barra-prototipo-inner">
       <div class="proto-label">
         <span class="dot-live"></span>
-        <span>MODO APRESENTAÇÃO · Alterne a visão do usuário:</span>
+        <span>Modo Apresentação / Selecione o Perfil</span>
       </div>
-      <div class="seletor-perfis">
-        <button class="perfil-btn ativo" data-perfil="atendente">Visão Atendente</button>
-        <button class="perfil-btn" data-perfil="cliente">Visão Cliente</button>
-        <button class="perfil-btn" data-perfil="gerencia">Visão Gerência</button>
-        <button class="perfil-btn" data-perfil="dev">Visão Desenvolvedor</button>
+      <div class="barra-direita-topo">
+        <div class="seletor-perfis">
+          <button class="perfil-btn ativo" data-perfil="atendente">Atendente</button>
+          <button class="perfil-btn" data-perfil="cliente">Cliente</button>
+          <button class="perfil-btn" data-perfil="gerencia">Gerência</button>
+          <button class="perfil-btn" data-perfil="dev">Desenvolvedor</button>
+        </div>
+        <button id="btn-tema" class="btn-tema-topo" title="Alternar paleta de cores">Preto / Branco</button>
       </div>
     </div>
   </div>
 
   <main class="container">
-    <!-- CABEÇALHO GLOBAL -->
     <header class="topo">
-      <div class="titulo-sistema">
-        <h1>Studio <span>Flow</span></h1>
-        <p id="subtitulo-perfil">Painel de Vendas, Comissões e Metas Diárias</p>
+      <div class="marca-bloco">
+        <div class="monograma" aria-hidden="true"><span>T</span></div>
+        <div class="titulo-sistema">
+          <span class="sobretitulo">Gestão Corporativa / Estúdio</span>
+          <h1 class="fonte-loja">TATTO TATUAGEM <em>&amp;</em> PIERCING</h1>
+          <p id="subtitulo-perfil">Clientes / Vendas / Ponto / Metas</p>
+        </div>
       </div>
+
       <div class="acoes-topo">
-        <button id="btn-tema" class="btn-outline">Preto & Branco</button>
+        <button id="btn-encaminhar-ficha-topo" class="btn-outline">Encaminhar Ficha ao Cliente</button>
         <button id="btn-nova-venda" class="btn-primary">+ Nova Venda</button>
       </div>
     </header>
 
-    <!-- ========================================================= -->
-    <!-- 1. VISÃO ATENDENTE                                        -->
-    <!-- ========================================================= -->
+    <!-- 1. VISÃO ATENDENTE -->
     <section id="perfil-atendente" class="visao-perfil ativa">
-      <nav class="subtabs">
-        <button class="subtab-btn ativa" data-subtab="at-painel">Painel & Metas</button>
-        <button class="subtab-btn" data-subtab="at-diaria">Meta Diária</button>
-        <button class="subtab-btn" data-subtab="at-historico">Histórico & Relatórios</button>
-        <button class="subtab-btn" data-subtab="at-ponto">Meu Ponto</button>
-      </nav>
+      <div class="barra-sub">
+        <nav class="subtabs">
+          <button class="subtab-btn ativa" data-subtab="at-clientes">Clientes Cadastrados</button>
+          <button class="subtab-btn" data-subtab="at-historico">Vendas / Relatórios</button>
+          <button class="subtab-btn" data-subtab="at-ponto">Meu Ponto / Atestados</button>
+          <button class="subtab-btn" data-subtab="at-painel">Painel / Metas</button>
+          <button class="subtab-btn" data-subtab="at-diaria">Meta Diária</button>
+        </nav>
 
-      <!-- SUB-ABA: PAINEL & METAS -->
-      <div id="at-painel" class="subtab-painel ativa">
-        <div class="grid-4">
-          <div class="kpi destaque">
-            <span>Total Vendido no Mês</span>
-            <strong id="kpi-vendido">R$ 0,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Comissão Destravada</span>
-            <strong id="kpi-comissao">R$ 0,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Falta p/ Próxima Meta</span>
-            <strong id="kpi-falta">R$ 30.000,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Atendimentos</span>
-            <strong id="kpi-qtd">0</strong>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-header">
-              <h2>Escada de Metas & Comissões</h2>
-              <span id="badge-status" class="badge">Rumo à 3ª Meta</span>
-            </div>
-            <div class="lista-metas" id="lista-metas"></div>
-          </div>
-
-          <div class="card palco-foguete">
-            <div class="card-header" style="width:100%; margin-bottom:0;">
-              <h2>Evolução Visual</h2>
-              <span id="pct-topo" class="badge">0%</span>
-            </div>
-
-            <svg class="trilha-svg" viewBox="0 0 260 215">
-              <line x1="50" y1="195" x2="50" y2="20" stroke="var(--border)" stroke-width="6" stroke-linecap="round"/>
-              <line id="svg-trilha" x1="50" y1="195" x2="50" y2="195" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
-              <g id="marco-3">
-                <circle cx="50" cy="90" r="7" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
-                <text x="70" y="94" fill="var(--muted)" font-size="11.5" font-weight="600">3ª Meta · 30k (+R$ 300)</text>
-              </g>
-              <g id="marco-2">
-                <circle cx="50" cy="55" r="7" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
-                <text x="70" y="59" fill="var(--muted)" font-size="11.5" font-weight="600">2ª Meta · 40k (+R$ 400)</text>
-              </g>
-              <g id="marco-1">
-                <circle cx="50" cy="20" r="9" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
-                <text x="70" y="24" fill="var(--muted)" font-size="12" font-weight="700">1ª Meta · 50k (+R$ 500)</text>
-              </g>
-              <g id="svg-foguete" transform="translate(50, 195)" style="transition: transform 0.6s ease;">
-                <circle cx="0" cy="0" r="14" fill="var(--accent-soft)"/>
-                <path d="M0 -12 C6 -5 6 4 0 10 C-6 4 -6 -5 0 -12 Z" fill="var(--accent)"/>
-                <circle cx="0" cy="-3" r="2.5" fill="var(--btn-text)"/>
-              </g>
-            </svg>
-
-            <div id="frase-motivacao" class="frase-box">Registre uma venda para iniciar a subida!</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <h2>Ritmo Dia a Dia (Últimos 14 dias)</h2>
-            <span id="badge-grafico-meta" class="badge">Meta diária: R$ 0,00</span>
-          </div>
-          <div class="grafico-wrap">
-            <div class="grafico-area" id="grafico-area"></div>
-          </div>
+        <div class="filtro-interno-card">
+          <label for="select-vendedora-ativa">Atendente:</label>
+          <select id="select-vendedora-ativa"></select>
         </div>
       </div>
 
-      <!-- SUB-ABA: META DIÁRIA -->
-      <div id="at-diaria" class="subtab-painel">
+      <div id="at-clientes" class="subtab-painel ativa">
         <div class="card">
           <div class="card-header">
-            <h2>Cálculo Automático da Meta Diária</h2>
-            <span class="badge">Tempo Real</span>
+            <div>
+              <h2>Clientes Cadastrados / Fichas Anexadas</h2>
+              <small style="color:var(--muted); font-size:0.76rem;">Gere o código para o cliente responder em privacidade — a ficha respondida entra aqui automaticamente</small>
+            </div>
+            <button type="button" class="btn-primary" onclick="abrirModalGerarCodigoFicha('novo')">Gerar Código p/ Novo Cliente</button>
           </div>
-
-          <div class="grid-equal" style="margin-bottom:18px;">
-            <div class="campo">
-              <label>Meta Alvo do Mês</label>
-              <select id="select-meta-alvo">
-                <option value="30000">3ª Meta — R$ 30.000 (Comissão R$ 300)</option>
-                <option value="40000">2ª Meta — R$ 40.000 (Comissão R$ 400)</option>
-                <option value="50000" selected>1ª Meta — R$ 50.000 (Comissão R$ 500)</option>
-              </select>
-            </div>
-            <div class="campo">
-              <label>Dias trabalhados no mês</label>
-              <input type="number" id="input-dias-totais" value="26" min="1" max="31">
-            </div>
-            <div class="campo">
-              <label>Dias restantes (contando hoje)</label>
-              <input type="number" id="input-dias-restantes" value="15" min="1" max="31">
-            </div>
+          <div id="box-codigos-ativos-atendente" style="margin-bottom:14px; display:none;"></div>
+          <div style="margin-bottom:14px;">
+            <input type="text" id="at-busca-cliente" placeholder="Buscar cliente cadastrado por nome, CPF ou telefone...">
           </div>
-
-          <div class="grid-4">
-            <div class="kpi">
-              <span>Meta Diária Base</span>
-              <strong id="diaria-base">R$ 0,00</strong>
-            </div>
-            <div class="kpi destaque">
-              <span>Ritmo Necessário / Dia</span>
-              <strong id="diaria-recalculada">R$ 0,00</strong>
-            </div>
-            <div class="kpi">
-              <span>Vendido Hoje</span>
-              <strong id="diaria-hoje">R$ 0,00</strong>
-            </div>
-            <div class="kpi">
-              <span>Falta Hoje</span>
-              <strong id="diaria-falta-hoje">R$ 0,00</strong>
-            </div>
-          </div>
-
-          <div style="margin-top:18px;">
-            <div class="meta-linha">
-              <span>Entrega de Hoje</span>
-              <strong id="diaria-pct-hoje">0%</strong>
-            </div>
-            <div class="barra-fundo" style="height:13px;">
-              <div id="diaria-barra-hoje" class="barra-preenchida"></div>
-            </div>
-          </div>
+          <ul class="lista-vendas" id="at-lista-clientes"></ul>
         </div>
       </div>
 
-      <!-- SUB-ABA: HISTÓRICO, PAGAMENTOS & NOTAS -->
       <div id="at-historico" class="subtab-painel">
         <div class="grid-4" id="resumo-pagamentos"></div>
-
         <div class="card">
           <div class="card-header">
-            <h2>Histórico de Vendas & Comprovantes</h2>
+            <h2>Histórico de Vendas / Relatórios</h2>
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-              <span class="badge-soon" title="Integração automática na próxima fase">Envio p/ Notas Fiscais · Em Breve</span>
-              <button id="btn-exportar-csv" class="btn-outline" style="padding:7px 12px; font-size:0.8rem;">Baixar Planilha (CSV)</button>
+              <span class="badge-warn">Integração Notas Fiscais · Em Breve</span>
+              <button id="btn-exportar-csv" class="btn-outline" style="padding:7px 12px; font-size:0.75rem;">Exportar Planilha (CSV)</button>
             </div>
           </div>
-
           <div class="barra-filtros">
             <input type="text" id="filtro-busca" placeholder="Buscar por cliente ou procedimento...">
             <select id="filtro-pagamento">
@@ -836,236 +395,384 @@
             </select>
             <input type="date" id="filtro-data">
           </div>
-
           <ul class="lista-vendas" id="lista-vendas"></ul>
         </div>
       </div>
 
-      <!-- SUB-ABA: PONTO DA ATENDENTE -->
       <div id="at-ponto" class="subtab-painel">
-        <div class="card">
-          <div class="card-header">
-            <h2>Registro & Ajuste de Ponto</h2>
-            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-              <span id="relogio-ponto" class="badge">--:--</span>
-              <button type="button" id="btn-abrir-ajuste-ponto" class="btn-outline" style="padding:7px 12px; font-size:0.82rem;">
-                + Ajuste Manual de Ponto
-              </button>
+        <div class="grid-equal">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2>Marcação de Ponto</h2>
+                <small style="color:var(--muted); font-size:0.74rem;">Solicitações de ajuste ficam pendentes até aprovação da Gerência</small>
+              </div>
+              <span id="relogio-ponto" class="badge num">--:--</span>
             </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+              <button class="btn-primary" onclick="baterPonto('Entrada')">Entrada</button>
+              <button class="btn-outline" onclick="baterPonto('Início Intervalo')">Início Intervalo</button>
+              <button class="btn-outline" onclick="baterPonto('Fim Intervalo')">Volta Intervalo</button>
+              <button class="btn-outline" onclick="baterPonto('Saída')">Saída</button>
+              <button type="button" id="btn-abrir-ajuste-ponto" class="btn-outline">Solicitar Ajuste</button>
+            </div>
+            <ul class="lista-vendas" id="lista-ponto"></ul>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;">
-            <button class="btn-primary" onclick="baterPonto('Entrada')">Registrar Entrada</button>
-            <button class="btn-outline" onclick="baterPonto('Início Intervalo')">Início Intervalo</button>
-            <button class="btn-outline" onclick="baterPonto('Fim Intervalo')">Volta Intervalo</button>
-            <button class="btn-outline" onclick="baterPonto('Saída')">Registrar Saída</button>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2>Anexar Atestado de Saúde</h2>
+                <small style="color:var(--muted); font-size:0.74rem;">Apenas atestados médicos válidos com CRM/CRO e documento legível</small>
+              </div>
+              <button type="button" class="btn-primary" onclick="abrirModalAtestado()">+ Enviar Atestado</button>
+            </div>
+            <ul class="lista-vendas" id="at-lista-atestados"></ul>
           </div>
-          <ul class="lista-vendas" id="lista-ponto"></ul>
+        </div>
+      </div>
+
+      <div id="at-painel" class="subtab-painel">
+        <div class="grid-4">
+          <div class="kpi destaque"><span>Total Vendido no Mês</span><strong id="kpi-vendido" class="num">R$ 0,00</strong></div>
+          <div class="kpi"><span>Comissão Destravada</span><strong id="kpi-comissao" class="num">R$ 0,00</strong></div>
+          <div class="kpi"><span>Falta p/ Próxima Meta</span><strong id="kpi-falta" class="num">R$ 30.000,00</strong></div>
+          <div class="kpi"><span>Atendimentos no Mês</span><strong id="kpi-qtd" class="num">0</strong></div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><h2>Escada de Metas / Comissões</h2><span id="badge-status" class="badge">Rumo à 3ª Meta</span></div>
+            <div class="lista-metas" id="lista-metas"></div>
+          </div>
+          <div class="card palco-medidor">
+            <div class="card-header" style="width:100%; margin-bottom:0;"><h2>Termômetro de Meta</h2><span id="pct-topo" class="badge num">0%</span></div>
+            <svg class="trilha-svg" viewBox="0 0 270 210">
+              <line x1="46" y1="190" x2="46" y2="22" stroke="var(--border-strong)" stroke-width="4"/>
+              <line id="svg-trilha" x1="46" y1="190" x2="46" y2="190" stroke="var(--accent)" stroke-width="4"/>
+              <g><rect x="40" y="85" width="12" height="12" transform="rotate(45 46 91)" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="2"/><text x="68" y="95" fill="var(--muted)" font-size="11" font-weight="600">3ª Meta · R$ 30.000 (+R$ 300)</text></g>
+              <g><rect x="40" y="51" width="12" height="12" transform="rotate(45 46 57)" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="2"/><text x="68" y="61" fill="var(--muted)" font-size="11" font-weight="600">2ª Meta · R$ 40.000 (+R$ 400)</text></g>
+              <g><rect x="39" y="16" width="14" height="14" transform="rotate(45 46 23)" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="68" y="27" fill="var(--text)" font-size="11.5" font-weight="700">1ª Meta · R$ 50.000 (+R$ 500)</text></g>
+              <g id="svg-marcador" transform="translate(46, 190)" style="transition: transform 0.55s ease;">
+                <circle cx="0" cy="0" r="11" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+                <rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="var(--accent)"/>
+              </g>
+            </svg>
+            <div id="frase-motivacao" class="frase-box">Registre uma venda para iniciar a contagem mensal.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2>Evolução Diária (Últimos 14 Dias)</h2><span id="badge-grafico-meta" class="badge num">Meta diária: R$ 0,00</span></div>
+          <div class="grafico-wrap"><div class="grafico-area" id="grafico-area"></div></div>
+        </div>
+      </div>
+
+      <div id="at-diaria" class="subtab-painel">
+        <div class="card">
+          <div class="card-header"><h2>Planejamento da Meta Diária</h2><span class="badge">Tempo Real</span></div>
+          <div class="grid-equal" style="margin-bottom:18px;">
+            <div class="campo">
+              <label>Meta Alvo do Mês</label>
+              <select id="select-meta-alvo">
+                <option value="30000">3ª Meta — R$ 30.000 (Comissão R$ 300)</option>
+                <option value="40000">2ª Meta — R$ 40.000 (Comissão R$ 400)</option>
+                <option value="50000" selected>1ª Meta — R$ 50.000 (Comissão R$ 500)</option>
+              </select>
+            </div>
+            <div class="campo"><label>Dias Trabalhados no Mês</label><input type="number" id="input-dias-totais" value="26" min="1" max="31"></div>
+            <div class="campo"><label>Dias Restantes (Contando Hoje)</label><input type="number" id="input-dias-restantes" value="15" min="1" max="31"></div>
+          </div>
+          <div class="grid-4">
+            <div class="kpi"><span>Meta Diária Base</span><strong id="diaria-base" class="num">R$ 0,00</strong></div>
+            <div class="kpi destaque"><span>Ritmo Necessário / Dia</span><strong id="diaria-recalculada" class="num">R$ 0,00</strong></div>
+            <div class="kpi"><span>Vendido Hoje</span><strong id="diaria-hoje" class="num">R$ 0,00</strong></div>
+            <div class="kpi"><span>Falta Hoje</span><strong id="diaria-falta-hoje" class="num">R$ 0,00</strong></div>
+          </div>
+          <div style="margin-top:20px;">
+            <div class="meta-linha"><span>Progresso da Meta de Hoje</span><strong id="diaria-pct-hoje" class="num">0%</strong></div>
+            <div class="barra-fundo" style="height:10px;"><div id="diaria-barra-hoje" class="barra-preenchida"></div></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- 2. VISÃO CLIENTE                                          -->
-    <!-- ========================================================= -->
+    <!-- 2. VISÃO CLIENTE -->
     <section id="perfil-cliente" class="visao-perfil">
-      <nav class="subtabs">
-        <button class="subtab-btn ativa" data-subtab="cli-catalogo">Valores & Orçamento</button>
-        <button class="subtab-btn" data-subtab="cli-anamnese">Ficha de Anamnese Digital</button>
-        <button class="subtab-btn" data-subtab="cli-cuidados">Cuidados Pós-Procedimento</button>
+      <nav class="subtabs" id="subtabs-cliente">
+        <button class="subtab-btn ativa" data-subtab="cli-catalogo">Valores / Orçamento</button>
+        <button class="subtab-btn" data-subtab="cli-ficha-restrita" id="tab-btn-cli-ficha">Cadastro / Ficha (Com Código)</button>
+        <button class="subtab-btn" data-subtab="cli-cuidados">Cuidados / Recomendações</button>
       </nav>
 
-      <!-- CATÁLOGO E WHATSAPP -->
       <div id="cli-catalogo" class="subtab-painel ativa">
         <div class="grid-equal">
           <div class="card">
-            <div class="card-header">
-              <h2>Tabela de Procedimentos</h2>
-              <span class="badge">Valores Fixos</span>
+            <div class="card-header"><h2>Tabela de Procedimentos / Serviços</h2><span class="badge">Valores Tabelados</span></div>
+            <div class="catalogo-item"><div><span>Aplicação de Lóbulo (Direito ou Esquerdo)</span></div><strong class="num">R$ 75,00</strong></div>
+            <div class="catalogo-item"><div><span>Aplicação dos Dois Lóbulos</span></div><strong class="num">R$ 150,00</strong></div>
+            <div class="catalogo-item"><div><span>Aplicação de Piercing</span></div><strong class="num">R$ 150,00</strong></div>
+            <div class="catalogo-item"><div><span>Serviço de Limpeza</span></div><strong class="num">R$ 100,00</strong></div>
+            <div class="catalogo-item">
+              <div><span>Serviço de Atualização de Joias</span><small>De 1 a 4 atualizações = R$ 30,00 no total. A partir de 5, o preço muda — verificar valores adicionais com a atendente.</small></div>
+              <strong class="num">R$ 30,00</strong>
             </div>
-            <div class="catalogo-item"><span>Aplicação de Lóbulo (Direito ou Esquerdo)</span><strong>R$ 75,00</strong></div>
-            <div class="catalogo-item"><span>Aplicação dos Dois Lóbulos</span><strong>R$ 150,00</strong></div>
-            <div class="catalogo-item"><span>Aplicação de Piercing</span><strong>R$ 150,00</strong></div>
-            <div class="catalogo-item"><span>Serviço de Limpeza</span><strong>R$ 100,00</strong></div>
-            <div class="catalogo-item"><span>Serviço de Troca ou Remoção</span><strong>R$ 30,00</strong></div>
-            <div class="catalogo-item"><span>Serviço de Lobuloplastia</span><strong>R$ 350,00</strong></div>
+            <div class="catalogo-item">
+              <div><span>Serviço de Remoção de Joias</span><small>De 1 a 4 remoções = R$ 30,00 no total. A partir de 5, o preço muda — verificar valores adicionais com a atendente.</small></div>
+              <strong class="num">R$ 30,00</strong>
+            </div>
+            <div class="catalogo-item"><div><span>Serviço de Lobuloplastia</span></div><strong class="num">R$ 350,00</strong></div>
           </div>
 
           <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:16px;">
             <div>
-              <div class="card-header">
-                <h2>Tatuagem & Joias Especiais</h2>
-                <span class="badge">Sob Consulta</span>
-              </div>
-              <p style="color:var(--muted); font-size:0.92rem; line-height:1.5;">
-                Orçamentos de <strong>Tatuagem</strong> e escolha de joias em <strong>Titânio, Aço Cirúrgico ou Ouro</strong> são personalizados conforme tamanho, local e modelo.
+              <div class="card-header"><h2>Tatuagem / Joias / Observações</h2><span class="badge">Atendimento Personalizado</span></div>
+              <p style="color:var(--muted); font-size:0.84rem; line-height:1.65;">
+                Orçamentos de <strong>Tatuagem</strong> e escolha de joias em <strong>Titânio, Aço Cirúrgico ou Ouro</strong> são definidos junto à equipe conforme projeto, anatomia e material.
               </p>
+              <div class="nota-regra-servico" style="margin-top:12px;">
+                <strong>Informativo de Atualização e Remoção:</strong> de 1 a 4 atualizações ou remoções o valor é de R$ 30,00 no total. Acima disso, verifique com a atendente os valores adicionais.
+              </div>
             </div>
-
             <div style="display:flex; flex-direction:column; gap:10px;">
-              <button class="btn-primary" onclick="abrirWhatsApp('Olá! Quero acertar o valor de uma Tatuagem.')">
-                Orçar Tatuagem no WhatsApp
-              </button>
-              <button class="btn-outline" onclick="abrirWhatsApp('Olá! Quero ver opções e valores de joias de Piercing (Titânio/Aço/Ouro).')">
-                Escolher Joia de Piercing no WhatsApp
-              </button>
-              <span class="badge-soon" style="text-align:center;">Agenda Online Automática · Em Breve</span>
+              <button class="btn-primary" onclick="abrirWhatsApp('Olá! Gostaria de solicitar um orçamento de Tatuagem.')">Solicitar Orçamento de Tatuagem (WhatsApp)</button>
+              <button class="btn-outline" onclick="abrirWhatsApp('Olá! Gostaria de consultar valores de joias e serviços com a atendente.')">Falar com a Atendente / Joias (WhatsApp)</button>
+              <button class="btn-outline" onclick="irParaAbaFichaCliente()">Recebi Código da Atendente p/ Preencher Cadastro / Ficha</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- FICHA DE ANAMNESE COM ASSINATURA -->
-      <div id="cli-anamnese" class="subtab-painel">
-        <div class="card">
+      <div id="cli-ficha-restrita" class="subtab-painel">
+        <div id="cli-tela-bloqueio-ficha" class="card">
+          <div class="bloqueio-ficha-box">
+            <span class="badge" style="align-self:center;">Cadastro / Ficha Confidencial do Cliente</span>
+            <h2 style="font-size:1.05rem;">Desbloquear Cadastro / Ficha de Anamnese</h2>
+            <p style="color:var(--muted); font-size:0.82rem; line-height:1.6;">
+              Responda seus dados e histórico de saúde em privacidade. Digite o <strong>código fornecido pela sua atendente</strong>.
+            </p>
+            <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+              <input type="text" id="input-codigo-desbloqueio-cli" class="num" placeholder="Ex: AT1-1010" style="max-width:210px; text-align:center; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">
+              <button type="button" id="btn-validar-codigo-cli" class="btn-primary">Desbloquear</button>
+            </div>
+            <small style="color:var(--muted); font-size:0.73rem;">Código rápido de teste: <strong class="num" style="color:var(--accent);">AT1-1010</strong>.</small>
+          </div>
+        </div>
+
+        <div id="cli-container-formulario-ficha" class="card" style="display:none;">
           <div class="card-header">
-            <h2>Ficha de Anamnese & Termo de Autorização</h2>
-            <span class="badge">Assinatura na Tela</span>
+            <div>
+              <h2 id="cli-ficha-titulo">Cadastro de Cliente / Termo de Autorização</h2>
+              <small id="cli-ficha-subtitulo" style="color:var(--muted); font-size:0.75rem;">Ao confirmar, seu cadastro e ficha serão anexados automaticamente na loja</small>
+            </div>
+            <button type="button" class="btn-mini" onclick="bloquearFichaClienteNovamente()">Bloquear / Sair ✕</button>
           </div>
 
-          <form id="form-anamnese" style="display:flex; flex-direction:column; gap:14px;">
-            <div class="grid-equal">
-              <div class="campo">
-                <label>Nome Completo</label>
-                <input type="text" id="ana-nome" placeholder="Seu nome completo" required>
+          <form id="form-anamnese-cliente" style="display:flex; flex-direction:column; gap:14px;">
+            <div class="nota-regra-servico" style="font-size:0.75rem;">
+              <strong>Declaração de Termo de Autorização:</strong> declaro ser de minha espontânea vontade realizar o procedimento discriminado, estar ciente do processo de cicatrização, da esterilização por autoclave/descartáveis conforme normas da ANVISA e dos cuidados recomendados.
+            </div>
+
+            <div class="secao-ficha-bloco">
+              <div class="secao-ficha-titulo">Dados Pessoais</div>
+              <div class="grid-equal">
+                <div class="campo"><label>Nome Completo</label><input type="text" id="ana-nome" placeholder="Nome completo" required></div>
+                <div class="campo"><label>CPF</label><input type="text" id="ana-cpf" class="num" placeholder="000.000.000-00" required></div>
               </div>
-              <div class="campo">
-                <label>WhatsApp / Telefone</label>
-                <input type="tel" id="ana-tel" placeholder="(00) 00000-0000" required>
+              <div class="grid-equal">
+                <div class="campo"><label>Data de Nascimento</label><input type="date" id="ana-nascimento" class="num"></div>
+                <div class="campo"><label>WhatsApp / Telefone</label><input type="tel" id="ana-tel" class="num" placeholder="(92) 90000-0000" required></div>
+              </div>
+              <div class="grid-equal">
+                <div class="campo"><label>Endereço / Nº</label><input type="text" id="ana-endereco" placeholder="Rua / Bairro / Número"></div>
+                <div class="campo"><label>Instagram / E-mail</label><input type="text" id="ana-contato-extra" placeholder="@seuinstagram ou e-mail"></div>
+              </div>
+              <div class="grid-equal">
+                <div class="campo">
+                  <label>Como conheceu o trabalho?</label>
+                  <select id="ana-origem">
+                    <option value="">Selecione</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Google">Google</option>
+                    <option value="Amigos / Indicação">Amigos / Indicação</option>
+                    <option value="Outros">Outros</option>
+                  </select>
+                </div>
+                <div class="campo"><label>Procedimento / Local / Joia</label><input type="text" id="ana-procedimento" placeholder="Ex: Piercing Septo / Titânio / Tatuagem" required></div>
               </div>
             </div>
 
-            <div class="campo">
-              <label>Marque caso possua alguma das condições abaixo:</label>
-              <div class="check-grid">
-                <label class="check-item"><input type="checkbox" value="Alergia a metais/medicamentos"> Alergias</label>
-                <label class="check-item"><input type="checkbox" value="Queloide / Cicatrização difícil"> Queloide</label>
-                <label class="check-item"><input type="checkbox" value="Diabetes / Hipertensão"> Diabetes / Pressão</label>
-                <label class="check-item"><input type="checkbox" value="Gestante ou Lactante"> Gestante / Lactante</label>
-                <label class="check-item"><input type="checkbox" value="Uso de anticoagulantes"> Anticoagulantes</label>
+            <div id="box-toggle-edicao-retorno" style="display:none; background:var(--warn-bg); border:1px solid var(--warn-line); padding:12px 14px; border-radius:6px;">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.8rem; font-weight:600; color:var(--warn-text);">
+                <input type="checkbox" id="chk-alterou-ficha" style="width:auto; accent-color:var(--accent);">
+                Sua ficha anterior já está anexada! Marque apenas se houve alteração na saúde / dados (pedirá nova assinatura)
+              </label>
+            </div>
+
+            <div id="bloco-saude-ficha" class="secao-ficha-bloco">
+              <div class="secao-ficha-titulo">Histórico de Saúde</div>
+              <div class="check-grid" id="ana-checks">
+                <label class="check-item"><input type="checkbox" value="Álcool / Drogas"> Efeito de álcool ou drogas</label>
+                <label class="check-item"><input type="checkbox" value="Diabetes"> Diabetes (Tipo 1 / Tipo 2)</label>
+                <label class="check-item"><input type="checkbox" value="Anemia"> Teve anemia</label>
+                <label class="check-item"><input type="checkbox" value="Doenças transmissíveis"> Doenças transmissíveis</label>
+                <label class="check-item"><input type="checkbox" value="Alergia (Dermatite / Medicamentos / Alimentar)"> Alergia / Dermatite</label>
+                <label class="check-item"><input type="checkbox" value="Epilepsia"> Epilético(a)</label>
+                <label class="check-item"><input type="checkbox" value="Hepatite"> Teve hepatite</label>
+                <label class="check-item"><input type="checkbox" value="Hemofilia"> Hemofílico(a)</label>
+                <label class="check-item"><input type="checkbox" value="Pressão alterada"> Pressão sanguínea alterada</label>
+                <label class="check-item"><input type="checkbox" value="Fuma / Bebe"> Fuma ou consome álcool</label>
+                <label class="check-item"><input type="checkbox" value="Queloide"> Histórico de queloides</label>
+                <label class="check-item"><input type="checkbox" value="Gestante / Lactante"> Gestante / Lactante</label>
               </div>
+
+              <div class="grid-equal">
+                <div class="campo"><label>Tipo Sanguíneo / RH</label><input type="text" id="ana-sangue" placeholder="Ex: O+, A-, desconheço"></div>
+                <div class="campo"><label>Sintomas recentes / Observações médicas</label><input type="text" id="ana-obs" placeholder="Medicamentos, alergias ou sintomas recentes"></div>
+              </div>
+
+              <label class="check-item" style="border-color:var(--border-strong);">
+                <input type="checkbox" id="ana-fotos-divulgacao">
+                <span>Autorizo o uso de fotos do procedimento / cicatrização nas redes sociais do estúdio</span>
+              </label>
             </div>
 
-            <div class="campo">
-              <label>Observações adicionais de saúde (opcional)</label>
-              <input type="text" id="ana-obs" placeholder="Informe medicamentos ou alergias específicas">
-            </div>
-
-            <div class="campo">
+            <div class="campo" id="bloco-assinatura-cliente">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label>Assinatura do Cliente (desenhe com o dedo ou mouse)</label>
+                <label id="label-assinatura-cliente">Assinatura do Cliente (Assine no quadro abaixo)</label>
                 <button type="button" id="btn-limpar-assinatura" class="btn-mini">Limpar Assinatura</button>
               </div>
-              <canvas id="canvas-assinatura" class="canvas-assinatura" width="600" height="140"></canvas>
+              <canvas id="canvas-assinatura" class="canvas-assinatura" width="600" height="150"></canvas>
             </div>
 
-            <button type="submit" class="btn-primary">Confirmar & Salvar Anamnese</button>
+            <button type="submit" class="btn-primary" id="btn-salvar-ficha-cliente">Assinar / Enviar Cadastro e Ficha</button>
           </form>
         </div>
       </div>
 
-      <!-- CUIDADOS PÓS-PROCEDIMENTO -->
       <div id="cli-cuidados" class="subtab-painel">
         <div class="grid-equal">
           <div class="card">
-            <div class="card-header">
-              <h2>Cuidados com seu Piercing</h2>
-              <span class="badge">Cicatrização</span>
-            </div>
-            <ul style="padding-left:18px; color:var(--muted); line-height:1.7; font-size:0.92rem;">
-              <li>Higienize 2x ao dia apenas com soro fisiológico 0,9% e sabonete neutro.</li>
-              <li>Não gire, não aperte e evite tocar na joia com as mãos sujas.</li>
-              <li>Evite piscina, mar, sauna e alimentos muito gordurosos nos primeiros 15 dias.</li>
-              <li>Não durma sobre o local recém-perfurado.</li>
+            <div class="card-header"><h2>Cuidados Pós-Piercing</h2><span class="badge">Protocolo de Cicatrização</span></div>
+            <ul style="padding-left:18px; color:var(--muted); line-height:1.8; font-size:0.86rem;">
+              <li>Higienize 2 vezes ao dia apenas com soro fisiológico 0,9% e sabonete neutro líquido.</li>
+              <li>Seque delicadamente com gaze limpa, sem girar ou tracionar a joia.</li>
+              <li>Evite piscina, mar, sauna, maquiagem no local e atrito com roupas ou fones.</li>
+              <li>De 1 a 4 atualizações ou remoções o valor é R$ 30,00 no total; acima disso, consulte valores adicionais com a atendente.</li>
             </ul>
           </div>
-
           <div class="card">
-            <div class="card-header">
-              <h2>Cuidados com sua Tatuagem</h2>
-              <span class="badge">Pós-Tattoo</span>
-            </div>
-            <ul style="padding-left:18px; color:var(--muted); line-height:1.7; font-size:0.92rem;">
-              <li>Lave suavemente com água fria e sabonete neutro 3x ao dia.</li>
-              <li>Aplique uma camada fina da pomada cicatrizante recomendada.</li>
-              <li>Jamais arranque casquinhas ou coce a região.</li>
-              <li>Evite exposição solar direta, mar e piscina por 30 dias.</li>
+            <div class="card-header"><h2>Cuidados Pós-Tatuagem</h2><span class="badge">Protocolo de Cicatrização</span></div>
+            <ul style="padding-left:18px; color:var(--muted); line-height:1.8; font-size:0.86rem;">
+              <li>Lave suavemente com água fria ou morna e sabonete neutro 3 vezes ao dia.</li>
+              <li>Aplique uma camada fina da pomada cicatrizante indicada pelo tatuador.</li>
+              <li>Não coce e jamais remova películas ou casquinhas durante a regeneração.</li>
+              <li>Proteja totalmente do sol direto, água do mar e piscina pelos primeiros 30 dias.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- 3. VISÃO GERÊNCIA                                         -->
-    <!-- ========================================================= -->
+    <!-- 3. VISÃO GERÊNCIA -->
     <section id="perfil-gerencia" class="visao-perfil">
       <div class="grid-4">
-        <div class="kpi destaque">
-          <span>Faturamento Geral da Loja</span>
-          <strong id="ger-total">R$ 0,00</strong>
+        <div class="kpi destaque"><span>Faturamento Geral da Loja</span><strong id="ger-total" class="num">R$ 0,00</strong></div>
+        <div class="kpi"><span>Clientes Cadastrados</span><strong id="ger-qtd-clientes" class="num">0</strong></div>
+        <div class="kpi"><span>Ajustes de Ponto Pendentes</span><strong id="ger-pendentes-ponto" class="num">0</strong></div>
+        <div class="kpi"><span>Atestados p/ Conferência</span><strong id="ger-pendentes-atestados" class="num">0</strong></div>
+      </div>
+
+      <nav class="subtabs">
+        <button class="subtab-btn ativa" data-subtab="ger-aba-vendas">Vendas / Metas por Vendedora</button>
+        <button class="subtab-btn" data-subtab="ger-aba-ponto">Aprovação de Ponto / Atestados</button>
+        <button class="subtab-btn" data-subtab="ger-aba-anamneses">Clientes / Fichas de Anamnese</button>
+        <button class="subtab-btn" data-subtab="ger-aba-acessos">Liberação de Acessos</button>
+      </nav>
+
+      <div id="ger-aba-vendas" class="subtab-painel ativa">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2 id="ger-titulo-metas">Metas / Desempenho</h2>
+                <span id="ger-comissao-vendedora" class="badge num" style="display:inline-block; margin-top:6px;">Comissão: R$ 0,00</span>
+              </div>
+              <div class="filtro-interno-card">
+                <label for="ger-select-vendedora">Vendedora:</label>
+                <select id="ger-select-vendedora"></select>
+              </div>
+            </div>
+            <div class="lista-metas" id="ger-lista-metas"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h2>Receita por Forma de Pagamento</h2><span class="badge" id="ger-badge-pag">Todas</span></div>
+            <div class="lista-metas" id="ger-pagamentos-box"></div>
+          </div>
         </div>
-        <div class="kpi">
-          <span>Ticket Médio por Venda</span>
-          <strong id="ger-ticket">R$ 0,00</strong>
-        </div>
-        <div class="kpi">
-          <span>Anamneses Assinadas</span>
-          <strong id="ger-anamneses">0</strong>
-        </div>
-        <div class="kpi">
-          <span>Cadastros Pendentes</span>
-          <strong>2</strong>
+        <div class="card">
+          <div class="card-header"><h2>Auditoria de Vendas Lançadas</h2><span class="badge num" id="ger-contador-vendas">0 registros</span></div>
+          <ul class="lista-vendas" id="ger-lista-vendas"></ul>
         </div>
       </div>
 
-      <div class="grid-equal">
+      <div id="ger-aba-ponto" class="subtab-painel">
         <div class="card">
           <div class="card-header">
-            <h2>Desempenho por Atendente</h2>
-            <span class="badge-soon">Multiusuário em Nuvem · Em Breve</span>
-          </div>
-          <div class="lista-metas">
-            <div class="meta-item">
-              <div class="meta-linha">
-                <strong>Atendente Principal (Você)</strong>
-                <span id="ger-atendente-atual" style="color:var(--accent); font-weight:700;">R$ 0,00</span>
-              </div>
-              <div class="barra-fundo"><div id="ger-barra-atual" class="barra-preenchida"></div></div>
+            <div>
+              <h2>Controle / Aprovação de Ponto da Equipe</h2>
+              <small style="color:var(--muted); font-size:0.76rem;">Somente a Gerência aprova ajustes solicitados pelas atendentes ou edita diretamente</small>
             </div>
-            <div class="meta-item" style="opacity:0.7;">
-              <div class="meta-linha">
-                <span>Camila (Exemplo Equipe)</span>
-                <span>R$ 32.400,00 · 3ª Meta</span>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <div class="filtro-interno-card">
+                <label for="ger-select-vendedora-ponto">Filtrar:</label>
+                <select id="ger-select-vendedora-ponto"></select>
               </div>
-              <div class="barra-fundo"><div class="barra-preenchida" style="width:65%;"></div></div>
+              <button type="button" class="btn-outline" onclick="abrirAjusteGerencialDireto()">+ Lançar / Ajustar (Gerente)</button>
             </div>
           </div>
+          <ul class="lista-vendas" id="ger-lista-ponto"></ul>
         </div>
 
         <div class="card">
           <div class="card-header">
-            <h2>Controle de Acessos (Aprovação)</h2>
-            <span class="badge-soon">Protótipo Visual</span>
+            <div>
+              <h2>Atestados Médicos Enviados pela Equipe</h2>
+              <small style="color:var(--muted); font-size:0.76rem;">Verifique CRM/CRO e documento anexado antes de validar</small>
+            </div>
+            <span class="badge" id="ger-contador-atestados">0 atestados</span>
           </div>
-          <div style="display:flex; flex-direction:column; gap:10px;">
+          <ul class="lista-vendas" id="ger-lista-atestados"></ul>
+        </div>
+      </div>
+
+      <div id="ger-aba-anamneses" class="subtab-painel">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2>Prontuário de Clientes Cadastrados / Fichas Assinadas</h2>
+              <small style="color:var(--muted); font-size:0.76rem;">Consulte a ficha respondida diretamente pelo cliente e imprima em PDF</small>
+            </div>
+            <span class="badge num" id="ger-badge-qtd-fichas">0 clientes</span>
+          </div>
+          <div style="margin-bottom:14px;">
+            <input type="text" id="ger-busca-anamnese" placeholder="Buscar cliente cadastrado por nome, CPF ou procedimento...">
+          </div>
+          <ul class="lista-vendas" id="ger-lista-anamneses"></ul>
+        </div>
+      </div>
+
+      <div id="ger-aba-acessos" class="subtab-painel">
+        <div class="card">
+          <div class="card-header"><h2>Solicitações de Acesso por Cargo</h2><span class="badge-warn">Login em Nuvem · Em Breve</span></div>
+          <div style="display:flex; flex-direction:column; gap:10px;" id="ger-lista-acessos">
             <div class="item-venda">
               <div>
                 <strong>Juliana Mendes</strong>
-                <small style="display:block; color:var(--muted);">Solicitou acesso: Atendente</small>
+                <small style="display:block; color:var(--muted);">Solicitou perfil: Atendente · Aguardando liberação da Gerência</small>
               </div>
               <div style="display:flex; gap:6px;">
-                <button class="btn-mini" onclick="alert('Protótipo: No sistema conectado ao banco de dados, este clique libera o login da atendente.')">Aprovar</button>
-                <button class="btn-mini">Recusar</button>
-              </div>
-            </div>
-            <div class="item-venda">
-              <div>
-                <strong>Carla Souza</strong>
-                <small style="display:block; color:var(--muted);">Solicitou acesso: Gerência</small>
-              </div>
-              <div style="display:flex; gap:6px;">
-                <button class="btn-mini" onclick="alert('Protótipo: Permissão de Gerência aprovada na demonstração!')">Aprovar</button>
-                <button class="btn-mini">Recusar</button>
+                <button class="btn-mini ok" onclick="aprovarDemo(this, 'Atendente')">Aprovar Acesso</button>
+                <button class="btn-mini danger" onclick="this.closest('.item-venda').remove()">Recusar</button>
               </div>
             </div>
           </div>
@@ -1073,125 +780,134 @@
       </div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- 4. VISÃO DESENVOLVEDOR (VOCÊ)                             -->
-    <!-- ========================================================= -->
+    <!-- 4. VISÃO DESENVOLVEDOR -->
     <section id="perfil-dev" class="visao-perfil">
       <div class="grid-equal">
         <div class="card">
-          <div class="card-header">
-            <h2>Status Técnico & Backup</h2>
-            <span class="badge">Ambiente Local Ativo</span>
-          </div>
-          <p style="color:var(--muted); font-size:0.9rem; margin-bottom:14px;">
-            Use os botões abaixo para salvar uma cópia completa dos dados ou restaurar em outro computador.
+          <div class="card-header"><h2>Diagnóstico Técnico / Backup Completo</h2><span class="badge-ok">Operacional</span></div>
+          <p style="color:var(--muted); font-size:0.84rem; margin-bottom:16px; line-height:1.6;">
+            Exporte ou restaure clientes, fichas, códigos, vendas, pontos e atestados. Código rápido de teste: <strong class="num" style="color:var(--accent);">AT1-1010</strong>.
           </p>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button id="btn-backup-json" class="btn-primary">Exportar Backup (.json)</button>
-            <label class="btn-outline" style="cursor:pointer; display:inline-block;">
-              Importar Backup
-              <input type="file" id="input-importar-json" accept=".json" style="display:none;">
-            </label>
-            <button id="btn-zerar-tudo" class="btn-outline">Zerar Dados de Teste</button>
+            <label class="btn-outline" style="cursor:pointer; display:inline-block;">Importar Backup<input type="file" id="input-importar-json" accept=".json" style="display:none;"></label>
+            <button id="btn-zerar-tudo" class="btn-outline">Restaurar Dados de Demonstração</button>
           </div>
-          <p id="dev-memoria" style="margin-top:14px; font-size:0.82rem; color:var(--muted);"></p>
+          <p id="dev-memoria" class="num" style="margin-top:16px; font-size:0.78rem; color:var(--muted);"></p>
         </div>
-
         <div class="card">
-          <div class="card-header">
-            <h2>Próximas Etapas do Projeto</h2>
-            <span class="badge-soon">Roadmap</span>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:10px; font-size:0.9rem;">
-            <div class="item-venda"><span>1. Transformar em Aplicativo Instalável (PWA)</span><span class="badge-soon">Em Breve</span></div>
-            <div class="item-venda"><span>2. Banco de Dados em Nuvem + Login por Cargo</span><span class="badge-soon">Em Breve</span></div>
-            <div class="item-venda"><span>3. Ponte com Sistema de Notas Fiscais da Loja</span><span class="badge-soon">Em Breve</span></div>
+          <div class="card-header"><h2>Cronograma de Evolução do Sistema</h2><span class="badge-warn">Próximas Fases</span></div>
+          <div style="display:flex; flex-direction:column; gap:10px; font-size:0.84rem;">
+            <div class="item-venda"><span>1. Aplicativo Instalável no Celular / Tablet (PWA)</span><span class="badge-warn">Em Breve</span></div>
+            <div class="item-venda"><span>2. Banco de Dados em Nuvem / Login por Cargo</span><span class="badge-warn">Em Breve</span></div>
+            <div class="item-venda"><span>3. Envio de Pré-Venda p/ Sistema de Notas da Loja</span><span class="badge-warn">Em Breve</span></div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ========================================================= -->
-  <!-- MODAL: REGISTRAR / EDITAR VENDA (COM CARRINHO MULTI-ITENS) -->
-  <!-- ========================================================= -->
+  <!-- MODAL: GERAR CÓDIGO DE FICHA -->
+  <div class="modal-fundo" id="modal-gerar-codigo">
+    <div class="modal" style="max-width:500px;">
+      <div class="card-header" style="margin-bottom:0;">
+        <div><h2>Encaminhar Cadastro / Ficha ao Cliente</h2><small style="color:var(--muted);">Gere o código para o cliente responder na aba dele</small></div>
+        <button type="button" class="btn-mini" onclick="fecharModalGerarCodigo()">Fechar ✕</button>
+      </div>
+      <form id="form-gerar-codigo" style="display:flex; flex-direction:column; gap:12px;">
+        <div class="campo"><label>Atendente Responsável</label><select id="cod-vendedora"></select></div>
+        <div class="campo"><label>Destinatário</label><select id="cod-tipo-cliente"></select></div>
+        <div class="campo"><label>Procedimento / Serviço</label><input type="text" id="cod-procedimento" placeholder="Ex: Aplicação Piercing / Tatuagem" required></div>
+        <div class="campo"><label>WhatsApp do Cliente (Opcional)</label><input type="tel" id="cod-whatsapp" class="num" placeholder="Ex: 92991234567"></div>
+        <button type="submit" class="btn-primary">Gerar Código de Desbloqueio</button>
+      </form>
+      <div id="resultado-codigo-gerado" style="display:none; flex-direction:column; gap:10px; border-top:1px solid var(--border); padding-top:14px;">
+        <div class="codigo-destaque-gerado">
+          <span style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:700;">Código Gerado</span>
+          <strong id="texto-codigo-gerado" class="num">AT1-0000</strong>
+          <small style="color:var(--muted); font-size:0.75rem;">Assim que o cliente enviar na Aba Cliente, o cadastro e a ficha serão anexados automaticamente.</small>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <button type="button" id="btn-enviar-cod-whats" class="btn-outline">Enviar por WhatsApp</button>
+          <button type="button" id="btn-testar-aba-cliente" class="btn-primary">Ir p/ Aba Cliente →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRAR / EDITAR VENDA -->
   <div class="modal-fundo" id="modal-venda">
     <div class="modal">
       <div class="card-header" style="margin-bottom:0;">
         <h2 id="modal-venda-titulo">Registrar Venda</h2>
         <button type="button" id="btn-fechar-venda" class="btn-mini">Fechar ✕</button>
       </div>
-
       <form id="form-venda" style="display:flex; flex-direction:column; gap:12px;">
         <input type="hidden" id="venda-edit-id">
-
-        <!-- ADICIONAR ITENS NA VENDA -->
+        <div class="grid-equal">
+          <div class="campo"><label>Vendedora Responsável</label><select id="venda-vendedora"></select></div>
+          <div class="campo"><label>Cliente Cadastrado</label><select id="venda-cliente-id"><option value="">Cliente Avulso / Sem Ficha</option></select></div>
+        </div>
+        <div id="box-info-cliente-venda" style="display:none; background:var(--ok-bg); border:1px solid rgba(46, 184, 114, 0.35); padding:9px 12px; border-radius:6px; font-size:0.78rem; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; color:var(--ok-text);">
+          <span id="texto-ficha-vinculada">Ficha anexada ao cadastro deste cliente.</span>
+          <button type="button" class="btn-mini" id="btn-encaminhar-retorno-venda">Gerar Código de Retorno</button>
+        </div>
         <div class="carrinho-box">
-          <label style="font-size:0.82rem; font-weight:700;">Itens do Atendimento (adicione 1 ou mais)</label>
+          <label style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:700;">Itens do Atendimento</label>
           <select id="item-servico">
-            <optgroup label="Procedimentos (Valor Fixo)">
-              <option value="Aplicação de Lóbulo Direito" data-fixo="75">Aplicação de Lóbulo Direito — R$ 75</option>
-              <option value="Aplicação de Lóbulo Esquerdo" data-fixo="75">Aplicação de Lóbulo Esquerdo — R$ 75</option>
-              <option value="Aplicação dos Dois Lóbulos" data-fixo="150">Aplicação dos Dois Lóbulos — R$ 150</option>
-              <option value="Aplicação de Piercing" data-fixo="150">Aplicação de Piercing — R$ 150</option>
-              <option value="Serviço de Remoção" data-fixo="30">Serviço de Remoção — R$ 30</option>
-              <option value="Serviço de Troca" data-fixo="30">Serviço de Troca — R$ 30</option>
-              <option value="Serviço de Limpeza" data-fixo="100">Serviço de Limpeza — R$ 100</option>
-              <option value="Serviço de Lobuloplastia" data-fixo="350">Serviço de Lobuloplastia — R$ 350</option>
+            <optgroup label="Procedimentos (Exigem Cadastro / Ficha)">
+              <option value="Aplicação de Lóbulo Direito" data-fixo="75" data-ficha="1">Aplicação de Lóbulo Direito — R$ 75,00</option>
+              <option value="Aplicação de Lóbulo Esquerdo" data-fixo="75" data-ficha="1">Aplicação de Lóbulo Esquerdo — R$ 75,00</option>
+              <option value="Aplicação dos Dois Lóbulos" data-fixo="150" data-ficha="1">Aplicação dos Dois Lóbulos — R$ 150,00</option>
+              <option value="Aplicação de Piercing" data-fixo="150" data-ficha="1">Aplicação de Piercing — R$ 150,00</option>
+              <option value="Serviço de Lobuloplastia" data-fixo="350" data-ficha="1">Serviço de Lobuloplastia — R$ 350,00</option>
+              <option value="Tatuagem" data-fixo="manual" data-ficha="1">Tatuagem (Valor Manual)</option>
             </optgroup>
-            <optgroup label="Tatuagem & Joias (Valor Manual)">
-              <option value="Tatuagem" data-fixo="manual">Tatuagem (Manual)</option>
-              <option value="Piercing de Titânio" data-fixo="manual">Piercing de Titânio (Manual)</option>
-              <option value="Piercing de Aço Cirúrgico" data-fixo="manual">Piercing de Aço Cirúrgico (Manual)</option>
-              <option value="Piercing de Ouro" data-fixo="manual">Piercing de Ouro (Manual)</option>
+            <optgroup label="Serviços Rápidos / Joias (Sem Ficha)">
+              <option value="Serviço de Atualização (1 a 4)" data-fixo="30" data-regra="atualizacao">Serviço de Atualização (1 a 4) — R$ 30,00</option>
+              <option value="Serviço de Remoção (1 a 4)" data-fixo="30" data-regra="remocao">Serviço de Remoção (1 a 4) — R$ 30,00</option>
+              <option value="Serviço de Limpeza" data-fixo="100">Serviço de Limpeza — R$ 100,00</option>
+              <option value="Piercing de Titânio" data-fixo="manual">Piercing de Titânio (Valor Manual)</option>
+              <option value="Piercing de Aço Cirúrgico" data-fixo="manual">Piercing de Aço Cirúrgico (Valor Manual)</option>
+              <option value="Piercing de Ouro" data-fixo="manual">Piercing de Ouro (Valor Manual)</option>
             </optgroup>
           </select>
-
+          <div id="aviso-regra-item" class="nota-regra-servico" style="display:none;"></div>
           <div style="display:grid; grid-template-columns: 1fr auto; gap:8px;">
-            <input type="number" id="item-valor" step="0.01" min="0" value="75">
-            <button type="button" id="btn-add-item" class="btn-outline">+ Incluir na Venda</button>
+            <input type="number" id="item-valor" class="num" step="0.01" min="0" value="75">
+            <button type="button" id="btn-add-item" class="btn-outline">+ Incluir Item</button>
           </div>
-
           <ul class="carrinho-lista" id="carrinho-lista"></ul>
         </div>
 
-        <!-- AJUSTE DE VALOR (+ / -) E OBSERVAÇÃO -->
+        <div id="alerta-trava-ficha" style="display:none; background:var(--warn-bg); border:1px solid var(--warn-line); padding:10px 12px; border-radius:6px; font-size:0.78rem; color:var(--warn-text);">
+          <strong>Trava de Segurança:</strong> este atendimento contém procedimento que exige <strong>Cadastro / Ficha Assinada</strong>. Selecione o cliente cadastrado acima para liberar a finalização da venda.
+        </div>
+
         <div class="carrinho-box">
-          <label style="font-size:0.82rem; font-weight:700;">Ajuste ou Observação de Valor (Agrega ou Retira da Meta)</label>
+          <label style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:700;">Ajuste de Valor / Observação</label>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
             <select id="venda-ajuste-tipo">
               <option value="nenhum">Sem ajuste</option>
-              <option value="mais">+ Acrescentar</option>
+              <option value="mais">+ Acrescentar valor</option>
               <option value="menos">- Desconto / Retirar</option>
             </select>
-            <input type="number" id="venda-ajuste-valor" placeholder="R$ 0,00" step="0.01" min="0" disabled>
+            <input type="number" id="venda-ajuste-valor" class="num" placeholder="R$ 0,00" step="0.01" min="0" disabled>
           </div>
-          <input type="text" id="venda-obs" placeholder="Motivo / observação (ex: combo, desconto à vista...)">
+          <input type="text" id="venda-obs" placeholder="Ex: 5 atualizações/remoções, combo, observação...">
         </div>
-
-        <div class="resumo-final">
-          <span>Total que entra na Meta:</span>
-          <strong id="venda-total-preview">R$ 0,00</strong>
-        </div>
-
-        <!-- DATA/HORA AUTOMÁTICA (COM OPÇÃO DE ALTERAR) + OPCIONAIS -->
+        <div class="resumo-final"><span>Valor Computado na Meta:</span><strong id="venda-total-preview" class="num">R$ 0,00</strong></div>
         <div class="campo">
-          <label>Detalhes Opcionais</label>
+          <label>Detalhes Complementares</label>
           <div class="pills">
-            <button type="button" class="pill-btn" data-opt="opt-cliente">+ Cliente</button>
+            <button type="button" class="pill-btn" data-opt="opt-cliente">Nome Avulso</button>
             <button type="button" class="pill-btn" data-opt="opt-pag">+ Pagamento</button>
-            <button type="button" class="pill-btn" data-opt="opt-datahora">Alterar Data/Hora</button>
-            <button type="button" class="pill-btn" data-opt="opt-anexos">+ Foto / Ficha</button>
+            <button type="button" class="pill-btn" data-opt="opt-datahora">Alterar Data / Hora</button>
           </div>
         </div>
-
-        <div id="opt-cliente" class="bloco-opt">
-          <label>Nome do Cliente</label>
-          <input type="text" id="venda-cliente" placeholder="Ex: Mariana Costa">
-        </div>
-
+        <div id="opt-cliente" class="bloco-opt"><label>Nome (Apenas venda avulsa)</label><input type="text" id="venda-cliente" placeholder="Ex: Venda rápida"></div>
         <div id="opt-pag" class="bloco-opt">
-          <label>Método de Pagamento</label>
+          <label>Forma de Pagamento</label>
           <select id="venda-pagamento">
             <option value="">Não informado</option>
             <option value="Pix">Pix</option>
@@ -1200,37 +916,34 @@
             <option value="Dinheiro">Dinheiro</option>
           </select>
         </div>
-
-        <div id="opt-datahora" class="bloco-opt">
-          <label>Data e Hora da Venda (automática se não mexer)</label>
-          <input type="datetime-local" id="venda-datahora">
-        </div>
-
-        <div id="opt-anexos" class="bloco-opt">
-          <label>Foto do Procedimento (opcional)</label>
-          <input type="file" id="venda-foto" accept="image/*">
-          <label>Ficha Cadastral Escaneada (opcional)</label>
-          <input type="file" id="venda-ficha" accept="image/*">
-        </div>
-
-        <button type="submit" class="btn-primary">Finalizar Cadastro da Venda</button>
+        <div id="opt-datahora" class="bloco-opt"><label>Data e Hora da Venda</label><input type="datetime-local" id="venda-datahora"></div>
+        <button type="submit" id="btn-submit-venda" class="btn-primary">Confirmar Registro de Venda</button>
       </form>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL: AJUSTE MANUAL / EDIÇÃO DE PONTO                    -->
-  <!-- ========================================================= -->
+  <!-- MODAL: PRONTUÁRIO / PDF -->
+  <div class="modal-fundo" id="modal-ver-anamnese">
+    <div class="modal" style="max-width:620px;">
+      <div class="recibo-card" id="conteudo-ver-anamnese"></div>
+      <div class="no-print" style="display:flex; justify-content:flex-end; gap:8px;">
+        <button type="button" class="btn-outline" onclick="document.getElementById('modal-ver-anamnese').classList.remove('aberto')">Fechar</button>
+        <button type="button" class="btn-primary" onclick="window.print()">Imprimir / Salvar PDF da Ficha</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: AJUSTE DE PONTO -->
   <div class="modal-fundo" id="modal-ponto">
-    <div class="modal" style="max-width:440px;">
+    <div class="modal" style="max-width:460px;">
       <div class="card-header" style="margin-bottom:0;">
-        <h2 id="modal-ponto-titulo">Ajuste Manual de Ponto</h2>
+        <h2 id="modal-ponto-titulo">Solicitar Ajuste de Ponto</h2>
         <button type="button" id="btn-fechar-ponto" class="btn-mini">Fechar ✕</button>
       </div>
-
       <form id="form-ponto" style="display:flex; flex-direction:column; gap:12px;">
         <input type="hidden" id="ponto-edit-id">
-
+        <input type="hidden" id="ponto-origem-gerencia" value="0">
+        <div class="campo"><label>Colaboradora</label><select id="ponto-vendedora"></select></div>
         <div class="campo">
           <label for="ponto-tipo">Tipo de Marcação</label>
           <select id="ponto-tipo" required>
@@ -1240,28 +953,55 @@
             <option value="Saída">Saída</option>
           </select>
         </div>
-
-        <div class="campo">
-          <label for="ponto-datahora">Data e Horário Corretos</label>
-          <input type="datetime-local" id="ponto-datahora" required>
-        </div>
-
-        <div class="campo">
-          <label for="ponto-obs">Motivo / Justificativa do Ajuste</label>
-          <input type="text" id="ponto-obs" placeholder="Ex: Esqueci de registrar na chegada" required>
-        </div>
-
+        <div class="campo"><label for="ponto-datahora">Data e Horário Solicitados</label><input type="datetime-local" id="ponto-datahora" required></div>
+        <div class="campo"><label for="ponto-obs">Justificativa Obrigatória</label><input type="text" id="ponto-obs" placeholder="Ex: Esquecimento na chegada" required></div>
+        <small id="aviso-aprovacao-ponto" style="color:var(--warn-text); font-size:0.75rem;">Atenção: A edição ficará pendente até aprovação da Gerência.</small>
         <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
           <button type="button" id="btn-cancelar-ponto" class="btn-outline">Cancelar</button>
-          <button type="submit" class="btn-primary">Salvar Ponto</button>
+          <button type="submit" class="btn-primary" id="btn-submit-ponto">Enviar p/ Aprovação</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: RECIBO DO CLIENTE -->
+  <!-- MODAL: ATESTADO -->
+  <div class="modal-fundo" id="modal-atestado">
+    <div class="modal" style="max-width:500px;">
+      <div class="card-header" style="margin-bottom:0;">
+        <div><h2>Anexar Atestado de Saúde Válido</h2><small style="color:var(--muted);">Apenas atestados com CRM/CRO e documento legível</small></div>
+        <button type="button" class="btn-mini" onclick="document.getElementById('modal-atestado').classList.remove('aberto')">Fechar ✕</button>
+      </div>
+      <form id="form-atestado" style="display:flex; flex-direction:column; gap:12px;">
+        <div class="grid-equal">
+          <div class="campo"><label>Data do Atestado</label><input type="date" id="atestado-data" required></div>
+          <div class="campo"><label>Dias de Afastamento</label><input type="number" id="atestado-dias" min="1" max="60" value="1" required></div>
+        </div>
+        <div class="grid-equal">
+          <div class="campo"><label>Nome do Médico / Dentista</label><input type="text" id="atestado-medico" placeholder="Dr(a). Nome Completo" required></div>
+          <div class="campo"><label>Registro CRM / CRO + UF</label><input type="text" id="atestado-crm" placeholder="Ex: CRM-AM 12345" required></div>
+        </div>
+        <div class="campo"><label>CID / Observação (Opcional)</label><input type="text" id="atestado-cid" placeholder="Ex: CID Z00 / Repouso"></div>
+        <div class="campo"><label>Foto ou PDF Legível do Atestado</label><input type="file" id="atestado-arquivo" accept="image/*,.pdf" required></div>
+        <label class="check-item" style="border-color:var(--accent-line);">
+          <input type="checkbox" id="atestado-declaracao" required>
+          <span>Confirmo que este é um atestado médico oficial válido, sem rasuras, com carimbo e CRM/CRO ativo.</span>
+        </label>
+        <button type="submit" class="btn-primary">Enviar Atestado p/ Validação da Gerência</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-fundo" id="modal-ver-atestado">
+    <div class="modal" style="max-width:520px;">
+      <div class="recibo-card" id="conteudo-ver-atestado"></div>
+      <div class="no-print" style="display:flex; justify-content:flex-end;">
+        <button type="button" class="btn-outline" onclick="document.getElementById('modal-ver-atestado').classList.remove('aberto')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-fundo" id="modal-recibo">
-    <div class="modal" style="max-width:440px;">
+    <div class="modal" style="max-width:450px;">
       <div class="recibo-card" id="conteudo-recibo"></div>
       <div class="no-print" style="display:flex; justify-content:flex-end; gap:8px;">
         <button type="button" class="btn-outline" onclick="document.getElementById('modal-recibo').classList.remove('aberto')">Fechar</button>
@@ -1270,7 +1010,6 @@
     </div>
   </div>
 
-  <!-- ================= SCRIPT ================= -->
   <script>
     const METAS = [
       { id: 3, nome: '3ª Meta', alvo: 30000, comissao: 300 },
@@ -1278,35 +1017,29 @@
       { id: 1, nome: '1ª Meta', alvo: 50000, comissao: 500 }
     ];
 
-    let vendas = JSON.parse(localStorage.getItem('vendas_v2')) || [];
-    let pontos = JSON.parse(localStorage.getItem('pontos_v1')) || [];
-    let anamneses = JSON.parse(localStorage.getItem('anamneses_v1')) || [];
-    let configDiaria = JSON.parse(localStorage.getItem('config_diaria_v2')) || {
-      metaAlvo: 50000,
-      diasTotais: 26,
-      diasRestantes: 15
-    };
+    const SERVICOS_COM_FICHA = [
+      'Aplicação de Lóbulo Direito',
+      'Aplicação de Lóbulo Esquerdo',
+      'Aplicação dos Dois Lóbulos',
+      'Aplicação de Piercing',
+      'Serviço de Lobuloplastia',
+      'Tatuagem'
+    ];
 
-    // Garante ID em registros antigos de ponto
-    pontos = pontos.map((p, idx) => ({ id: p.id || (Date.now() - idx), ...p }));
+    let perfilAtual = 'atendente';
+    let vendedoras = JSON.parse(localStorage.getItem('tatto_vendedoras_v2')) || [
+      { id: 'v1', nome: 'Amanda (Atendente 01)', prefixo: 'AT1' },
+      { id: 'v2', nome: 'Camila (Atendente 02)', prefixo: 'AT2' },
+      { id: 'v3', nome: 'Beatriz (Atendente 03)', prefixo: 'AT3' }
+    ];
+    let vendedoraAtivaId = localStorage.getItem('tatto_vend_ativa') || 'v1';
+    let filtroGerenciaVendId = 'todas';
 
-    let carrinhoAtual = [];
-    let fotoTemp = '';
-    let fichaTemp = '';
-    let nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
-
-    // UTILITÁRIOS
-    function formatarMoeda(v) {
-      return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
+    function formatarMoeda(v) { return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
     function agoraLocalISO() {
       const d = new Date();
-      const off = d.getTimezoneOffset();
-      const local = new Date(d.getTime() - off * 60000);
-      return local.toISOString().slice(0, 16);
+      return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
     }
-
     function formatarDataHoraBR(isoLocal) {
       if (!isoLocal) return '';
       const d = new Date(isoLocal);
@@ -1314,61 +1047,144 @@
       return `${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
     }
 
-    function calcularNivel(total) {
-      if (total >= 50000) return 3;
-      if (total >= 40000) return 2;
-      if (total >= 30000) return 1;
-      return 0;
+    function gerarAssinaturaDemoBase64() {
+      const c = document.createElement('canvas');
+      c.width = 420; c.height = 110;
+      const ctx = c.getContext('2d');
+      ctx.strokeStyle = '#141418'; ctx.lineWidth = 2.4; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(45, 75);
+      ctx.bezierCurveTo(75, 25, 110, 90, 145, 48);
+      ctx.bezierCurveTo(175, 20, 195, 82, 235, 55);
+      ctx.bezierCurveTo(270, 35, 315, 72, 375, 46);
+      ctx.stroke();
+      return c.toDataURL('image/png');
     }
 
-    function calcularComissao(total) {
-      if (total >= 50000) return 500;
-      if (total >= 40000) return 400;
-      if (total >= 30000) return 300;
-      return 0;
+    function inicializarDadosDemo() {
+      if (localStorage.getItem('tatto_iniciado_v8')) return;
+      const hojeISO = agoraLocalISO();
+      const dataHoje = hojeISO.slice(0, 10);
+      const assDemo = gerarAssinaturaDemoBase64();
+      const idCliDemo = 1700001;
+
+      const clientesDemo = [{
+        id: idCliDemo, nome: 'Ariely Rufino de Sales', cpf: '056.756.582-38', nascimento: '2008-11-24',
+        tel: '(92) 99133-9330', endereco: 'Manaus / AM', contatoExtra: '', origem: 'Instagram',
+        sangue: 'O+', fotosDivulgacao: true, vendedoraId: 'v1', condicoes: [],
+        obs: 'Aba nasal / Joia em Titânio.', assinaturaImg: assDemo,
+        ultimaAtualizacaoFicha: formatarDataHoraBR(hojeISO),
+        procedimentosHistorico: [{
+          dataHora: formatarDataHoraBR(hojeISO),
+          procedimento: 'Aplicação de Piercing (Aba Nasal) — Joia Titânio',
+          vendedoraId: 'v1', alterouFicha: false, assinaturaImg: assDemo
+        }]
+      }];
+
+      const vendasDemo = [{
+        id: Date.now() - 20000, vendedoraId: 'v1', clienteId: String(idCliDemo),
+        cliente: 'Ariely Rufino de Sales', itens: [{ nome: 'Aplicação de Piercing', valor: 150 }],
+        servico: 'Aplicação de Piercing', ajusteTipo: 'nenhum', ajusteValor: 0, obs: '',
+        valor: 150, pagamento: 'Pix', data: dataHoje, isoHora: hojeISO, dataHora: formatarDataHoraBR(hojeISO)
+      }];
+
+      const pontosDemo = [
+        { id: Date.now() - 9000, vendedoraId: 'v1', tipo: 'Entrada', isoHora: `${dataHoje}T09:00`, dataHora: `${new Date().toLocaleDateString('pt-BR')} às 09:00`, status: 'aprovado', ajustado: false, obs: '' },
+        { id: Date.now() - 5000, vendedoraId: 'v2', tipo: 'Entrada', isoHora: `${dataHoje}T09:05`, isoSolicitado: `${dataHoje}T08:58`, tipoSolicitado: 'Entrada', dataHora: `${new Date().toLocaleDateString('pt-BR')} às 09:05`, dataHoraSolicitada: `${new Date().toLocaleDateString('pt-BR')} às 08:58`, status: 'pendente', ajustado: true, obs: 'Estava atendendo no balcão antes de abrir o sistema' }
+      ];
+
+      localStorage.setItem('tatto_clientes_v1', JSON.stringify(clientesDemo));
+      localStorage.setItem('vendas_v3', JSON.stringify(vendasDemo));
+      localStorage.setItem('pontos_v2', JSON.stringify(pontosDemo));
+      localStorage.setItem('tatto_iniciado_v8', '1');
     }
+    inicializarDadosDemo();
+
+    let clientes = JSON.parse(localStorage.getItem('tatto_clientes_v1')) || [];
+    let codigosFicha = JSON.parse(localStorage.getItem('tatto_codigos_ficha_v1')) || [];
+    let vendas = JSON.parse(localStorage.getItem('vendas_v3')) || [];
+    let pontos = JSON.parse(localStorage.getItem('pontos_v2')) || [];
+    let atestados = JSON.parse(localStorage.getItem('tatto_atestados_v1')) || [];
+    let configDiaria = JSON.parse(localStorage.getItem('config_diaria_v2')) || { metaAlvo: 50000, diasTotais: 26, diasRestantes: 15 };
+
+    let carrinhoAtual = [];
+    let tracosAssinatura = [];
+    let arquivoAtestadoTemp = '';
+    let nomeArquivoAtestadoTemp = '';
+    let sessaoFichaDesbloqueada = null;
+
+    function nomeVendedora(id) { const v = vendedoras.find(x => x.id === id); return v ? v.nome : 'Equipe'; }
+    function prefixoVendedora(id) { const idx = vendedoras.findIndex(x => x.id === id); return idx >= 0 ? `AT${idx + 1}` : 'AT1'; }
+    function calcularNivel(t) { return t >= 50000 ? 3 : t >= 40000 ? 2 : t >= 30000 ? 1 : 0; }
+    function calcularComissao(t) { return t >= 50000 ? 500 : t >= 40000 ? 400 : t >= 30000 ? 300 : 0; }
 
     function salvarDados() {
-      localStorage.setItem('vendas_v2', JSON.stringify(vendas));
-      localStorage.setItem('pontos_v1', JSON.stringify(pontos));
-      localStorage.setItem('anamneses_v1', JSON.stringify(anamneses));
+      localStorage.setItem('tatto_vendedoras_v2', JSON.stringify(vendedoras));
+      localStorage.setItem('tatto_vend_ativa', vendedoraAtivaId);
+      localStorage.setItem('tatto_clientes_v1', JSON.stringify(clientes));
+      localStorage.setItem('tatto_codigos_ficha_v1', JSON.stringify(codigosFicha));
+      localStorage.setItem('vendas_v3', JSON.stringify(vendas));
+      localStorage.setItem('pontos_v2', JSON.stringify(pontos));
+      localStorage.setItem('tatto_atestados_v1', JSON.stringify(atestados));
       localStorage.setItem('config_diaria_v2', JSON.stringify(configDiaria));
     }
 
-    // TEMA PRETO & ROSA / PRETO & BRANCO
-    const btnTema = document.getElementById('btn-tema');
-    if (localStorage.getItem('tema_pb') === '1') {
-      document.body.classList.add('tema-pb');
-      btnTema.textContent = 'Preto & Rosa';
+    function popularSelectsVendedoras() {
+      const opcoesIndividuais = vendedoras.map(v => `<option value="${v.id}">${v.nome}</option>`).join('');
+      ['select-vendedora-ativa', 'venda-vendedora', 'cod-vendedora', 'ponto-vendedora'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = opcoesIndividuais;
+      });
+      document.getElementById('select-vendedora-ativa').value = vendedoraAtivaId;
+
+      const opcoesGerencia = `<option value="todas">Todas as Vendedoras da Loja</option>` + opcoesIndividuais;
+      ['ger-select-vendedora', 'ger-select-vendedora-ponto'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.innerHTML = opcoesGerencia; el.value = filtroGerenciaVendId; }
+      });
     }
-    btnTema.addEventListener('click', () => {
-      document.body.classList.toggle('tema-pb');
-      const pb = document.body.classList.contains('tema-pb');
-      btnTema.textContent = pb ? 'Preto & Rosa' : 'Preto & Branco';
-      localStorage.setItem('tema_pb', pb ? '1' : '0');
+    popularSelectsVendedoras();
+
+    document.getElementById('select-vendedora-ativa').addEventListener('change', e => {
+      vendedoraAtivaId = e.target.value; salvarDados(); atualizarSistema();
     });
-
-    // NAVEGAÇÃO ENTRE PERFIS (MODO APRESENTAÇÃO)
-    const descricoesPerfil = {
-      atendente: 'Painel de Vendas, Comissões e Metas Diárias',
-      cliente: 'Autoatendimento: Valores, Ficha de Anamnese e Cuidados',
-      gerencia: 'Visão Geral da Loja, Equipe e Liberação de Acessos',
-      dev: 'Painel do Desenvolvedor, Backup e Próximas Fases'
-    };
-
-    document.querySelectorAll('.perfil-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const p = btn.dataset.perfil;
-        document.querySelectorAll('.perfil-btn').forEach(b => b.classList.remove('ativo'));
-        document.querySelectorAll('.visao-perfil').forEach(v => v.classList.remove('ativa'));
-        btn.classList.add('ativo');
-        document.getElementById(`perfil-${p}`).classList.add('ativa');
-        document.getElementById('subtitulo-perfil').textContent = descricoesPerfil[p];
-        document.getElementById('btn-nova-venda').style.display = (p === 'cliente') ? 'none' : 'inline-block';
+    ['ger-select-vendedora', 'ger-select-vendedora-ponto'].forEach(id => {
+      document.getElementById(id).addEventListener('change', e => {
+        filtroGerenciaVendId = e.target.value;
+        document.getElementById('ger-select-vendedora').value = filtroGerenciaVendId;
+        document.getElementById('ger-select-vendedora-ponto').value = filtroGerenciaVendId;
+        atualizarSistema();
       });
     });
 
-    // SUB-ABAS
+    const btnTema = document.getElementById('btn-tema');
+    if (localStorage.getItem('tema_pb') === '1') { document.body.classList.add('tema-pb'); btnTema.textContent = 'Preto / Rosa'; }
+    btnTema.addEventListener('click', () => {
+      document.body.classList.toggle('tema-pb');
+      const pb = document.body.classList.contains('tema-pb');
+      btnTema.textContent = pb ? 'Preto / Rosa' : 'Preto / Branco';
+      localStorage.setItem('tema_pb', pb ? '1' : '0');
+    });
+
+    const descricoesPerfil = {
+      atendente: 'Clientes / Vendas / Ponto / Metas',
+      cliente: 'Valores / Cadastro e Ficha (Com Código) / Cuidados',
+      gerencia: 'Auditoria da Loja / Aprovação de Ponto / Atestados / Clientes',
+      dev: 'Painel Técnico / Backup / Cronograma'
+    };
+
+    function mudarParaPerfil(nomePerfil) {
+      perfilAtual = nomePerfil;
+      document.querySelectorAll('.perfil-btn').forEach(b => b.classList.toggle('ativo', b.dataset.perfil === nomePerfil));
+      document.querySelectorAll('.visao-perfil').forEach(v => v.classList.remove('ativa'));
+      document.getElementById(`perfil-${nomePerfil}`).classList.add('ativa');
+      document.getElementById('subtitulo-perfil').textContent = descricoesPerfil[nomePerfil];
+      const ehAtendente = nomePerfil === 'atendente';
+      document.getElementById('btn-nova-venda').style.display = ehAtendente ? 'inline-block' : 'none';
+      document.getElementById('btn-encaminhar-ficha-topo').style.display = ehAtendente ? 'inline-block' : 'none';
+    }
+    document.querySelectorAll('.perfil-btn').forEach(btn => btn.addEventListener('click', () => mudarParaPerfil(btn.dataset.perfil)));
+
     document.querySelectorAll('.subtab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const secaoPai = btn.closest('.visao-perfil');
@@ -1379,47 +1195,367 @@
       });
     });
 
-    // MODAL DE VENDA E CARRINHO MULTI-ITENS
+    function irParaAbaFichaCliente() {
+      mudarParaPerfil('cliente');
+      const secCli = document.getElementById('perfil-cliente');
+      secCli.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('ativa'));
+      secCli.querySelectorAll('.subtab-painel').forEach(p => p.classList.remove('ativa'));
+      document.getElementById('tab-btn-cli-ficha').classList.add('ativa');
+      document.getElementById('cli-ficha-restrita').classList.add('ativa');
+    }
+
+    // GERAR CÓDIGO
+    const modalGerarCodigo = document.getElementById('modal-gerar-codigo');
+    let ultimoConviteGerado = null;
+
+    function abrirModalGerarCodigoFicha(clienteIdPre = 'novo') {
+      document.getElementById('form-gerar-codigo').reset();
+      document.getElementById('resultado-codigo-gerado').style.display = 'none';
+      document.getElementById('cod-vendedora').value = vendedoraAtivaId;
+      const selDest = document.getElementById('cod-tipo-cliente');
+      selDest.innerHTML = `<option value="novo">Novo Cliente (Cadastro + Ficha Inicial)</option>` +
+        clientes.map(c => `<option value="${c.id}">Retorno: ${c.nome} (CPF ${c.cpf})</option>`).join('');
+      selDest.value = String(clienteIdPre);
+      if (clienteIdPre !== 'novo') {
+        const cli = clientes.find(c => String(c.id) === String(clienteIdPre));
+        if (cli && cli.tel) document.getElementById('cod-whatsapp').value = cli.tel.replace(/\D/g, '');
+      }
+      modalGerarCodigo.classList.add('aberto');
+    }
+
+    document.getElementById('cod-tipo-cliente').addEventListener('change', e => {
+      const val = e.target.value;
+      if (val !== 'novo') {
+        const cli = clientes.find(c => String(c.id) === String(val));
+        if (cli && cli.tel) document.getElementById('cod-whatsapp').value = cli.tel.replace(/\D/g, '');
+      } else { document.getElementById('cod-whatsapp').value = ''; }
+    });
+    function fecharModalGerarCodigo() { modalGerarCodigo.classList.remove('aberto'); }
+    document.getElementById('btn-encaminhar-ficha-topo').addEventListener('click', () => abrirModalGerarCodigoFicha('novo'));
+
+    document.getElementById('form-gerar-codigo').addEventListener('submit', e => {
+      e.preventDefault();
+      const vendId = document.getElementById('cod-vendedora').value;
+      const tipoDest = document.getElementById('cod-tipo-cliente').value;
+      const proc = document.getElementById('cod-procedimento').value.trim();
+      const whats = document.getElementById('cod-whatsapp').value.replace(/\D/g, '');
+      const codigoUnico = `${prefixoVendedora(vendId)}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      const novoConvite = {
+        codigo: codigoUnico, vendedoraId: vendId, clienteId: tipoDest === 'novo' ? null : String(tipoDest),
+        procedimento: proc, whatsapp: whats, usado: false, criadoEm: formatarDataHoraBR(agoraLocalISO())
+      };
+      codigosFicha.unshift(novoConvite);
+      ultimoConviteGerado = novoConvite;
+      salvarDados(); atualizarSistema();
+      document.getElementById('texto-codigo-gerado').textContent = codigoUnico;
+      document.getElementById('resultado-codigo-gerado').style.display = 'flex';
+    });
+
+    document.getElementById('btn-enviar-cod-whats').addEventListener('click', () => {
+      if (!ultimoConviteGerado) return;
+      const msg = `Olá! Aqui é da *TATTO TATUAGEM & PIERCING*.\n\nPreencha e assine seu Cadastro / Ficha na *Aba Cliente* usando o código:\nCódigo: *${ultimoConviteGerado.codigo}*\nProcedimento: ${ultimoConviteGerado.procedimento}\nLink: ${window.location.href.split('#')[0]}`;
+      const fone = ultimoConviteGerado.whatsapp ? `55${ultimoConviteGerado.whatsapp.replace(/^55/, '')}` : '';
+      window.open(`https://wa.me/${fone}?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+
+    document.getElementById('btn-testar-aba-cliente').addEventListener('click', () => {
+      if (ultimoConviteGerado) document.getElementById('input-codigo-desbloqueio-cli').value = ultimoConviteGerado.codigo;
+      fecharModalGerarCodigo(); irParaAbaFichaCliente();
+    });
+
+    // ABA CLIENTE: DESBLOQUEIO + ASSINATURA
+    const canvasAss = document.getElementById('canvas-assinatura');
+    const ctxAss = canvasAss.getContext('2d');
+    const chkAlterouFicha = document.getElementById('chk-alterou-ficha');
+    let desenhando = false, assinou = false;
+
+    function limparQuadroAssinatura() { ctxAss.clearRect(0, 0, canvasAss.width, canvasAss.height); tracosAssinatura = []; assinou = false; }
+    function setCamposSaudeHabilitados(habilitar) {
+      document.querySelectorAll('#ana-checks input').forEach(chk => chk.disabled = !habilitar);
+      document.getElementById('ana-obs').disabled = !habilitar;
+      document.getElementById('ana-sangue').disabled = !habilitar;
+      document.getElementById('ana-fotos-divulgacao').disabled = !habilitar;
+    }
+    function bloquearFichaClienteNovamente() {
+      sessaoFichaDesbloqueada = null; limparQuadroAssinatura();
+      document.getElementById('form-anamnese-cliente').reset();
+      document.getElementById('input-codigo-desbloqueio-cli').value = '';
+      document.getElementById('cli-container-formulario-ficha').style.display = 'none';
+      document.getElementById('cli-tela-bloqueio-ficha').style.display = 'block';
+    }
+
+    document.getElementById('btn-validar-codigo-cli').addEventListener('click', () => {
+      const digitado = document.getElementById('input-codigo-desbloqueio-cli').value.trim().toUpperCase();
+      if (!digitado) return alert('Digite o código informado pela sua atendente.');
+      let convite = codigosFicha.find(c => c.codigo.toUpperCase() === digitado && !c.usado);
+
+      if (!convite && (digitado === '1010' || /^AT\d-1010$/.test(digitado))) {
+        let vDemo = vendedoraAtivaId;
+        if (digitado.startsWith('AT')) { const n = parseInt(digitado.slice(2, 3), 10) - 1; if (vendedoras[n]) vDemo = vendedoras[n].id; }
+        convite = { codigo: digitado, vendedoraId: vDemo, clienteId: null, procedimento: '', temporarioDemo: true };
+      }
+      if (!convite) return alert('Código inválido ou já utilizado.');
+
+      sessaoFichaDesbloqueada = convite; limparQuadroAssinatura();
+      document.getElementById('cli-tela-bloqueio-ficha').style.display = 'none';
+      document.getElementById('cli-container-formulario-ficha').style.display = 'block';
+
+      const boxToggle = document.getElementById('box-toggle-edicao-retorno');
+      const blocoAss = document.getElementById('bloco-assinatura-cliente');
+      const btnSalvar = document.getElementById('btn-salvar-ficha-cliente');
+
+      if (convite.clienteId) {
+        const cli = clientes.find(c => String(c.id) === String(convite.clienteId));
+        if (cli) {
+          document.getElementById('cli-ficha-titulo').textContent = `Retorno — ${cli.nome}`;
+          document.getElementById('cli-ficha-subtitulo').textContent = `Atendente: ${nomeVendedora(convite.vendedoraId)} · Ficha já anexada`;
+          document.getElementById('ana-nome').value = cli.nome;
+          document.getElementById('ana-cpf').value = cli.cpf;
+          document.getElementById('ana-nascimento').value = cli.nascimento || '';
+          document.getElementById('ana-tel').value = cli.tel;
+          document.getElementById('ana-endereco').value = cli.endereco || '';
+          document.getElementById('ana-contato-extra').value = cli.contatoExtra || '';
+          document.getElementById('ana-origem').value = cli.origem || '';
+          document.getElementById('ana-sangue').value = cli.sangue || '';
+          document.getElementById('ana-fotos-divulgacao').checked = Boolean(cli.fotosDivulgacao);
+          document.getElementById('ana-procedimento').value = convite.procedimento || '';
+          document.getElementById('ana-obs').value = cli.obs || '';
+          document.getElementById('ana-nome').readOnly = true;
+          document.getElementById('ana-cpf').readOnly = true;
+          document.querySelectorAll('#ana-checks input').forEach(chk => chk.checked = (cli.condicoes || []).includes(chk.value));
+          boxToggle.style.display = 'block'; chkAlterouFicha.checked = false;
+          setCamposSaudeHabilitados(false); blocoAss.style.display = 'none';
+          btnSalvar.textContent = 'Confirmar Novo Procedimento (Manter Ficha Atual)';
+          return;
+        }
+      }
+
+      document.getElementById('cli-ficha-titulo').textContent = 'Cadastro de Cliente / Termo de Autorização';
+      document.getElementById('cli-ficha-subtitulo').textContent = `Código ${convite.codigo} · Atendente: ${nomeVendedora(convite.vendedoraId)}`;
+      document.getElementById('form-anamnese-cliente').reset();
+      document.getElementById('ana-procedimento').value = convite.procedimento || '';
+      document.getElementById('ana-nome').readOnly = false;
+      document.getElementById('ana-cpf').readOnly = false;
+      boxToggle.style.display = 'none'; chkAlterouFicha.checked = false;
+      setCamposSaudeHabilitados(true); blocoAss.style.display = 'flex';
+      document.getElementById('label-assinatura-cliente').textContent = 'Assinatura do Cliente (Obrigatória)';
+      btnSalvar.textContent = 'Assinar / Enviar Cadastro e Ficha';
+    });
+
+    chkAlterouFicha.addEventListener('change', () => {
+      const editando = chkAlterouFicha.checked;
+      setCamposSaudeHabilitados(editando);
+      document.getElementById('bloco-assinatura-cliente').style.display = editando ? 'flex' : 'none';
+      document.getElementById('btn-salvar-ficha-cliente').textContent = editando ? 'Atualizar Ficha com Nova Assinatura + Confirmar Retorno' : 'Confirmar Novo Procedimento (Manter Ficha Atual)';
+    });
+
+    function posCanvas(e) {
+      const r = canvasAss.getBoundingClientRect();
+      const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      const cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      return { x: cx * (canvasAss.width / r.width), y: cy * (canvasAss.height / r.height) };
+    }
+    ['mousedown', 'touchstart'].forEach(ev => canvasAss.addEventListener(ev, e => {
+      e.preventDefault(); desenhando = true; assinou = true;
+      const p = posCanvas(e); tracosAssinatura.push([p]); ctxAss.beginPath(); ctxAss.moveTo(p.x, p.y);
+    }));
+    ['mousemove', 'touchmove'].forEach(ev => canvasAss.addEventListener(ev, e => {
+      if (!desenhando) return; e.preventDefault();
+      const p = posCanvas(e); tracosAssinatura[tracosAssinatura.length - 1].push(p);
+      ctxAss.lineWidth = 2.4; ctxAss.lineCap = 'round';
+      ctxAss.strokeStyle = document.body.classList.contains('tema-pb') ? '#ffffff' : '#e12b78';
+      ctxAss.lineTo(p.x, p.y); ctxAss.stroke();
+    }));
+    ['mouseup', 'mouseleave', 'touchend'].forEach(ev => canvasAss.addEventListener(ev, () => desenhando = false));
+    document.getElementById('btn-limpar-assinatura').addEventListener('click', limparQuadroAssinatura);
+
+    function exportarAssinaturaEscura() {
+      const c = document.createElement('canvas'); c.width = canvasAss.width; c.height = canvasAss.height;
+      const ctx = c.getContext('2d'); ctx.strokeStyle = '#141418'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      tracosAssinatura.forEach(tr => { if (!tr.length) return; ctx.beginPath(); ctx.moveTo(tr[0].x, tr[0].y); tr.forEach(pt => ctx.lineTo(pt.x, pt.y)); ctx.stroke(); });
+      return c.toDataURL('image/png');
+    }
+
+    document.getElementById('form-anamnese-cliente').addEventListener('submit', e => {
+      e.preventDefault();
+      if (!sessaoFichaDesbloqueada) return;
+      const ehRetorno = Boolean(sessaoFichaDesbloqueada.clienteId);
+      const exigeAssinatura = !ehRetorno || chkAlterouFicha.checked;
+      if (exigeAssinatura && (!assinou || tracosAssinatura.length === 0)) return alert('Faça sua assinatura no quadro antes de confirmar.');
+
+      const condicoesMarcadas = Array.from(document.querySelectorAll('#ana-checks input:checked')).map(c => c.value);
+      const dataHoraAtual = formatarDataHoraBR(agoraLocalISO());
+      const procHoje = document.getElementById('ana-procedimento').value.trim();
+      const vendResp = sessaoFichaDesbloqueada.vendedoraId || vendedoraAtivaId;
+      const cpfLimpo = document.getElementById('ana-cpf').value.trim();
+
+      let clienteExistente = ehRetorno
+        ? clientes.find(c => String(c.id) === String(sessaoFichaDesbloqueada.clienteId))
+        : clientes.find(c => c.cpf.replace(/\D/g, '') !== '' && c.cpf.replace(/\D/g, '') === cpfLimpo.replace(/\D/g, ''));
+
+      if (!clienteExistente) {
+        const assImg = exportarAssinaturaEscura();
+        clientes.unshift({
+          id: Date.now(), nome: document.getElementById('ana-nome').value.trim(), cpf: cpfLimpo,
+          nascimento: document.getElementById('ana-nascimento').value, tel: document.getElementById('ana-tel').value.trim(),
+          endereco: document.getElementById('ana-endereco').value.trim(), contatoExtra: document.getElementById('ana-contato-extra').value.trim(),
+          origem: document.getElementById('ana-origem').value, sangue: document.getElementById('ana-sangue').value.trim(),
+          fotosDivulgacao: document.getElementById('ana-fotos-divulgacao').checked, vendedoraId: vendResp,
+          condicoes: condicoesMarcadas, obs: document.getElementById('ana-obs').value.trim(),
+          assinaturaImg: assImg, ultimaAtualizacaoFicha: dataHoraAtual,
+          procedimentosHistorico: [{ dataHora: dataHoraAtual, procedimento: procHoje, vendedoraId: vendResp, alterouFicha: false, assinaturaImg: assImg }]
+        });
+      } else {
+        clienteExistente.tel = document.getElementById('ana-tel').value.trim();
+        clienteExistente.endereco = document.getElementById('ana-endereco').value.trim();
+        clienteExistente.contatoExtra = document.getElementById('ana-contato-extra').value.trim();
+        clienteExistente.origem = document.getElementById('ana-origem').value;
+        let assUsada = clienteExistente.assinaturaImg;
+        if (!ehRetorno || chkAlterouFicha.checked) {
+          assUsada = exportarAssinaturaEscura();
+          clienteExistente.condicoes = condicoesMarcadas;
+          clienteExistente.obs = document.getElementById('ana-obs').value.trim();
+          clienteExistente.sangue = document.getElementById('ana-sangue').value.trim();
+          clienteExistente.fotosDivulgacao = document.getElementById('ana-fotos-divulgacao').checked;
+          clienteExistente.assinaturaImg = assUsada;
+          clienteExistente.ultimaAtualizacaoFicha = dataHoraAtual;
+        }
+        clienteExistente.procedimentosHistorico = clienteExistente.procedimentosHistorico || [];
+        clienteExistente.procedimentosHistorico.unshift({ dataHora: dataHoraAtual, procedimento: procHoje, vendedoraId: vendResp, alterouFicha: !ehRetorno || chkAlterouFicha.checked, assinaturaImg: assUsada });
+      }
+
+      if (!sessaoFichaDesbloqueada.temporarioDemo) {
+        const idxCod = codigosFicha.findIndex(c => c.codigo === sessaoFichaDesbloqueada.codigo);
+        if (idxCod !== -1) codigosFicha[idxCod].usado = true;
+      }
+      salvarDados(); bloquearFichaClienteNovamente(); atualizarSistema();
+      alert('Cadastro e ficha enviados! O documento já está anexado automaticamente na aba Clientes Cadastrados.');
+    });
+
+    function verProntuarioCliente(clienteId) {
+      const c = clientes.find(x => String(x.id) === String(clienteId));
+      if (!c) return;
+      document.getElementById('modal-recibo').classList.remove('aberto');
+      const condHtml = c.condicoes && c.condicoes.length > 0 ? c.condicoes.map(i => `<span class="tag accent">${i}</span>`).join(' ') : `<span class="tag">Nenhuma condição clínica marcada</span>`;
+      const totalGastoCli = vendas.filter(v => String(v.clienteId) === String(c.id)).reduce((s, v) => s + v.valor, 0);
+      const histProcHtml = (c.procedimentosHistorico || []).map(h => `
+        <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding:6px 0; font-size:0.78rem; gap:8px; flex-wrap:wrap;">
+          <span><strong>${h.procedimento}</strong> · Atendente: ${nomeVendedora(h.vendedoraId)}</span>
+          <span class="num">${h.dataHora} ${h.alterouFicha ? '(Ficha Re-assinada)' : '(Ficha Base)'}</span>
+        </div>`).join('');
+
+      document.getElementById('conteudo-ver-anamnese').innerHTML = `
+        <div style="border-bottom:1px solid var(--border-strong); padding-bottom:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
+          <div><h3 class="fonte-loja" style="font-size:1.45rem;">TATTO TATUAGEM &amp; PIERCING</h3><small style="color:var(--muted);">Cadastro de Cliente / Termo de Autorização</small></div>
+          <span class="tag num">Compras: ${formatarMoeda(totalGastoCli)}</span>
+        </div>
+        <div style="font-size:0.82rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:8px;">
+          <div><strong>Nome:</strong> ${c.nome}</div>
+          <div><strong>CPF:</strong> <span class="num">${c.cpf}</span></div>
+          <div><strong>Nascimento:</strong> <span class="num">${c.nascimento || 'Não informado'}</span></div>
+          <div><strong>WhatsApp:</strong> <span class="num">${c.tel}</span></div>
+          <div><strong>Endereço:</strong> ${c.endereco || 'Não informado'}</div>
+          <div><strong>Origem:</strong> ${c.origem || '-'} ${c.contatoExtra ? '· ' + c.contatoExtra : ''}</div>
+          <div><strong>Tipo Sanguíneo:</strong> ${c.sangue || 'Não informado'}</div>
+          <div><strong>Fotos Redes Sociais:</strong> ${c.fotosDivulgacao ? 'Autorizado (Sim)' : 'Não autorizado'}</div>
+        </div>
+        <div style="border-top:1px solid var(--border); padding-top:10px;">
+          <strong style="font-size:0.72rem; color:var(--muted); text-transform:uppercase;">Histórico de Saúde:</strong>
+          <div class="venda-tags" style="margin-top:6px;">${condHtml}</div>
+          <p style="font-size:0.8rem; margin-top:8px;"><strong>Observações:</strong> ${c.obs || 'Nenhuma observação adicional.'}</p>
+        </div>
+        <div style="border-top:1px solid var(--border); padding-top:10px;">
+          <strong style="font-size:0.72rem; color:var(--muted); text-transform:uppercase;">Histórico de Procedimentos:</strong>
+          <div style="margin-top:6px;">${histProcHtml || '<small>Sem registros</small>'}</div>
+        </div>
+        <div style="padding-top:6px;">
+          <strong style="font-size:0.72rem; color:var(--muted); text-transform:uppercase;">Assinatura do Cliente:</strong>
+          <div class="assinatura-preview" style="margin-top:6px;">${c.assinaturaImg ? `<img src="${c.assinaturaImg}" alt="Assinatura">` : '<small>Sem assinatura</small>'}</div>
+          <small style="display:block; text-align:center; color:var(--muted); margin-top:4px;">${c.nome} · CPF ${c.cpf} · Manaus, ${c.ultimaAtualizacaoFicha || '-'}</small>
+        </div>`;
+      document.getElementById('modal-ver-anamnese').classList.add('aberto');
+    }
+    function imprimirProntuarioDireto(id) { verProntuarioCliente(id); setTimeout(() => window.print(), 220); }
+
+    // VENDAS + TRAVA DE FICHA
     const modalVenda = document.getElementById('modal-venda');
     const elItemServico = document.getElementById('item-servico');
     const elItemValor = document.getElementById('item-valor');
     const elAjusteTipo = document.getElementById('venda-ajuste-tipo');
     const elAjusteValor = document.getElementById('venda-ajuste-valor');
+    const selectClienteVenda = document.getElementById('venda-cliente-id');
+
+    function popularSelectClientesVenda(selecionarId = '') {
+      selectClienteVenda.innerHTML = `<option value="">Cliente Avulso / Sem Ficha</option>` +
+        clientes.map(c => `<option value="${c.id}">Cadastrado: ${c.nome} (CPF ${c.cpf})</option>`).join('');
+      if (selecionarId) selectClienteVenda.value = String(selecionarId);
+      atualizarAvisoClienteNaVenda();
+    }
+
+    function verificarTravaProcedimento() {
+      const itensConsiderados = carrinhoAtual.length > 0 ? carrinhoAtual.map(i => i.nome) : [elItemServico.value];
+      const exigeFicha = itensConsiderados.some(nome => SERVICOS_COM_FICHA.includes(nome));
+      const temCliente = Boolean(selectClienteVenda.value);
+      const travado = exigeFicha && !temCliente;
+      document.getElementById('alerta-trava-ficha').style.display = travado ? 'block' : 'none';
+      document.getElementById('btn-submit-venda').disabled = travado;
+    }
+
+    function atualizarAvisoClienteNaVenda() {
+      const box = document.getElementById('box-info-cliente-venda');
+      const cid = selectClienteVenda.value;
+      if (cid) {
+        const cli = clientes.find(c => String(c.id) === String(cid));
+        box.style.display = 'flex';
+        document.getElementById('texto-ficha-vinculada').textContent = `Ficha anexada: ${cli ? cli.nome : ''} (${(cli?.procedimentosHistorico || []).length} registro(s))`;
+      } else { box.style.display = 'none'; }
+      verificarTravaProcedimento();
+    }
+
+    selectClienteVenda.addEventListener('change', atualizarAvisoClienteNaVenda);
+    document.getElementById('btn-encaminhar-retorno-venda').addEventListener('click', () => {
+      const cid = selectClienteVenda.value; modalVenda.classList.remove('aberto'); abrirModalGerarCodigoFicha(cid || 'novo');
+    });
 
     function sincronizarCampoItem() {
-      const fixo = elItemServico.options[elItemServico.selectedIndex].dataset.fixo;
-      if (fixo === 'manual') {
+      const opt = elItemServico.options[elItemServico.selectedIndex];
+      const fixo = opt.dataset.fixo;
+      const regra = opt.dataset.regra;
+      const avisoBox = document.getElementById('aviso-regra-item');
+
+      if (regra === 'atualizacao' || regra === 'remocao') {
+        avisoBox.style.display = 'block';
+        avisoBox.textContent = regra === 'atualizacao'
+          ? 'De 1 a 4 atualizações = R$ 30,00 no total. A partir de 5, edite o valor abaixo conforme valores adicionais da loja.'
+          : 'De 1 a 4 remoções = R$ 30,00 no total. A partir de 5, edite o valor abaixo conforme valores adicionais da loja.';
+        elItemValor.readOnly = false;
+        elItemValor.value = fixo;
+      } else if (fixo === 'manual') {
+        avisoBox.style.display = 'none';
         elItemValor.readOnly = false;
         elItemValor.value = '';
-        elItemValor.placeholder = 'Digite o valor (R$)';
+        elItemValor.placeholder = 'Valor (R$)';
       } else {
+        avisoBox.style.display = 'none';
         elItemValor.readOnly = true;
         elItemValor.value = fixo;
       }
+      calcularTotalVenda();
+      verificarTravaProcedimento();
     }
     elItemServico.addEventListener('change', sincronizarCampoItem);
 
     document.getElementById('btn-add-item').addEventListener('click', () => {
       const val = parseFloat(elItemValor.value);
-      if (isNaN(val) || val <= 0) {
-        alert('Informe um valor válido para incluir o item.');
-        return;
-      }
+      if (isNaN(val) || val <= 0) return alert('Informe um valor válido.');
       carrinhoAtual.push({ nome: elItemServico.value, valor: val });
       renderizarCarrinho();
-      if (!elItemValor.readOnly) elItemValor.value = '';
     });
-
-    function removerItemCarrinho(idx) {
-      carrinhoAtual.splice(idx, 1);
-      renderizarCarrinho();
-    }
+    function removerItemCarrinho(idx) { carrinhoAtual.splice(idx, 1); renderizarCarrinho(); }
 
     function calcularTotalVenda() {
-      const somaItens = carrinhoAtual.length > 0
-        ? carrinhoAtual.reduce((s, i) => s + i.valor, 0)
-        : (parseFloat(elItemValor.value) || 0);
-
+      const somaItens = carrinhoAtual.length > 0 ? carrinhoAtual.reduce((s, i) => s + i.valor, 0) : (parseFloat(elItemValor.value) || 0);
       const aj = parseFloat(elAjusteValor.value) || 0;
       let final = somaItens;
       if (elAjusteTipo.value === 'mais') final += aj;
@@ -1429,461 +1565,401 @@
     }
 
     function renderizarCarrinho() {
-      const ul = document.getElementById('carrinho-lista');
-      ul.innerHTML = carrinhoAtual.map((item, i) => `
+      document.getElementById('carrinho-lista').innerHTML = carrinhoAtual.map((item, i) => `
         <li class="carrinho-item">
-          <span>${item.nome} — <strong>${formatarMoeda(item.valor)}</strong></span>
+          <span>${item.nome} — <strong class="num">${formatarMoeda(item.valor)}</strong></span>
           <button type="button" class="btn-mini" onclick="removerItemCarrinho(${i})">✕</button>
-        </li>
-      `).join('');
+        </li>`).join('');
       calcularTotalVenda();
+      verificarTravaProcedimento();
     }
 
     elItemValor.addEventListener('input', calcularTotalVenda);
-    elAjusteTipo.addEventListener('change', () => {
-      elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
-      if (elAjusteValor.disabled) elAjusteValor.value = '';
-      calcularTotalVenda();
-    });
+    elAjusteTipo.addEventListener('change', () => { elAjusteValor.disabled = elAjusteTipo.value === 'nenhum'; if (elAjusteValor.disabled) elAjusteValor.value = ''; calcularTotalVenda(); });
     elAjusteValor.addEventListener('input', calcularTotalVenda);
+    document.querySelectorAll('.pill-btn').forEach(btn => btn.addEventListener('click', () => { btn.classList.toggle('ativo'); document.getElementById(btn.dataset.opt).classList.toggle('visivel'); }));
 
-    // PILLS OPCIONAIS
-    document.querySelectorAll('.pill-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('ativo');
-        document.getElementById(btn.dataset.opt).classList.toggle('visivel');
-      });
-    });
-
-    // COMPRESSÃO DE IMAGEM
-    function lerImagem(input, cb) {
-      input.addEventListener('change', e => {
-        const f = e.target.files[0];
-        if (!f) return;
-        const r = new FileReader();
-        r.onload = ev => {
-          const img = new Image();
-          img.onload = () => {
-            const c = document.createElement('canvas');
-            const esc = Math.min(1, 650 / img.width);
-            c.width = img.width * esc;
-            c.height = img.height * esc;
-            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-            cb(c.toDataURL('image/jpeg', 0.7));
-          };
-          img.src = ev.target.result;
-        };
-        r.readAsDataURL(f);
-      });
-    }
-    lerImagem(document.getElementById('venda-foto'), d => fotoTemp = d);
-    lerImagem(document.getElementById('venda-ficha'), d => fichaTemp = d);
-
-    function abrirModalNovaVenda() {
+    function abrirModalNovaVenda(clientePreId = '') {
       document.getElementById('form-venda').reset();
       document.getElementById('venda-edit-id').value = '';
       document.getElementById('modal-venda-titulo').textContent = 'Registrar Nova Venda';
+      document.getElementById('venda-vendedora').value = vendedoraAtivaId;
       carrinhoAtual = [];
-      fotoTemp = '';
-      fichaTemp = '';
       elAjusteValor.disabled = true;
       document.getElementById('venda-datahora').value = agoraLocalISO();
       document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('ativo'));
       document.querySelectorAll('.bloco-opt').forEach(b => b.classList.remove('visivel'));
+      popularSelectClientesVenda(clientePreId);
       sincronizarCampoItem();
       renderizarCarrinho();
       modalVenda.classList.add('aberto');
     }
-
-    document.getElementById('btn-nova-venda').addEventListener('click', abrirModalNovaVenda);
+    document.getElementById('btn-nova-venda').addEventListener('click', () => abrirModalNovaVenda());
     document.getElementById('btn-fechar-venda').addEventListener('click', () => modalVenda.classList.remove('aberto'));
 
     document.getElementById('form-venda').addEventListener('submit', e => {
       e.preventDefault();
       if (carrinhoAtual.length === 0) {
         const v = parseFloat(elItemValor.value);
-        if (isNaN(v) || v <= 0) {
-          alert('Informe o valor ou inclua ao menos 1 item na venda.');
-          return;
-        }
+        if (isNaN(v) || v <= 0) return alert('Inclua ao menos 1 item válido.');
         carrinhoAtual.push({ nome: elItemServico.value, valor: v });
       }
-
-      const valorFinal = calcularTotalVenda();
+      const vendEscolhida = document.getElementById('venda-vendedora').value || vendedoraAtivaId;
+      const nivelAntes = calcularNivel(vendas.filter(x => x.vendedoraId === vendEscolhida).reduce((s, v) => s + v.valor, 0));
+      const cliId = selectClienteVenda.value;
+      const cliObj = clientes.find(c => String(c.id) === String(cliId));
       const dhEscolhida = document.getElementById('venda-datahora').value || agoraLocalISO();
-      const dataISO = dhEscolhida.slice(0, 10);
       const editId = Number(document.getElementById('venda-edit-id').value);
 
       const registro = {
-        id: editId || Date.now(),
-        itens: [...carrinhoAtual],
-        servico: carrinhoAtual.map(i => i.nome).join(' + '),
-        ajusteTipo: elAjusteTipo.value,
-        ajusteValor: parseFloat(elAjusteValor.value) || 0,
-        obs: document.getElementById('venda-obs').value.trim(),
-        valor: valorFinal,
-        cliente: document.getElementById('venda-cliente').value.trim(),
+        id: editId || Date.now(), vendedoraId: vendEscolhida, clienteId: cliId || '',
+        cliente: cliObj ? cliObj.nome : document.getElementById('venda-cliente').value.trim(),
+        itens: [...carrinhoAtual], servico: carrinhoAtual.map(i => i.nome).join(' + '),
+        ajusteTipo: elAjusteTipo.value, ajusteValor: parseFloat(elAjusteValor.value) || 0,
+        obs: document.getElementById('venda-obs').value.trim(), valor: calcularTotalVenda(),
         pagamento: document.getElementById('venda-pagamento').value,
-        data: dataISO,
-        isoHora: dhEscolhida,
-        dataHora: formatarDataHoraBR(dhEscolhida),
-        foto: fotoTemp,
-        ficha: fichaTemp
+        data: dhEscolhida.slice(0, 10), isoHora: dhEscolhida, dataHora: formatarDataHoraBR(dhEscolhida)
       };
 
-      if (editId) {
-        const idx = vendas.findIndex(v => v.id === editId);
-        if (idx !== -1) vendas[idx] = registro;
-      } else {
-        vendas.unshift(registro);
-      }
+      if (editId) { const idx = vendas.findIndex(v => v.id === editId); if (idx !== -1) vendas[idx] = registro; }
+      else vendas.unshift(registro);
 
       salvarDados();
-
-      const novoTotal = vendas.reduce((s, v) => s + v.valor, 0);
-      const novoNivel = calcularNivel(novoTotal);
-      if (novoNivel > nivelAnterior) dispararConfete();
-      nivelAnterior = novoNivel;
-
-      modalVenda.classList.remove('aberto');
-      atualizarSistema();
+      if (calcularNivel(vendas.filter(x => x.vendedoraId === vendEscolhida).reduce((s, v) => s + v.valor, 0)) > nivelAntes) dispararConfete();
+      modalVenda.classList.remove('aberto'); atualizarSistema();
     });
 
     function editarVenda(id) {
-      const v = vendas.find(x => x.id === id);
-      if (!v) return;
-      abrirModalNovaVenda();
+      const v = vendas.find(x => x.id === id); if (!v) return;
+      abrirModalNovaVenda(v.clienteId || '');
       document.getElementById('venda-edit-id').value = v.id;
-      document.getElementById('modal-venda-titulo').textContent = 'Editar Venda';
+      document.getElementById('modal-venda-titulo').textContent = 'Editar Registro de Venda';
+      document.getElementById('venda-vendedora').value = v.vendedoraId || vendedoraAtivaId;
       carrinhoAtual = v.itens ? [...v.itens] : [{ nome: v.servico || 'Venda', valor: v.valor }];
       elAjusteTipo.value = v.ajusteTipo || 'nenhum';
       elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
       elAjusteValor.value = v.ajusteValor || '';
       document.getElementById('venda-obs').value = v.obs || '';
-      document.getElementById('venda-cliente').value = v.cliente || '';
+      if (!v.clienteId) document.getElementById('venda-cliente').value = v.cliente || '';
       document.getElementById('venda-pagamento').value = v.pagamento || '';
       document.getElementById('venda-datahora').value = v.isoHora || agoraLocalISO();
-      fotoTemp = v.foto || '';
-      fichaTemp = v.ficha || '';
       renderizarCarrinho();
     }
+    function excluirVenda(id) { if (!confirm('Remover esta venda?')) return; vendas = vendas.filter(v => v.id !== id); salvarDados(); atualizarSistema(); }
 
-    function excluirVenda(id) {
-      if (!confirm('Deseja remover esta venda?')) return;
-      vendas = vendas.filter(v => v.id !== id);
-      nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
-      salvarDados();
-      atualizarSistema();
-    }
-
-    // RECIBO DO CLIENTE
     function abrirRecibo(id) {
-      const v = vendas.find(x => x.id === id);
-      if (!v) return;
-      const itensHtml = (v.itens || [{ nome: v.servico, valor: v.valor }])
-        .map(i => `<div style="display:flex; justify-content:space-between; font-size:0.88rem;"><span>${i.nome}</span><span>${formatarMoeda(i.valor)}</span></div>`)
-        .join('');
-
+      const v = vendas.find(x => x.id === id); if (!v) return;
+      document.getElementById('modal-ver-anamnese').classList.remove('aberto');
+      const itensHtml = (v.itens || [{ nome: v.servico, valor: v.valor }]).map(i => `<div style="display:flex; justify-content:space-between; font-size:0.86rem;"><span>${i.nome}</span><span class="num">${formatarMoeda(i.valor)}</span></div>`).join('');
       document.getElementById('conteudo-recibo').innerHTML = `
-        <div style="text-align:center; border-bottom:1px dashed var(--border); padding-bottom:10px;">
-          <h3 style="color:var(--accent);">STUDIO FLOW</h3>
+        <div style="text-align:center; border-bottom:1px solid var(--border); padding-bottom:12px;">
+          <h3 class="fonte-loja" style="font-size:1.4rem;">TATTO TATUAGEM &amp; PIERCING</h3>
           <small style="color:var(--muted);">Comprovante de Atendimento</small>
         </div>
-        <div style="font-size:0.85rem; color:var(--muted);">
-          <div><strong>Data:</strong> ${v.dataHora || v.data}</div>
+        <div style="font-size:0.82rem; color:var(--muted); display:flex; flex-direction:column; gap:4px;">
+          <div><strong>Data / Hora:</strong> <span class="num">${v.dataHora || v.data}</span></div>
+          <div><strong>Atendimento:</strong> ${nomeVendedora(v.vendedoraId)}</div>
           ${v.cliente ? `<div><strong>Cliente:</strong> ${v.cliente}</div>` : ''}
           ${v.pagamento ? `<div><strong>Pagamento:</strong> ${v.pagamento}</div>` : ''}
         </div>
         <div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:10px 0; display:flex; flex-direction:column; gap:6px;">
-          ${itensHtml}
-          ${v.obs ? `<small style="color:var(--accent-2);">Obs: ${v.obs}</small>` : ''}
+          ${itensHtml}${v.obs ? `<small style="color:var(--accent-2);">Obs: ${v.obs}</small>` : ''}
         </div>
-        <div style="display:flex; justify-content:space-between; font-size:1.1rem;">
-          <strong>Total Pago</strong>
-          <strong style="color:var(--accent);">${formatarMoeda(v.valor)}</strong>
-        </div>
-        <small style="color:var(--muted); text-align:center; margin-top:6px;">
-          Siga higienizando conforme as recomendações de pós-procedimento!
-        </small>
-      `;
+        <div style="display:flex; justify-content:space-between; font-size:1.05rem;">
+          <strong>Total Pago</strong><strong class="num" style="color:var(--accent);">${formatarMoeda(v.valor)}</strong>
+        </div>`;
       document.getElementById('modal-recibo').classList.add('aberto');
     }
 
-    // =========================================================
-    // PONTO RÁPIDO + AJUSTE MANUAL / EDIÇÃO DE PONTO
-    // =========================================================
+    // PONTO E ATESTADOS
     const modalPonto = document.getElementById('modal-ponto');
-
-    setInterval(() => {
-      const el = document.getElementById('relogio-ponto');
-      if (el) el.textContent = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    }, 1000);
+    setInterval(() => { const el = document.getElementById('relogio-ponto'); if (el) el.textContent = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); }, 1000);
 
     function baterPonto(tipo) {
       const iso = agoraLocalISO();
-      pontos.unshift({
-        id: Date.now(),
-        tipo,
-        isoHora: iso,
-        dataHora: formatarDataHoraBR(iso),
-        ajustado: false,
-        obs: ''
-      });
-      salvarDados();
-      atualizarSistema();
+      pontos.unshift({ id: Date.now(), vendedoraId: vendedoraAtivaId, tipo, isoHora: iso, dataHora: formatarDataHoraBR(iso), status: 'aprovado', ajustado: false, obs: '' });
+      salvarDados(); atualizarSistema();
     }
 
-    document.getElementById('btn-abrir-ajuste-ponto').addEventListener('click', () => {
+    function configurarModalPonto(comoGerente, reg = null) {
       document.getElementById('form-ponto').reset();
-      document.getElementById('ponto-edit-id').value = '';
-      document.getElementById('modal-ponto-titulo').textContent = 'Ajuste Manual de Ponto';
-      document.getElementById('ponto-datahora').value = agoraLocalISO();
-      modalPonto.classList.add('aberto');
-    });
+      document.getElementById('ponto-origem-gerencia').value = comoGerente ? '1' : '0';
+      const selVend = document.getElementById('ponto-vendedora');
+      selVend.disabled = !comoGerente;
+      document.getElementById('modal-ponto-titulo').textContent = comoGerente ? (reg ? 'Editar / Aprovar Ponto (Gerência)' : 'Lançar Ponto (Gerência)') : (reg ? 'Solicitar Edição de Ponto' : 'Solicitar Ajuste de Ponto');
+      document.getElementById('aviso-aprovacao-ponto').textContent = comoGerente ? 'Ação da Gerência: aplicada e aprovada imediatamente.' : 'Atenção: ficará pendente até aprovação da Gerência.';
+      document.getElementById('btn-submit-ponto').textContent = comoGerente ? 'Salvar / Aprovar' : 'Enviar p/ Aprovação';
 
-    function fecharModalPonto() {
-      modalPonto.classList.remove('aberto');
+      if (reg) {
+        document.getElementById('ponto-edit-id').value = reg.id;
+        selVend.value = reg.vendedoraId || vendedoraAtivaId;
+        document.getElementById('ponto-tipo').value = reg.tipoSolicitado || reg.tipo || 'Entrada';
+        document.getElementById('ponto-datahora').value = reg.isoSolicitado || reg.isoHora || agoraLocalISO();
+        document.getElementById('ponto-obs').value = reg.obs || '';
+      } else {
+        document.getElementById('ponto-edit-id').value = '';
+        selVend.value = vendedoraAtivaId;
+        document.getElementById('ponto-datahora').value = agoraLocalISO();
+      }
+      modalPonto.classList.add('aberto');
     }
+
+    document.getElementById('btn-abrir-ajuste-ponto').addEventListener('click', () => configurarModalPonto(false, null));
+    function abrirAjusteGerencialDireto() { configurarModalPonto(true, null); }
+    function editarPontoAtendente(id) { const p = pontos.find(x => x.id === id); if (p) configurarModalPonto(false, p); }
+    function editarPontoGerencia(id) { const p = pontos.find(x => x.id === id); if (p) configurarModalPonto(true, p); }
+    function aprovarPontoGerencia(id) {
+      const p = pontos.find(x => x.id === id); if (!p) return;
+      if (p.isoSolicitado) { p.isoHora = p.isoSolicitado; p.dataHora = formatarDataHoraBR(p.isoSolicitado); }
+      if (p.tipoSolicitado) p.tipo = p.tipoSolicitado;
+      delete p.isoSolicitado; delete p.tipoSolicitado; delete p.dataHoraSolicitada;
+      p.status = 'aprovado'; p.ajustado = true; salvarDados(); atualizarSistema();
+    }
+    function recusarPontoGerencia(id) {
+      const p = pontos.find(x => x.id === id); if (!p) return;
+      delete p.isoSolicitado; delete p.tipoSolicitado; delete p.dataHoraSolicitada;
+      p.status = 'recusado'; salvarDados(); atualizarSistema();
+    }
+    function fecharModalPonto() { modalPonto.classList.remove('aberto'); }
     document.getElementById('btn-fechar-ponto').addEventListener('click', fecharModalPonto);
     document.getElementById('btn-cancelar-ponto').addEventListener('click', fecharModalPonto);
-    modalPonto.addEventListener('click', e => { if (e.target === modalPonto) fecharModalPonto(); });
-
-    function editarPonto(id) {
-      const p = pontos.find(x => x.id === id);
-      if (!p) return;
-      document.getElementById('ponto-edit-id').value = p.id;
-      document.getElementById('modal-ponto-titulo').textContent = 'Editar Registro de Ponto';
-      document.getElementById('ponto-tipo').value = p.tipo || 'Entrada';
-      document.getElementById('ponto-datahora').value = p.isoHora || agoraLocalISO();
-      document.getElementById('ponto-obs').value = p.obs || '';
-      modalPonto.classList.add('aberto');
-    }
-
-    function excluirPonto(id) {
-      if (!confirm('Deseja excluir este registro de ponto?')) return;
-      pontos = pontos.filter(x => x.id !== id);
-      salvarDados();
-      atualizarSistema();
-    }
 
     document.getElementById('form-ponto').addEventListener('submit', e => {
       e.preventDefault();
+      const comoGerente = document.getElementById('ponto-origem-gerencia').value === '1';
       const editId = Number(document.getElementById('ponto-edit-id').value);
+      const vId = document.getElementById('ponto-vendedora').value;
       const tipo = document.getElementById('ponto-tipo').value;
       const iso = document.getElementById('ponto-datahora').value || agoraLocalISO();
       const obs = document.getElementById('ponto-obs').value.trim();
 
-      const registroPonto = {
-        id: editId || Date.now(),
-        tipo,
-        isoHora: iso,
-        dataHora: formatarDataHoraBR(iso),
-        ajustado: true,
-        obs
-      };
-
-      if (editId) {
-        const idx = pontos.findIndex(x => x.id === editId);
-        if (idx !== -1) pontos[idx] = registroPonto;
+      if (comoGerente) {
+        const reg = { id: editId || Date.now(), vendedoraId: vId, tipo, isoHora: iso, dataHora: formatarDataHoraBR(iso), status: 'aprovado', ajustado: true, obs: obs ? `${obs} (Gerência)` : 'Ajustado pela Gerência' };
+        if (editId) { const idx = pontos.findIndex(x => x.id === editId); if (idx !== -1) pontos[idx] = reg; }
+        else pontos.unshift(reg);
       } else {
-        pontos.unshift(registroPonto);
+        if (editId) {
+          const idx = pontos.findIndex(x => x.id === editId);
+          if (idx !== -1) { pontos[idx].tipoSolicitado = tipo; pontos[idx].isoSolicitado = iso; pontos[idx].dataHoraSolicitada = formatarDataHoraBR(iso); pontos[idx].status = 'pendente'; pontos[idx].ajustado = true; pontos[idx].obs = obs; }
+        } else {
+          pontos.unshift({ id: Date.now(), vendedoraId: vendedoraAtivaId, tipo, tipoSolicitado: tipo, isoHora: '', isoSolicitado: iso, dataHora: formatarDataHoraBR(iso), dataHoraSolicitada: formatarDataHoraBR(iso), status: 'pendente', ajustado: true, obs });
+        }
       }
-
-      // Ordena do mais recente para o mais antigo quando houver isoHora
-      pontos.sort((a, b) => (b.isoHora || '').localeCompare(a.isoHora || ''));
-
-      salvarDados();
-      fecharModalPonto();
-      atualizarSistema();
+      salvarDados(); fecharModalPonto(); atualizarSistema();
     });
 
-    // WHATSAPP E ANAMNESE COM ASSINATURA
-    function abrirWhatsApp(msg) {
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    function abrirModalAtestado() {
+      document.getElementById('form-atestado').reset();
+      document.getElementById('atestado-data').value = agoraLocalISO().slice(0, 10);
+      arquivoAtestadoTemp = ''; nomeArquivoAtestadoTemp = '';
+      document.getElementById('modal-atestado').classList.add('aberto');
     }
-
-    const canvasAss = document.getElementById('canvas-assinatura');
-    const ctxAss = canvasAss.getContext('2d');
-    let desenhando = false;
-    let assinou = false;
-
-    function posCanvas(e) {
-      const r = canvasAss.getBoundingClientRect();
-      const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-      const cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-      return { x: cx * (canvasAss.width / r.width), y: cy * (canvasAss.height / r.height) };
-    }
-
-    ['mousedown', 'touchstart'].forEach(ev => canvasAss.addEventListener(ev, e => {
-      e.preventDefault();
-      desenhando = true;
-      assinou = true;
-      const p = posCanvas(e);
-      ctxAss.beginPath();
-      ctxAss.moveTo(p.x, p.y);
-    }));
-
-    ['mousemove', 'touchmove'].forEach(ev => canvasAss.addEventListener(ev, e => {
-      if (!desenhando) return;
-      e.preventDefault();
-      const p = posCanvas(e);
-      ctxAss.lineWidth = 2.4;
-      ctxAss.lineCap = 'round';
-      ctxAss.strokeStyle = '#ff2e88';
-      ctxAss.lineTo(p.x, p.y);
-      ctxAss.stroke();
-    }));
-
-    ['mouseup', 'mouseleave', 'touchend'].forEach(ev => canvasAss.addEventListener(ev, () => desenhando = false));
-
-    document.getElementById('btn-limpar-assinatura').addEventListener('click', () => {
-      ctxAss.clearRect(0, 0, canvasAss.width, canvasAss.height);
-      assinou = false;
+    document.getElementById('atestado-arquivo').addEventListener('change', e => {
+      const f = e.target.files[0]; if (!f) return;
+      nomeArquivoAtestadoTemp = f.name;
+      const r = new FileReader(); r.onload = ev => { arquivoAtestadoTemp = ev.target.result; }; r.readAsDataURL(f);
     });
-
-    document.getElementById('form-anamnese').addEventListener('submit', e => {
+    document.getElementById('form-atestado').addEventListener('submit', e => {
       e.preventDefault();
-      if (!assinou) {
-        alert('Por favor, assine no quadro antes de salvar.');
-        return;
-      }
-      anamneses.unshift({
-        nome: document.getElementById('ana-nome').value,
-        tel: document.getElementById('ana-tel').value,
-        data: formatarDataHoraBR(agoraLocalISO())
+      const crm = document.getElementById('atestado-crm').value.trim().toUpperCase();
+      if (!/(CRM|CRO).*\d{3,}/.test(crm)) return alert('Informe um registro válido contendo CRM ou CRO seguido da numeração (ex: CRM-AM 12345).');
+      if (!arquivoAtestadoTemp) return alert('Anexe a foto ou PDF do atestado.');
+      atestados.unshift({
+        id: Date.now(), vendedoraId: vendedoraAtivaId, dataAtestado: document.getElementById('atestado-data').value,
+        dias: Number(document.getElementById('atestado-dias').value) || 1, medico: document.getElementById('atestado-medico').value.trim(),
+        crm, cid: document.getElementById('atestado-cid').value.trim(), nomeArquivo: nomeArquivoAtestadoTemp,
+        arquivoBase64: arquivoAtestadoTemp, status: 'pendente', enviadoEm: formatarDataHoraBR(agoraLocalISO())
       });
-      salvarDados();
-      ctxAss.clearRect(0, 0, canvasAss.width, canvasAss.height);
-      assinou = false;
-      e.target.reset();
-      atualizarSistema();
-      alert('Ficha de Anamnese assinada e registrada com sucesso!');
+      salvarDados(); document.getElementById('modal-atestado').classList.remove('aberto'); atualizarSistema();
+      alert('Atestado enviado para conferência da Gerência.');
     });
+    function validarAtestadoGerencia(id, st) { const a = atestados.find(x => x.id === id); if (!a) return; a.status = st; salvarDados(); atualizarSistema(); }
+    function verAnexoAtestado(id) {
+      const a = atestados.find(x => x.id === id); if (!a) return;
+      const ehImg = (a.arquivoBase64 || '').startsWith('data:image');
+      document.getElementById('conteudo-ver-atestado').innerHTML = `
+        <div style="border-bottom:1px solid var(--border); padding-bottom:10px;">
+          <strong>Atestado Médico — ${nomeVendedora(a.vendedoraId)}</strong>
+          <small style="display:block; color:var(--muted);">Data: ${a.dataAtestado} · ${a.dias} dia(s) · ${a.medico} (${a.crm})</small>
+        </div>
+        ${a.cid ? `<div style="font-size:0.82rem;"><strong>CID / Obs:</strong> ${a.cid}</div>` : ''}
+        <div style="background:var(--surface-2); padding:10px; border-radius:6px; text-align:center;">
+          ${ehImg ? `<img src="${a.arquivoBase64}" style="max-width:100%; max-height:340px; border-radius:4px;" alt="Atestado">` : `<a href="${a.arquivoBase64}" download="${a.nomeArquivo || 'atestado.pdf'}" class="btn-primary" style="display:inline-block; text-decoration:none;">Baixar PDF (${a.nomeArquivo})</a>`}
+        </div>`;
+      document.getElementById('modal-ver-atestado').classList.add('aberto');
+    }
 
-    // FILTROS, CSV E BACKUP
-    ['filtro-busca', 'filtro-pagamento', 'filtro-data'].forEach(id => {
-      document.getElementById(id).addEventListener('input', atualizarSistema);
+    function abrirWhatsApp(msg) { window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank'); }
+    function aprovarDemo(btn, cargo) {
+      const card = btn.closest('.item-venda'); const nome = card.querySelector('strong').textContent;
+      vendedoras.push({ id: 'v' + (vendedoras.length + 1), nome: `${nome} (${cargo})`, prefixo: `AT${vendedoras.length + 1}` });
+      popularSelectsVendedoras(); salvarDados(); card.remove(); atualizarSistema();
+      alert(`${nome} aprovada e adicionada ao seletor de vendedoras.`);
+    }
+
+    ['filtro-busca', 'filtro-pagamento', 'filtro-data', 'ger-busca-anamnese', 'at-busca-cliente'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.addEventListener('input', atualizarSistema);
     });
 
     document.getElementById('btn-exportar-csv').addEventListener('click', () => {
       if (vendas.length === 0) return alert('Nenhuma venda para exportar.');
-      const linhas = [['DataHora', 'Cliente', 'Procedimentos', 'Pagamento', 'ValorFinal', 'Observacao']];
-      vendas.forEach(v => linhas.push([
-        `"${v.dataHora || v.data}"`,
-        `"${v.cliente || ''}"`,
-        `"${v.servico || ''}"`,
-        `"${v.pagamento || ''}"`,
-        v.valor.toFixed(2),
-        `"${v.obs || ''}"`
-      ]));
-      const blob = new Blob([linhas.map(l => l.join(';')).join('\n')], { type: 'text/csv;charset=utf-8;' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'vendas-studio.csv';
-      a.click();
+      const linhas = [['DataHora', 'Vendedora', 'Cliente', 'CategoriaCliente', 'Procedimentos', 'Pagamento', 'ValorFinal']];
+      vendas.forEach(v => linhas.push([`"${v.dataHora || v.data}"`, `"${nomeVendedora(v.vendedoraId)}"`, `"${v.cliente || ''}"`, `"${v.clienteId ? 'Cadastrado' : 'Avulso'}"`, `"${v.servico || ''}"`, `"${v.pagamento || ''}"`, v.valor.toFixed(2)]));
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([linhas.map(l => l.join(';')).join('\n')], { type: 'text/csv;charset=utf-8;' })); a.download = 'relatorio-tatto.csv'; a.click();
     });
 
     document.getElementById('btn-backup-json').addEventListener('click', () => {
-      const pacote = { vendas, pontos, anamneses, configDiaria };
-      const blob = new Blob([JSON.stringify(pacote, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'backup-studio-flow.json';
-      a.click();
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify({ vendedoras, clientes, codigosFicha, vendas, pontos, atestados, configDiaria }, null, 2)], { type: 'application/json' })); a.download = 'backup-tatto-completo.json'; a.click();
     });
 
     document.getElementById('input-importar-json').addEventListener('change', e => {
-      const f = e.target.files[0];
-      if (!f) return;
-      const r = new FileReader();
-      r.onload = ev => {
+      const f = e.target.files[0]; if (!f) return;
+      const r = new FileReader(); r.onload = ev => {
         try {
           const d = JSON.parse(ev.target.result);
-          if (d.vendas) vendas = d.vendas;
-          if (d.pontos) pontos = d.pontos;
-          if (d.anamneses) anamneses = d.anamneses;
-          salvarDados();
-          atualizarSistema();
-          alert('Backup restaurado com sucesso!');
-        } catch {
-          alert('Arquivo inválido.');
-        }
-      };
-      r.readAsText(f);
+          if (d.vendedoras) vendedoras = d.vendedoras; if (d.clientes) clientes = d.clientes;
+          if (d.codigosFicha) codigosFicha = d.codigosFicha; if (d.vendas) vendas = d.vendas;
+          if (d.pontos) pontos = d.pontos; if (d.atestados) atestados = d.atestados;
+          popularSelectsVendedoras(); salvarDados(); atualizarSistema(); alert('Backup restaurado.');
+        } catch { alert('Arquivo inválido.'); }
+      }; r.readAsText(f);
     });
 
     document.getElementById('btn-zerar-tudo').addEventListener('click', () => {
-      if (!confirm('Apagar todos os registros locais de teste?')) return;
-      vendas = [];
-      pontos = [];
-      anamneses = [];
-      salvarDados();
-      atualizarSistema();
+      if (!confirm('Restaurar dados iniciais de demonstração?')) return;
+      ['tatto_iniciado_v8', 'tatto_clientes_v1', 'tatto_codigos_ficha_v1', 'vendas_v3', 'pontos_v2', 'tatto_atestados_v1'].forEach(k => localStorage.removeItem(k));
+      location.reload();
     });
 
-    // CONTROLES META DIÁRIA
     ['select-meta-alvo', 'input-dias-totais', 'input-dias-restantes'].forEach(id => {
       document.getElementById(id).addEventListener('change', () => {
         configDiaria.metaAlvo = Number(document.getElementById('select-meta-alvo').value);
         configDiaria.diasTotais = Math.max(1, Number(document.getElementById('input-dias-totais').value) || 1);
         configDiaria.diasRestantes = Math.max(1, Number(document.getElementById('input-dias-restantes').value) || 1);
-        salvarDados();
-        atualizarSistema();
+        salvarDados(); atualizarSistema();
       });
     });
 
-    // RENDERIZAÇÃO PRINCIPAL
-    function atualizarSistema() {
-      const total = vendas.reduce((s, v) => s + v.valor, 0);
-      const comissao = calcularComissao(total);
-      const hoje = agoraLocalISO().slice(0, 10);
-
-      document.getElementById('kpi-vendido').textContent = formatarMoeda(total);
-      document.getElementById('kpi-comissao').textContent = formatarMoeda(comissao);
-      document.getElementById('kpi-qtd').textContent = vendas.length;
-
-      const prox = METAS.find(m => total < m.alvo);
-      document.getElementById('kpi-falta').textContent = prox ? formatarMoeda(prox.alvo - total) : 'Todas batidas!';
-      document.getElementById('badge-status').textContent = prox ? `Rumo à ${prox.nome}` : '1ª Meta Batida!';
-
-      // Metas
-      document.getElementById('lista-metas').innerHTML = METAS.map(m => {
-        const pct = Math.min((total / m.alvo) * 100, 100);
-        const ok = total >= m.alvo;
-        return `
-          <div class="meta-item ${ok ? 'batida' : ''}">
-            <div class="meta-linha">
-              <strong>${m.nome} — ${formatarMoeda(m.alvo)}</strong>
-              <span class="badge">${ok ? '✓ ' : ''}Comissão ${formatarMoeda(m.comissao)}</span>
-            </div>
-            <div class="meta-linha" style="color:var(--muted); font-size:0.8rem;">
-              <span>${ok ? 'Concluída!' : 'Faltam ' + formatarMoeda(m.alvo - total)}</span>
-              <strong>${pct.toFixed(1)}%</strong>
-            </div>
-            <div class="barra-fundo"><div class="barra-preenchida" style="width:${pct}%"></div></div>
-          </div>
-        `;
+    function renderizarBlocoMetas(total) {
+      return METAS.map(m => {
+        const pct = Math.min((total / m.alvo) * 100, 100), ok = total >= m.alvo;
+        return `<div class="meta-item ${ok ? 'batida' : ''}">
+          <div class="meta-linha"><strong class="num">${m.nome} — ${formatarMoeda(m.alvo)}</strong><span class="badge num">${ok ? '✓ ' : ''}Comissão ${formatarMoeda(m.comissao)}</span></div>
+          <div class="meta-linha" style="color:var(--muted); font-size:0.78rem;"><span class="num">${ok ? 'Meta concluída' : 'Faltam ' + formatarMoeda(m.alvo - total)}</span><strong class="num">${pct.toFixed(1)}%</strong></div>
+          <div class="barra-fundo"><div class="barra-preenchida" style="width:${pct}%"></div></div>
+        </div>`;
       }).join('');
+    }
 
-      // Foguete
-      const pct50 = Math.min((total / 50000) * 100, 100);
-      const y = 195 - (pct50 / 100) * 175;
+    function renderCardClienteCadastrado(c, modoGerencia) {
+      const qtdProc = (c.procedimentosHistorico || []).length;
+      const ultimoProc = c.procedimentosHistorico?.[0]?.procedimento || 'Cadastro inicial';
+      const somaCompras = vendas.filter(v => String(v.clienteId) === String(c.id)).reduce((s, v) => s + v.valor, 0);
+      return `<li class="item-venda">
+        <div>
+          <strong>${c.nome} <span class="tag ok" style="margin-left:6px;">Ficha Anexada</span></strong>
+          <small class="num" style="display:block; color:var(--muted); margin-top:2px;">CPF: ${c.cpf} · Tel: ${c.tel} · Último: ${ultimoProc}</small>
+          <div class="venda-tags">
+            <span class="tag num">${qtdProc} atendimento(s)</span>
+            <span class="tag num">Compras: ${formatarMoeda(somaCompras)}</span>
+            ${(c.condicoes && c.condicoes.length > 0) ? c.condicoes.map(cond => `<span class="tag accent">${cond}</span>`).join('') : `<span class="tag">Sem alertas clínicos</span>`}
+          </div>
+        </div>
+        <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+          ${!modoGerencia ? `<button class="btn-mini" onclick="abrirModalGerarCodigoFicha('${c.id}')">Código Retorno</button><button class="btn-mini" onclick="abrirModalNovaVenda('${c.id}')">+ Venda</button>` : ''}
+          <button class="btn-outline" style="padding:6px 11px; font-size:0.74rem;" onclick="verProntuarioCliente('${c.id}')">Ver Ficha</button>
+          <button class="btn-primary" style="padding:6px 11px; font-size:0.74rem;" onclick="imprimirProntuarioDireto('${c.id}')">PDF</button>
+        </div>
+      </li>`;
+    }
+
+    function renderItemVendaHTML(v, modoGer) {
+      return `<li class="item-venda">
+        <div>
+          <strong>${v.servico || 'Venda'}</strong>
+          <small class="num" style="display:block; color:var(--muted);">${v.dataHora || v.data}</small>
+          <div class="venda-tags">
+            ${modoGer ? `<span class="tag accent">${nomeVendedora(v.vendedoraId)}</span>` : ''}
+            ${v.clienteId ? `<span class="tag ok">Cadastrado: ${v.cliente}</span>` : (v.cliente ? `<span class="tag">Avulso: ${v.cliente}</span>` : '')}
+            ${v.pagamento ? `<span class="tag">${v.pagamento}</span>` : ''}
+            ${v.obs ? `<span class="tag">Obs: ${v.obs}</span>` : ''}
+            ${v.clienteId ? `<button class="btn-mini" onclick="verProntuarioCliente('${v.clienteId}')">Ver Ficha</button>` : ''}
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+          <strong class="num">${formatarMoeda(v.valor)}</strong>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn-mini" onclick="abrirRecibo(${v.id})">Recibo</button>
+            ${!modoGer ? `<button class="btn-mini" onclick="editarVenda(${v.id})">Editar</button><button class="btn-mini" onclick="excluirVenda(${v.id})">Excluir</button>` : ''}
+          </div>
+        </div>
+      </li>`;
+    }
+
+    function renderItemPontoHTML(p, modoGer) {
+      const badgeStatus = p.status === 'pendente' ? `<span class="tag warn">Pendente Aprovação</span>` : p.status === 'recusado' ? `<span class="tag danger">Recusado</span>` : `<span class="tag ok">Ponto Válido</span>`;
+      const detSol = p.status === 'pendente' && p.dataHoraSolicitada ? `<small class="num" style="display:block; color:var(--warn-text); margin-top:2px;">Solicitado: <strong>${p.tipoSolicitado || p.tipo} — ${p.dataHoraSolicitada}</strong></small>` : '';
+      return `<li class="item-venda ${p.status === 'pendente' ? 'pendente-borda' : ''}">
+        <div>
+          <strong>${p.tipo} ${modoGer ? `— <span style="color:var(--accent);">${nomeVendedora(p.vendedoraId)}</span>` : ''}</strong>
+          <small class="num" style="display:block; color:var(--muted);">Atual: ${p.isoHora ? p.dataHora : 'Novo lançamento'}</small>
+          ${detSol}
+          <div class="venda-tags">${badgeStatus}${p.obs ? `<span class="tag">Justificativa: ${p.obs}</span>` : ''}</div>
+        </div>
+        <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+          ${modoGer ? `${p.status === 'pendente' ? `<button class="btn-mini ok" onclick="aprovarPontoGerencia(${p.id})">Aprovar</button><button class="btn-mini danger" onclick="recusarPontoGerencia(${p.id})">Recusar</button>` : ''}<button class="btn-mini" onclick="editarPontoGerencia(${p.id})">Editar (Gerente)</button>` : `<button class="btn-mini" onclick="editarPontoAtendente(${p.id})">Solicitar Edição</button>`}
+        </div>
+      </li>`;
+    }
+
+    function renderItemAtestadoHTML(a, modoGer) {
+      const tagSt = a.status === 'validado' ? `<span class="tag ok">Validado / Abonado</span>` : a.status === 'invalidado' ? `<span class="tag danger">Recusado</span>` : `<span class="tag warn">Em Conferência</span>`;
+      return `<li class="item-venda ${a.status === 'pendente' ? 'pendente-borda' : ''}">
+        <div>
+          <strong>Afastamento: ${a.dias} dia(s) ${modoGer ? `— <span style="color:var(--accent);">${nomeVendedora(a.vendedoraId)}</span>` : ''}</strong>
+          <small class="num" style="display:block; color:var(--muted);">Data: ${a.dataAtestado} · ${a.medico} (${a.crm})</small>
+          <div class="venda-tags">${tagSt}${a.cid ? `<span class="tag">${a.cid}</span>` : ''}</div>
+        </div>
+        <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+          <button class="btn-mini" onclick="verAnexoAtestado(${a.id})">Ver Documento</button>
+          ${modoGer && a.status === 'pendente' ? `<button class="btn-mini ok" onclick="validarAtestadoGerencia(${a.id}, 'validado')">Validar</button><button class="btn-mini danger" onclick="validarAtestadoGerencia(${a.id}, 'invalidado')">Recusar</button>` : ''}
+        </div>
+      </li>`;
+    }
+
+    function atualizarSistema() {
+      const hoje = agoraLocalISO().slice(0, 10);
+      const vendasAt = vendas.filter(v => v.vendedoraId === vendedoraAtivaId);
+      const pontosAt = pontos.filter(p => p.vendedoraId === vendedoraAtivaId);
+      const atestadosAt = atestados.filter(a => a.vendedoraId === vendedoraAtivaId);
+      const codigosPendentesAt = codigosFicha.filter(c => c.vendedoraId === vendedoraAtivaId && !c.usado);
+      const totalAt = vendasAt.reduce((s, v) => s + v.valor, 0);
+
+      document.getElementById('kpi-vendido').textContent = formatarMoeda(totalAt);
+      document.getElementById('kpi-comissao').textContent = formatarMoeda(calcularComissao(totalAt));
+      document.getElementById('kpi-qtd').textContent = vendasAt.length;
+      const prox = METAS.find(m => totalAt < m.alvo);
+      document.getElementById('kpi-falta').textContent = prox ? formatarMoeda(prox.alvo - totalAt) : 'Concluído';
+      document.getElementById('badge-status').textContent = prox ? `Rumo à ${prox.nome}` : '1ª Meta Batida';
+      document.getElementById('lista-metas').innerHTML = renderizarBlocoMetas(totalAt);
+
+      const pct50 = Math.min((totalAt / 50000) * 100, 100);
+      const y = 190 - (pct50 / 100) * 168;
       document.getElementById('pct-topo').textContent = `${pct50.toFixed(1)}%`;
       document.getElementById('svg-trilha').setAttribute('y2', y);
-      document.getElementById('svg-foguete').setAttribute('transform', `translate(50, ${y})`);
+      document.getElementById('svg-marcador').setAttribute('transform', `translate(46, ${y})`);
 
       const elFrase = document.getElementById('frase-motivacao');
-      if (total === 0) elFrase.textContent = 'Registre uma venda para iniciar a subida!';
-      else if (total < 30000) elFrase.textContent = `Faltam ${formatarMoeda(30000 - total)} para destravar R$ 300 de comissão!`;
-      else if (total < 40000) elFrase.textContent = '3ª Meta garantida! Rumo aos R$ 400 de comissão.';
-      else if (total < 50000) elFrase.textContent = '2ª Meta batida! Reta final para o topo de R$ 500!';
-      else elFrase.textContent = '1ª META ALCANÇADA! Comissão máxima garantida!';
+      elFrase.textContent = totalAt === 0 ? 'Registre uma venda para iniciar a apuração mensal.'
+        : totalAt < 30000 ? `Faltam ${formatarMoeda(30000 - totalAt)} para destravar a 3ª Meta (R$ 300,00).`
+        : totalAt < 40000 ? '3ª Meta atingida. Em progresso para a 2ª Meta (R$ 400,00).'
+        : totalAt < 50000 ? '2ª Meta atingida. Reta final para a 1ª Meta (R$ 500,00).'
+        : '1ª Meta atingida. Comissão máxima destravada.';
 
-      // Meta Diária
       const metaBaseDia = configDiaria.metaAlvo / configDiaria.diasTotais;
-      const faltaMes = Math.max(0, configDiaria.metaAlvo - total);
+      const faltaMes = Math.max(0, configDiaria.metaAlvo - totalAt);
       const ritmoDia = faltaMes / configDiaria.diasRestantes;
-      const vendidoHoje = vendas.filter(v => v.data === hoje).reduce((s, v) => s + v.valor, 0);
+      const vendidoHoje = vendasAt.filter(v => v.data === hoje).reduce((s, v) => s + v.valor, 0);
       const alvoHoje = faltaMes === 0 ? metaBaseDia : ritmoDia;
       const pctHoje = alvoHoje > 0 ? Math.min((vendidoHoje / alvoHoje) * 100, 100) : 100;
 
@@ -1894,130 +1970,100 @@
       document.getElementById('diaria-pct-hoje').textContent = `${pctHoje.toFixed(1)}%`;
       document.getElementById('diaria-barra-hoje').style.width = `${pctHoje}%`;
 
-      // Gráfico 14 dias
       document.getElementById('badge-grafico-meta').textContent = `Meta diária: ${formatarMoeda(metaBaseDia)}`;
       const dias = [];
       for (let i = 13; i >= 0; i--) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
+        const d = new Date(); d.setDate(d.getDate() - i);
         const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         const label = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
-        const soma = vendas.filter(v => v.data === iso).reduce((s, v) => s + v.valor, 0);
-        dias.push({ label, soma });
+        dias.push({ label, soma: vendasAt.filter(v => v.data === iso).reduce((s, v) => s + v.valor, 0) });
       }
       const maior = Math.max(metaBaseDia * 1.15, ...dias.map(d => d.soma), 100);
       const posMeta = Math.min((metaBaseDia / maior) * 100, 95);
       document.getElementById('grafico-area').innerHTML = `
-        <div class="linha-meta-diaria" style="bottom: calc(28px + ${posMeta}% * 0.75);">
-          <span class="linha-meta-label">Meta: ${formatarMoeda(metaBaseDia)}</span>
-        </div>
+        <div class="linha-meta-diaria" style="bottom: calc(28px + ${posMeta}% * 0.75);"><span class="linha-meta-label num">Meta: ${formatarMoeda(metaBaseDia)}</span></div>
         ${dias.map(d => {
           const h = Math.max((d.soma / maior) * 100, d.soma > 0 ? 4 : 1);
           const cl = d.soma >= metaBaseDia ? 'meta-batida' : (d.soma > 0 ? 'com-venda' : '');
-          return `
-            <div class="coluna-dia">
-              <div class="tooltip-dia">${d.label}: ${formatarMoeda(d.soma)}</div>
-              <div class="barra-dia ${cl}" style="height:${h * 0.82}%;"></div>
-              <span class="dia-label">${d.label}</span>
-            </div>
-          `;
-        }).join('')}
-      `;
+          return `<div class="coluna-dia"><div class="tooltip-dia num">${d.label}: ${formatarMoeda(d.soma)}</div><div class="barra-dia ${cl}" style="height:${h * 0.82}%;"></div><span class="dia-label num">${d.label}</span></div>`;
+        }).join('')}`;
 
-      // Resumo por Pagamento
+      const boxCodigos = document.getElementById('box-codigos-ativos-atendente');
+      if (codigosPendentesAt.length > 0) {
+        boxCodigos.style.display = 'block';
+        boxCodigos.innerHTML = `<div style="background:var(--warn-bg); border:1px solid var(--warn-line); padding:10px 14px; border-radius:6px; font-size:0.78rem;"><span style="color:var(--warn-text);"><strong>Aguardando preenchimento na Aba Cliente:</strong> ${codigosPendentesAt.map(c => `<span class="tag warn num" style="margin-left:6px;">${c.codigo} (${c.procedimento})</span>`).join('')}</span></div>`;
+      } else { boxCodigos.style.display = 'none'; }
+
+      const buscaCliAt = (document.getElementById('at-busca-cliente')?.value || '').toLowerCase();
+      const clientesFiltAt = clientes.filter(c => !buscaCliAt || c.nome.toLowerCase().includes(buscaCliAt) || (c.cpf || '').toLowerCase().includes(buscaCliAt) || (c.tel || '').toLowerCase().includes(buscaCliAt));
+      document.getElementById('at-lista-clientes').innerHTML = clientesFiltAt.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhum cliente cadastrado encontrado.</li>` : clientesFiltAt.map(c => renderCardClienteCadastrado(c, false)).join('');
+
       const meios = ['Pix', 'Crédito', 'Débito', 'Dinheiro'];
-      document.getElementById('resumo-pagamentos').innerHTML = meios.map(m => {
-        const s = vendas.filter(v => v.pagamento === m).reduce((acc, v) => acc + v.valor, 0);
-        return `<div class="kpi"><span>Total em ${m}</span><strong>${formatarMoeda(s)}</strong></div>`;
-      }).join('');
+      document.getElementById('resumo-pagamentos').innerHTML = meios.map(m => `<div class="kpi"><span>Total em ${m}</span><strong class="num">${formatarMoeda(vendasAt.filter(v => v.pagamento === m).reduce((acc, v) => acc + v.valor, 0))}</strong></div>`).join('');
 
-      // Histórico filtrado
       const termo = document.getElementById('filtro-busca').value.toLowerCase();
       const fPag = document.getElementById('filtro-pagamento').value;
       const fData = document.getElementById('filtro-data').value;
+      const filtradas = vendasAt.filter(v => (!termo || (v.servico || '').toLowerCase().includes(termo) || (v.cliente || '').toLowerCase().includes(termo)) && (!fPag || v.pagamento === fPag) && (!fData || v.data === fData));
+      document.getElementById('lista-vendas').innerHTML = filtradas.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhuma venda encontrada.</li>` : filtradas.map(v => renderItemVendaHTML(v, false)).join('');
+      document.getElementById('lista-ponto').innerHTML = pontosAt.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:14px;">Nenhum ponto registrado.</li>` : pontosAt.map(p => renderItemPontoHTML(p, false)).join('');
+      document.getElementById('at-lista-atestados').innerHTML = atestadosAt.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:14px;">Nenhum atestado enviado.</li>` : atestadosAt.map(a => renderItemAtestadoHTML(a, false)).join('');
 
-      const filtradas = vendas.filter(v => {
-        const textoOk = !termo || (v.servico || '').toLowerCase().includes(termo) || (v.cliente || '').toLowerCase().includes(termo);
-        const pagOk = !fPag || v.pagamento === fPag;
-        const dataOk = !fData || v.data === fData;
-        return textoOk && pagOk && dataOk;
-      });
+      // GERÊNCIA
+      document.getElementById('ger-total').textContent = formatarMoeda(vendas.reduce((s, v) => s + v.valor, 0));
+      document.getElementById('ger-qtd-clientes').textContent = clientes.length;
+      document.getElementById('ger-pendentes-ponto').textContent = pontos.filter(p => p.status === 'pendente').length;
+      document.getElementById('ger-pendentes-atestados').textContent = atestados.filter(a => a.status === 'pendente').length;
 
-      const elLista = document.getElementById('lista-vendas');
-      elLista.innerHTML = filtradas.length === 0
-        ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhuma venda encontrada.</li>`
-        : filtradas.map(v => `
-          <li class="item-venda">
-            <div>
-              <strong>${v.servico || 'Venda'}</strong>
-              <small style="display:block; color:var(--muted);">${v.dataHora || v.data}</small>
-              <div class="venda-tags">
-                ${v.cliente ? `<span class="tag">${v.cliente}</span>` : ''}
-                ${v.pagamento ? `<span class="tag accent">${v.pagamento}</span>` : ''}
-                ${v.obs ? `<span class="tag">Obs: ${v.obs}</span>` : ''}
-              </div>
-            </div>
-            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
-              <strong>${formatarMoeda(v.valor)}</strong>
-              <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                <button class="btn-mini" onclick="abrirRecibo(${v.id})">Recibo</button>
-                <button class="btn-mini" onclick="editarVenda(${v.id})">Editar</button>
-                <button class="btn-mini" onclick="excluirVenda(${v.id})">Excluir</button>
-              </div>
-            </div>
-          </li>
-        `).join('');
+      const vendasGer = filtroGerenciaVendId === 'todas' ? vendas : vendas.filter(v => v.vendedoraId === filtroGerenciaVendId);
+      const pontosGer = filtroGerenciaVendId === 'todas' ? pontos : pontos.filter(p => p.vendedoraId === filtroGerenciaVendId);
+      const atestadosGer = filtroGerenciaVendId === 'todas' ? atestados : atestados.filter(a => a.vendedoraId === filtroGerenciaVendId);
 
-      // Ponto (com etiqueta de ajuste manual + botões Editar e Excluir)
-      document.getElementById('lista-ponto').innerHTML = pontos.length === 0
-        ? `<li style="color:var(--muted); text-align:center; padding:14px;">Nenhum ponto registrado hoje.</li>`
-        : pontos.map(p => `
-          <li class="item-venda">
-            <div>
-              <strong>${p.tipo}</strong>
-              <small style="display:block; color:var(--muted);">${p.dataHora}</small>
-              <div class="venda-tags">
-                ${p.ajustado ? `<span class="tag accent">Ajustado Manualmente</span>` : ''}
-                ${p.obs ? `<span class="tag">Motivo: ${p.obs}</span>` : ''}
-              </div>
-            </div>
-            <div style="display:flex; gap:6px; align-items:center;">
-              <button class="btn-mini" onclick="editarPonto(${p.id})">Editar</button>
-              <button class="btn-mini" onclick="excluirPonto(${p.id})">Excluir</button>
-            </div>
-          </li>
-        `).join('');
+      document.getElementById('ger-badge-pag').textContent = filtroGerenciaVendId === 'todas' ? 'Todas da Loja' : nomeVendedora(filtroGerenciaVendId);
+      const somaFiltro = vendasGer.reduce((s, v) => s + v.valor, 0);
 
-      // Gerência & Dev
-      document.getElementById('ger-total').textContent = formatarMoeda(total + 32400);
-      document.getElementById('ger-ticket').textContent = formatarMoeda(vendas.length ? total / vendas.length : 0);
-      document.getElementById('ger-anamneses').textContent = anamneses.length;
-      document.getElementById('ger-atendente-atual').textContent = formatarMoeda(total);
-      document.getElementById('ger-barra-atual').style.width = `${pct50}%`;
+      if (filtroGerenciaVendId === 'todas') {
+        const comEq = vendedoras.reduce((acc, vend) => acc + calcularComissao(vendas.filter(x => x.vendedoraId === vend.id).reduce((s, x) => s + x.valor, 0)), 0);
+        document.getElementById('ger-comissao-vendedora').textContent = `Comissões Equipe: ${formatarMoeda(comEq)}`;
+        document.getElementById('ger-lista-metas').innerHTML = vendedoras.map(vend => {
+          const sv = vendas.filter(x => x.vendedoraId === vend.id).reduce((s, x) => s + x.valor, 0);
+          return `<div class="meta-item"><div class="meta-linha"><strong>${vend.nome}</strong><span class="num" style="color:var(--accent); font-weight:700;">${formatarMoeda(sv)} (Comissão: ${formatarMoeda(calcularComissao(sv))})</span></div><div class="barra-fundo"><div class="barra-preenchida" style="width:${Math.min((sv / 50000) * 100, 100)}%"></div></div></div>`;
+        }).join('');
+      } else {
+        document.getElementById('ger-comissao-vendedora').textContent = `Comissão: ${formatarMoeda(calcularComissao(somaFiltro))}`;
+        document.getElementById('ger-lista-metas').innerHTML = renderizarBlocoMetas(somaFiltro);
+      }
 
-      const kb = (JSON.stringify(localStorage).length / 1024).toFixed(1);
-      document.getElementById('dev-memoria').textContent = `Armazenamento local utilizado: ${kb} KB`;
+      document.getElementById('ger-pagamentos-box').innerHTML = meios.map(m => {
+        const s = vendasGer.filter(v => v.pagamento === m).reduce((acc, v) => acc + v.valor, 0);
+        const pctP = somaFiltro > 0 ? (s / somaFiltro) * 100 : 0;
+        return `<div class="meta-item"><div class="meta-linha"><strong>${m}</strong><span class="num">${formatarMoeda(s)} (${pctP.toFixed(0)}%)</span></div><div class="barra-fundo"><div class="barra-preenchida" style="width:${pctP}%"></div></div></div>`;
+      }).join('');
+
+      document.getElementById('ger-contador-vendas').textContent = `${vendasGer.length} registros`;
+      document.getElementById('ger-lista-vendas').innerHTML = vendasGer.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhuma venda neste filtro.</li>` : vendasGer.map(v => renderItemVendaHTML(v, true)).join('');
+      document.getElementById('ger-lista-ponto').innerHTML = pontosGer.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhum registro de ponto.</li>` : pontosGer.map(p => renderItemPontoHTML(p, true)).join('');
+      document.getElementById('ger-contador-atestados').textContent = `${atestadosGer.length} atestados`;
+      document.getElementById('ger-lista-atestados').innerHTML = atestadosGer.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhum atestado enviado.</li>` : atestadosGer.map(a => renderItemAtestadoHTML(a, true)).join('');
+
+      const buscaAna = (document.getElementById('ger-busca-anamnese')?.value || '').toLowerCase();
+      const clientesGer = clientes.filter(c => !buscaAna || c.nome.toLowerCase().includes(buscaAna) || (c.cpf || '').toLowerCase().includes(buscaAna) || (c.procedimentosHistorico?.[0]?.procedimento || '').toLowerCase().includes(buscaAna));
+      document.getElementById('ger-badge-qtd-fichas').textContent = `${clientesGer.length} clientes`;
+      document.getElementById('ger-lista-anamneses').innerHTML = clientesGer.length === 0 ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhum cliente encontrado.</li>` : clientesGer.map(c => renderCardClienteCadastrado(c, true)).join('');
+
+      document.getElementById('dev-memoria').textContent = `Espaço utilizado no navegador: ${(JSON.stringify(localStorage).length / 1024).toFixed(1)} KB`;
     }
 
     function dispararConfete() {
-      const c = document.getElementById('confetti-canvas');
-      const ctx = c.getContext('2d');
-      c.width = window.innerWidth;
-      c.height = window.innerHeight;
-      const ps = Array.from({ length: 80 }, () => ({
-        x: Math.random() * c.width,
-        y: -20 - Math.random() * 100,
-        r: 4 + Math.random() * 5,
-        vy: 3 + Math.random() * 4,
-        vx: (Math.random() - 0.5) * 3
-      }));
+      const c = document.getElementById('confetti-canvas'), ctx = c.getContext('2d');
+      c.width = window.innerWidth; c.height = window.innerHeight;
+      const ps = Array.from({ length: 70 }, () => ({ x: Math.random() * c.width, y: -20 - Math.random() * 100, r: 4 + Math.random() * 4, vy: 3 + Math.random() * 4, vx: (Math.random() - 0.5) * 2.5 }));
       let f = 0;
       (function anim() {
         ctx.clearRect(0, 0, c.width, c.height);
-        ctx.fillStyle = '#ff2e88';
+        ctx.fillStyle = document.body.classList.contains('tema-pb') ? '#ffffff' : '#e12b78';
         ps.forEach(p => { p.x += p.vx; p.y += p.vy; ctx.fillRect(p.x, p.y, p.r, p.r); });
-        if (++f < 100) requestAnimationFrame(anim);
-        else ctx.clearRect(0, 0, c.width, c.height);
+        if (++f < 95) requestAnimationFrame(anim); else ctx.clearRect(0, 0, c.width, c.height);
       })();
     }
 

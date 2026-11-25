@@ -3,36 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel de Vendas & Metas</title>
+  <title>Studio Flow — Protótipo de Vendas, Metas & Gestão</title>
   <style>
-    /* ================= CORES (PRETO & ROSA) ================= */
+    /* ================= TEMA PADRÃO: PRETO & ROSA ================= */
     :root {
       --bg: #0b0b0f;
-      --surface: #14141b;
-      --surface-2: #1d1d27;
-      --border: #2a2a38;
-      --text: #f8f8fc;
-      --muted: #a0a0b5;
+      --surface: #14141c;
+      --surface-2: #1c1c27;
+      --border: #2a2a3a;
+      --text: #f7f7fb;
+      --muted: #9a9ab0;
       --accent: #ff2e88;
-      --accent-soft: rgba(255, 46, 136, 0.16);
-      --accent-glow: rgba(255, 46, 136, 0.45);
       --accent-2: #ff7eb6;
+      --accent-soft: rgba(255, 46, 136, 0.14);
+      --accent-glow: rgba(255, 46, 136, 0.38);
       --btn-text: #ffffff;
+      --soon-bg: rgba(255, 190, 92, 0.14);
+      --soon-text: #ffbe5c;
     }
 
-    /* ================= TEMA ALTERNATIVO (PRETO & BRANCO) ================= */
+    /* ================= TEMA ALTERNATIVO: PRETO & BRANCO ================= */
     body.tema-pb {
-      --bg: #080808;
+      --bg: #090909;
       --surface: #131313;
-      --surface-2: #1e1e1e;
+      --surface-2: #1d1d1d;
       --border: #2e2e2e;
       --text: #ffffff;
       --muted: #9e9e9e;
       --accent: #ffffff;
+      --accent-2: #cfcfcf;
       --accent-soft: rgba(255, 255, 255, 0.12);
-      --accent-glow: rgba(255, 255, 255, 0.35);
-      --accent-2: #d4d4d4;
-      --btn-text: #080808;
+      --accent-glow: rgba(255, 255, 255, 0.28);
+      --btn-text: #090909;
+      --soon-bg: rgba(255, 255, 255, 0.1);
+      --soon-text: #d9d9d9;
     }
 
     * {
@@ -46,51 +50,117 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 20px 16px 60px;
-      transition: background 0.3s, color 0.3s;
+      padding-bottom: 60px;
+      transition: background 0.25s, color 0.25s;
     }
 
-    .container {
-      max-width: 980px;
+    /* BARRA DE APRESENTAÇÃO (SELETOR DE PERFIL) */
+    .barra-prototipo {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(10px);
+    }
+
+    .barra-prototipo-inner {
+      max-width: 1040px;
       margin: 0 auto;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* TOPO */
-    header {
-      display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .brand h1 { font-size: 1.55rem; letter-spacing: -0.5px; }
-    .brand h1 span { color: var(--accent); }
-    .brand p { font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
-
-    .header-acoes {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    /* BOTÕES */
+    .proto-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .seletor-perfis {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .perfil-btn {
+      background: var(--surface-2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .perfil-btn.ativo {
+      background: var(--accent);
+      color: var(--btn-text);
+      border-color: var(--accent);
+      box-shadow: 0 0 14px var(--accent-glow);
+    }
+
+    /* CONTAINER PRINCIPAL */
+    .container {
+      max-width: 1040px;
+      margin: 24px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    header.topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .titulo-sistema h1 {
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+
+    .titulo-sistema h1 span { color: var(--accent); }
+    .titulo-sistema p { color: var(--muted); font-size: 0.9rem; margin-top: 3px; }
+
+    .acoes-topo {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* BOTÕES GERAIS */
     button {
       cursor: pointer;
       border: none;
       border-radius: 10px;
       font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       transition: transform 0.15s, opacity 0.2s, border-color 0.2s;
     }
 
-    button:active { transform: scale(0.97); }
+    button:active { transform: scale(0.98); }
 
     .btn-primary {
       background: var(--accent);
@@ -98,8 +168,6 @@
       padding: 11px 18px;
       box-shadow: 0 0 18px var(--accent-glow);
     }
-
-    .btn-primary:hover { opacity: 0.92; }
 
     .btn-outline {
       background: var(--surface-2);
@@ -110,33 +178,58 @@
 
     .btn-outline:hover { border-color: var(--accent); }
 
-    /* ABAS */
-    .tabs {
+    .badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .badge-soon {
+      background: var(--soon-bg);
+      color: var(--soon-text);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    /* VISÕES POR PERFIL */
+    .visao-perfil { display: none; flex-direction: column; gap: 20px; }
+    .visao-perfil.ativa { display: flex; }
+
+    /* SUB-ABAS INTERNAS LIMPAS */
+    .subtabs {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       background: var(--surface);
       padding: 6px;
       border-radius: 12px;
       border: 1px solid var(--border);
       width: fit-content;
+      flex-wrap: wrap;
     }
 
-    .tab-btn {
+    .subtab-btn {
       background: transparent;
       color: var(--muted);
-      padding: 9px 18px;
+      padding: 8px 16px;
       border-radius: 8px;
+      font-size: 0.86rem;
     }
 
-    .tab-btn.ativa {
+    .subtab-btn.ativa {
       background: var(--accent);
       color: var(--btn-text);
     }
 
-    .tab-conteudo { display: none; flex-direction: column; gap: 20px; }
-    .tab-conteudo.ativa { display: flex; }
+    .subtab-painel { display: none; flex-direction: column; gap: 20px; }
+    .subtab-painel.ativa { display: flex; }
 
-    /* CARDS */
+    /* CARDS & GRIDS */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -144,31 +237,37 @@
       padding: 20px;
     }
 
-    .card-titulo {
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
       gap: 10px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
 
-    .card-titulo h2 { font-size: 1.08rem; font-weight: 700; }
+    .card-header h2 { font-size: 1.06rem; font-weight: 700; }
 
-    .badge {
-      background: var(--accent-soft);
-      color: var(--accent);
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    /* RESUMO SUPERIOR */
-    .grid-resumo {
+    .grid-4 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+
+    .grid-equal {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .grid-2 { grid-template-columns: 1fr; }
     }
 
     .kpi {
@@ -178,67 +277,32 @@
       padding: 16px;
     }
 
-    .kpi span { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
-    .kpi strong { font-size: 1.5rem; letter-spacing: -0.5px; }
-
-    .kpi.destaque {
-      border-color: var(--accent);
-      box-shadow: inset 0 0 24px var(--accent-soft);
-    }
-
+    .kpi span { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+    .kpi strong { font-size: 1.45rem; letter-spacing: -0.5px; }
+    .kpi.destaque { border-color: var(--accent); box-shadow: inset 0 0 22px var(--accent-soft); }
     .kpi.destaque strong { color: var(--accent); }
 
-    /* ILUSTRAÇÃO INTERATIVA + METAS */
-    .grid-principal {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 780px) {
-      .grid-principal { grid-template-columns: 1fr; }
-    }
-
+    /* METAS */
     .lista-metas { display: flex; flex-direction: column; gap: 12px; }
 
     .meta-item {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 13px;
       padding: 14px 16px;
-      transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     .meta-item.batida {
       border-color: var(--accent);
-      box-shadow: 0 0 18px var(--accent-soft);
+      box-shadow: 0 0 16px var(--accent-soft);
     }
 
-    .meta-topo {
+    .meta-linha {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .meta-nome { font-weight: 700; font-size: 0.98rem; }
-
-    .meta-comissao {
-      font-size: 0.82rem;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .meta-valores {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.83rem;
-      color: var(--muted);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
+      font-size: 0.88rem;
     }
 
     .barra-fundo {
@@ -255,44 +319,42 @@
       width: 0%;
       background: linear-gradient(90deg, var(--accent-2), var(--accent));
       border-radius: 999px;
-      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: width 0.55s ease;
     }
 
-    /* CENA INTERATIVA DO FOGUETE */
-    .palco-ilustracao {
+    /* FOGUETE INTERATIVO */
+    .palco-foguete {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       text-align: center;
-      gap: 14px;
-      min-height: 310px;
     }
 
-    .trilha-svg { width: 100%; max-width: 280px; height: 230px; overflow: visible; }
+    .trilha-svg { width: 100%; max-width: 270px; height: 215px; overflow: visible; }
 
-    .frase-motivacao {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text);
+    .frase-box {
+      width: 100%;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 10px 14px;
       border-radius: 12px;
-      width: 100%;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
     /* GRÁFICO DIA A DIA */
-    .grafico-wrap { width: 100%; overflow-x: auto; padding-top: 10px; }
+    .grafico-wrap { width: 100%; overflow-x: auto; }
 
     .grafico-area {
       position: relative;
-      height: 220px;
-      min-width: 480px;
+      height: 210px;
+      min-width: 500px;
       display: flex;
       align-items: flex-end;
       gap: 10px;
-      padding: 26px 10px 30px;
+      padding: 26px 8px 28px;
       border-bottom: 1px solid var(--border);
     }
 
@@ -303,14 +365,13 @@
       border-top: 2px dashed var(--accent);
       opacity: 0.7;
       pointer-events: none;
-      z-index: 2;
     }
 
     .linha-meta-label {
       position: absolute;
       right: 6px;
       top: -20px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--accent);
       background: var(--surface);
       padding: 2px 6px;
@@ -326,44 +387,52 @@
       justify-content: flex-end;
       align-items: center;
       position: relative;
-      cursor: pointer;
     }
 
     .barra-dia {
       width: 100%;
-      max-width: 36px;
+      max-width: 34px;
       min-height: 4px;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 8px 8px 2px 2px;
-      transition: height 0.45s ease, background 0.25s, transform 0.2s;
+      border-radius: 7px 7px 2px 2px;
+      transition: height 0.4s ease;
     }
 
     .barra-dia.com-venda { background: var(--accent-soft); border-color: var(--accent); }
-    .barra-dia.meta-batida { background: var(--accent); box-shadow: 0 0 14px var(--accent-glow); }
-    .coluna-dia:hover .barra-dia { transform: translateY(-3px); }
+    .barra-dia.meta-batida { background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
 
-    .dia-label { position: absolute; bottom: -24px; font-size: 0.75rem; color: var(--muted); }
+    .dia-label { position: absolute; bottom: -23px; font-size: 0.73rem; color: var(--muted); }
 
     .tooltip-dia {
       position: absolute;
-      bottom: calc(100% + 6px);
+      bottom: calc(100% + 4px);
       background: var(--text);
       color: var(--bg);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 4px 8px;
+      padding: 3px 7px;
       border-radius: 6px;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.15s;
-      z-index: 5;
     }
 
     .coluna-dia:hover .tooltip-dia { opacity: 1; }
 
-    /* HISTÓRICO */
+    /* FILTROS & HISTÓRICO */
+    .barra-filtros {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .barra-filtros { grid-template-columns: 1fr; }
+    }
+
     .lista-vendas {
       list-style: none;
       display: flex;
@@ -377,26 +446,18 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      gap: 12px;
       background: var(--surface-2);
       border: 1px solid var(--border);
       padding: 14px;
       border-radius: 12px;
-      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .venda-info { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 220px; }
-    .venda-info small { color: var(--muted); font-size: 0.82rem; }
-
-    .venda-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
+    .venda-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
 
     .tag {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       padding: 3px 8px;
       border-radius: 6px;
       background: var(--bg);
@@ -404,47 +465,22 @@
       color: var(--text);
     }
 
-    .tag.destaque { border-color: var(--accent); color: var(--accent); }
-    .tag.clicavel { cursor: pointer; }
-    .tag.clicavel:hover { border-color: var(--accent); }
-
-    .venda-obs {
-      font-size: 0.82rem;
-      color: var(--accent-2);
-      margin-top: 2px;
-    }
-
-    .venda-direita {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .venda-acoes { display: flex; gap: 6px; }
+    .tag.accent { border-color: var(--accent); color: var(--accent); }
 
     .btn-mini {
-      background: transparent;
-      color: var(--muted);
+      background: var(--bg);
+      color: var(--text);
       border: 1px solid var(--border);
       padding: 5px 10px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       border-radius: 8px;
     }
 
-    .btn-mini:hover { color: var(--text); border-color: var(--accent); }
-    .btn-mini.excluir:hover { color: #ff5c7c; border-color: #ff5c7c; }
+    .btn-mini:hover { border-color: var(--accent); }
 
-    /* ABA META DIÁRIA & FORMULÁRIOS */
-    .controles-diaria {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
+    /* FORMULÁRIOS E CAMPOS */
     .campo { display: flex; flex-direction: column; gap: 6px; }
-    .campo label { font-size: 0.83rem; color: var(--muted); font-weight: 600; }
+    .campo label { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
 
     input, select, textarea {
       background: var(--surface-2);
@@ -452,24 +488,64 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 10px 12px;
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       outline: none;
       width: 100%;
     }
 
     input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 
-    /* MODAL */
+    /* ÁREA DO CLIENTE (CATÁLOGO + ANAMNESE + ASSINATURA) */
+    .catalogo-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+
+    .catalogo-item:last-child { border-bottom: none; }
+
+    .canvas-assinatura {
+      width: 100%;
+      height: 140px;
+      background: var(--bg);
+      border: 1px dashed var(--accent);
+      border-radius: 12px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-2);
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.86rem;
+    }
+
+    .check-item input { width: auto; }
+
+    /* MODAIS */
     .modal-fundo {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.76);
+      background: rgba(0, 0, 0, 0.78);
       backdrop-filter: blur(4px);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 16px;
-      z-index: 50;
+      z-index: 60;
     }
 
     .modal-fundo.aberto { display: flex; }
@@ -480,16 +556,15 @@
       border-radius: 18px;
       padding: 22px;
       width: 100%;
-      max-width: 500px;
+      max-width: 540px;
       max-height: 92vh;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
-    .box-ajuste {
+    .carrinho-box {
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -499,334 +574,624 @@
       gap: 10px;
     }
 
-    .linha-dupla {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    .carrinho-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    .resumo-valor-final {
+    .carrinho-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+      background: var(--bg);
+      padding: 7px 10px;
+      border-radius: 8px;
+    }
+
+    .resumo-final {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: var(--accent-soft);
       border: 1px solid var(--accent);
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: 10px;
     }
 
-    .resumo-valor-final span { font-size: 0.85rem; font-weight: 600; }
-    .resumo-valor-final strong { font-size: 1.2rem; color: var(--accent); }
+    .resumo-final strong { font-size: 1.2rem; color: var(--accent); }
 
-    /* BOTÕES OPCIONAIS NO MODAL */
-    .pills-opcionais {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; }
     .pill-btn {
       background: var(--surface-2);
       color: var(--muted);
       border: 1px dashed var(--border);
-      padding: 7px 12px;
-      font-size: 0.82rem;
+      padding: 6px 12px;
       border-radius: 999px;
+      font-size: 0.8rem;
     }
+    .pill-btn.ativo { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
 
-    .pill-btn.ativo {
-      background: var(--accent-soft);
-      color: var(--accent);
+    .bloco-opt { display: none; flex-direction: column; gap: 6px; }
+    .bloco-opt.visivel { display: flex; }
+
+    /* RECIBO ESTILIZADO */
+    .recibo-card {
+      background: var(--bg);
       border: 1px solid var(--accent);
-    }
-
-    .bloco-opcional { display: none; }
-    .bloco-opcional.visivel { display: flex; flex-direction: column; gap: 6px; }
-
-    .preview-img {
-      max-height: 120px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      object-fit: cover;
-      display: none;
-      margin-top: 4px;
-    }
-
-    .modal-acoes {
+      border-radius: 14px;
+      padding: 18px;
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
       gap: 10px;
-      margin-top: 6px;
     }
 
-    /* VISUALIZADOR DE IMAGEM (FOTO / FICHA) */
-    .lightbox-img {
-      width: 100%;
-      max-height: 75vh;
-      object-fit: contain;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
+    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 100; }
 
-    #confetti-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 100;
+    @media print {
+      body * { visibility: hidden; }
+      #modal-recibo, #modal-recibo * { visibility: visible; }
+      #modal-recibo { position: fixed; inset: 0; background: #fff; color: #000; }
+      .no-print { display: none !important; }
     }
   </style>
 </head>
 <body>
   <canvas id="confetti-canvas"></canvas>
 
-  <main class="container">
-    <!-- CABEÇALHO -->
-    <header>
-      <div class="brand">
-        <h1>Minhas <span>Vendas</span> & Metas</h1>
-        <p>Acompanhe seu progresso diário e destrave suas comissões.</p>
+  <!-- BARRA DE MODO APRESENTAÇÃO -->
+  <div class="barra-prototipo no-print">
+    <div class="barra-prototipo-inner">
+      <div class="proto-label">
+        <span class="dot-live"></span>
+        <span>MODO APRESENTAÇÃO · Alterne a visão do usuário:</span>
       </div>
-      <div class="header-acoes">
+      <div class="seletor-perfis">
+        <button class="perfil-btn ativo" data-perfil="atendente">Visão Atendente</button>
+        <button class="perfil-btn" data-perfil="cliente">Visão Cliente</button>
+        <button class="perfil-btn" data-perfil="gerencia">Visão Gerência</button>
+        <button class="perfil-btn" data-perfil="dev">Visão Desenvolvedor</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="topo">
+      <div class="titulo-sistema">
+        <h1>Studio <span>Flow</span></h1>
+        <p id="subtitulo-perfil">Painel de Vendas, Comissões e Metas Diárias</p>
+      </div>
+      <div class="acoes-topo">
         <button id="btn-tema" class="btn-outline">Preto & Branco</button>
-        <button id="btn-abrir-modal" class="btn-primary">+ Adicionar Venda</button>
+        <button id="btn-nova-venda" class="btn-primary">+ Nova Venda</button>
       </div>
     </header>
 
-    <!-- NAVEGAÇÃO DE ABAS -->
-    <nav class="tabs">
-      <button class="tab-btn ativa" data-tab="inicio">Página Inicial</button>
-      <button class="tab-btn" data-tab="diaria">Meta Diária</button>
-    </nav>
+    <!-- ========================================================= -->
+    <!-- 1. VISÃO ATENDENTE                                        -->
+    <!-- ========================================================= -->
+    <section id="perfil-atendente" class="visao-perfil ativa">
+      <nav class="subtabs">
+        <button class="subtab-btn ativa" data-subtab="at-painel">Painel & Metas</button>
+        <button class="subtab-btn" data-subtab="at-diaria">Meta Diária</button>
+        <button class="subtab-btn" data-subtab="at-historico">Histórico & Relatórios</button>
+        <button class="subtab-btn" data-subtab="at-ponto">Meu Ponto</button>
+      </nav>
 
-    <!-- ================= ABA 1: PÁGINA INICIAL ================= -->
-    <section id="tab-inicio" class="tab-conteudo ativa">
-      <div class="grid-resumo">
-        <div class="kpi destaque">
-          <span>Total Vendido</span>
-          <strong id="kpi-vendido">R$ 0,00</strong>
+      <!-- SUB-ABA: PAINEL & METAS -->
+      <div id="at-painel" class="subtab-painel ativa">
+        <div class="grid-4">
+          <div class="kpi destaque">
+            <span>Total Vendido no Mês</span>
+            <strong id="kpi-vendido">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Comissão Destravada</span>
+            <strong id="kpi-comissao">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Falta p/ Próxima Meta</span>
+            <strong id="kpi-falta">R$ 30.000,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Atendimentos</span>
+            <strong id="kpi-qtd">0</strong>
+          </div>
         </div>
-        <div class="kpi">
-          <span>Comissão Garantida</span>
-          <strong id="kpi-comissao">R$ 0,00</strong>
-        </div>
-        <div class="kpi">
-          <span>Próxima Meta</span>
-          <strong id="kpi-falta">R$ 30.000,00</strong>
-        </div>
-        <div class="kpi">
-          <span>Vendas Registradas</span>
-          <strong id="kpi-qtd">0</strong>
-        </div>
-      </div>
 
-      <!-- METAS + ILUSTRAÇÃO INTERATIVA -->
-      <div class="grid-principal">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h2>Escada de Metas & Comissões</h2>
+              <span id="badge-status" class="badge">Rumo à 3ª Meta</span>
+            </div>
+            <div class="lista-metas" id="lista-metas"></div>
+          </div>
+
+          <div class="card palco-foguete">
+            <div class="card-header" style="width:100%; margin-bottom:0;">
+              <h2>Evolução Visual</h2>
+              <span id="pct-topo" class="badge">0%</span>
+            </div>
+
+            <svg class="trilha-svg" viewBox="0 0 260 215">
+              <line x1="50" y1="195" x2="50" y2="20" stroke="var(--border)" stroke-width="6" stroke-linecap="round"/>
+              <line id="svg-trilha" x1="50" y1="195" x2="50" y2="195" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
+              <g id="marco-3">
+                <circle cx="50" cy="90" r="7" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
+                <text x="70" y="94" fill="var(--muted)" font-size="11.5" font-weight="600">3ª Meta · 30k (+R$ 300)</text>
+              </g>
+              <g id="marco-2">
+                <circle cx="50" cy="55" r="7" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
+                <text x="70" y="59" fill="var(--muted)" font-size="11.5" font-weight="600">2ª Meta · 40k (+R$ 400)</text>
+              </g>
+              <g id="marco-1">
+                <circle cx="50" cy="20" r="9" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
+                <text x="70" y="24" fill="var(--muted)" font-size="12" font-weight="700">1ª Meta · 50k (+R$ 500)</text>
+              </g>
+              <g id="svg-foguete" transform="translate(50, 195)" style="transition: transform 0.6s ease;">
+                <circle cx="0" cy="0" r="14" fill="var(--accent-soft)"/>
+                <path d="M0 -12 C6 -5 6 4 0 10 C-6 4 -6 -5 0 -12 Z" fill="var(--accent)"/>
+                <circle cx="0" cy="-3" r="2.5" fill="var(--btn-text)"/>
+              </g>
+            </svg>
+
+            <div id="frase-motivacao" class="frase-box">Registre uma venda para iniciar a subida!</div>
+          </div>
+        </div>
+
         <div class="card">
-          <div class="card-titulo">
-            <h2>Escada de Metas & Comissões</h2>
-            <span id="badge-status" class="badge">Em busca da 3ª Meta</span>
+          <div class="card-header">
+            <h2>Ritmo Dia a Dia (Últimos 14 dias)</h2>
+            <span id="badge-grafico-meta" class="badge">Meta diária: R$ 0,00</span>
           </div>
-          <div class="lista-metas" id="lista-metas"></div>
-        </div>
-
-        <div class="card palco-ilustracao">
-          <div class="card-titulo" style="width:100%; margin-bottom:0;">
-            <h2>Decolagem da Meta</h2>
-            <span id="pct-topo" class="badge">0%</span>
-          </div>
-
-          <svg class="trilha-svg" viewBox="0 0 260 220" aria-label="Progresso interativo das metas">
-            <line x1="55" y1="200" x2="55" y2="20" stroke="var(--border)" stroke-width="6" stroke-linecap="round"/>
-            <line id="svg-trilha-ativa" x1="55" y1="200" x2="55" y2="200" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
-
-            <g id="marco-3">
-              <circle cx="55" cy="92" r="8" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
-              <text x="76" y="96" fill="var(--muted)" font-size="12" font-weight="600">3ª Meta · R$ 30 mil (+R$ 300)</text>
-            </g>
-            <g id="marco-2">
-              <circle cx="55" cy="56" r="8" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
-              <text x="76" y="60" fill="var(--muted)" font-size="12" font-weight="600">2ª Meta · R$ 40 mil (+R$ 400)</text>
-            </g>
-            <g id="marco-1">
-              <circle cx="55" cy="20" r="10" fill="var(--surface-2)" stroke="var(--border)" stroke-width="3"/>
-              <text x="76" y="24" fill="var(--muted)" font-size="12" font-weight="700">1ª Meta · R$ 50 mil (+R$ 500)</text>
-            </g>
-
-            <g id="svg-foguete" transform="translate(55, 200)" style="transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);">
-              <circle cx="0" cy="0" r="15" fill="var(--accent-soft)"/>
-              <path d="M0 -13 C6 -6 6 4 0 10 C-6 4 -6 -6 0 -13 Z" fill="var(--accent)"/>
-              <circle cx="0" cy="-3" r="2.6" fill="var(--btn-text)"/>
-              <path d="M-5 5 L-10 11 L-3 9 Z" fill="var(--accent-2)"/>
-              <path d="M5 5 L10 11 L3 9 Z" fill="var(--accent-2)"/>
-            </g>
-          </svg>
-
-          <div id="frase-motivacao" class="frase-motivacao">
-            Registre sua primeira venda para dar a partida!
+          <div class="grafico-wrap">
+            <div class="grafico-area" id="grafico-area"></div>
           </div>
         </div>
       </div>
 
-      <!-- GRÁFICO DIA A DIA -->
-      <div class="card">
-        <div class="card-titulo">
-          <h2>Gráfico de Vendas — Dia a Dia</h2>
-          <span class="badge" id="badge-grafico-meta">Meta diária: R$ 0,00</span>
-        </div>
-        <div class="grafico-wrap">
-          <div class="grafico-area" id="grafico-area"></div>
+      <!-- SUB-ABA: META DIÁRIA -->
+      <div id="at-diaria" class="subtab-painel">
+        <div class="card">
+          <div class="card-header">
+            <h2>Cálculo Automático da Meta Diária</h2>
+            <span class="badge">Tempo Real</span>
+          </div>
+
+          <div class="grid-equal" style="margin-bottom:18px;">
+            <div class="campo">
+              <label>Meta Alvo do Mês</label>
+              <select id="select-meta-alvo">
+                <option value="30000">3ª Meta — R$ 30.000 (Comissão R$ 300)</option>
+                <option value="40000">2ª Meta — R$ 40.000 (Comissão R$ 400)</option>
+                <option value="50000" selected>1ª Meta — R$ 50.000 (Comissão R$ 500)</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Dias trabalhados no mês</label>
+              <input type="number" id="input-dias-totais" value="26" min="1" max="31">
+            </div>
+            <div class="campo">
+              <label>Dias restantes (contando hoje)</label>
+              <input type="number" id="input-dias-restantes" value="15" min="1" max="31">
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <div class="kpi">
+              <span>Meta Diária Base</span>
+              <strong id="diaria-base">R$ 0,00</strong>
+            </div>
+            <div class="kpi destaque">
+              <span>Ritmo Necessário / Dia</span>
+              <strong id="diaria-recalculada">R$ 0,00</strong>
+            </div>
+            <div class="kpi">
+              <span>Vendido Hoje</span>
+              <strong id="diaria-hoje">R$ 0,00</strong>
+            </div>
+            <div class="kpi">
+              <span>Falta Hoje</span>
+              <strong id="diaria-falta-hoje">R$ 0,00</strong>
+            </div>
+          </div>
+
+          <div style="margin-top:18px;">
+            <div class="meta-linha">
+              <span>Entrega de Hoje</span>
+              <strong id="diaria-pct-hoje">0%</strong>
+            </div>
+            <div class="barra-fundo" style="height:13px;">
+              <div id="diaria-barra-hoje" class="barra-preenchida"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- HISTÓRICO DE VENDAS -->
-      <div class="card">
-        <div class="card-titulo">
-          <h2>Histórico de Vendas</h2>
-          <button id="btn-limpar" class="btn-outline" style="padding:6px 12px; font-size:0.8rem;">Zerar Mês</button>
+      <!-- SUB-ABA: HISTÓRICO, PAGAMENTOS & NOTAS -->
+      <div id="at-historico" class="subtab-painel">
+        <div class="grid-4" id="resumo-pagamentos"></div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Histórico de Vendas & Comprovantes</h2>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <span class="badge-soon" title="Integração automática na próxima fase">Envio p/ Notas Fiscais · Em Breve</span>
+              <button id="btn-exportar-csv" class="btn-outline" style="padding:7px 12px; font-size:0.8rem;">Baixar Planilha (CSV)</button>
+            </div>
+          </div>
+
+          <div class="barra-filtros">
+            <input type="text" id="filtro-busca" placeholder="Buscar por cliente ou procedimento...">
+            <select id="filtro-pagamento">
+              <option value="">Todos os pagamentos</option>
+              <option value="Pix">Pix</option>
+              <option value="Crédito">Crédito</option>
+              <option value="Débito">Débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+            </select>
+            <input type="date" id="filtro-data">
+          </div>
+
+          <ul class="lista-vendas" id="lista-vendas"></ul>
         </div>
-        <ul class="lista-vendas" id="lista-vendas"></ul>
+      </div>
+
+      <!-- SUB-ABA: PONTO DA ATENDENTE -->
+      <div id="at-ponto" class="subtab-painel">
+        <div class="card">
+          <div class="card-header">
+            <h2>Registro & Ajuste de Ponto</h2>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <span id="relogio-ponto" class="badge">--:--</span>
+              <button type="button" id="btn-abrir-ajuste-ponto" class="btn-outline" style="padding:7px 12px; font-size:0.82rem;">
+                + Ajuste Manual de Ponto
+              </button>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;">
+            <button class="btn-primary" onclick="baterPonto('Entrada')">Registrar Entrada</button>
+            <button class="btn-outline" onclick="baterPonto('Início Intervalo')">Início Intervalo</button>
+            <button class="btn-outline" onclick="baterPonto('Fim Intervalo')">Volta Intervalo</button>
+            <button class="btn-outline" onclick="baterPonto('Saída')">Registrar Saída</button>
+          </div>
+          <ul class="lista-vendas" id="lista-ponto"></ul>
+        </div>
       </div>
     </section>
 
-    <!-- ================= ABA 2: META DIÁRIA ================= -->
-    <section id="tab-diaria" class="tab-conteudo">
-      <div class="card">
-        <div class="card-titulo">
-          <h2>Calculadora Automática de Meta Diária</h2>
-          <span class="badge">Atualiza sozinho</span>
+    <!-- ========================================================= -->
+    <!-- 2. VISÃO CLIENTE                                          -->
+    <!-- ========================================================= -->
+    <section id="perfil-cliente" class="visao-perfil">
+      <nav class="subtabs">
+        <button class="subtab-btn ativa" data-subtab="cli-catalogo">Valores & Orçamento</button>
+        <button class="subtab-btn" data-subtab="cli-anamnese">Ficha de Anamnese Digital</button>
+        <button class="subtab-btn" data-subtab="cli-cuidados">Cuidados Pós-Procedimento</button>
+      </nav>
+
+      <!-- CATÁLOGO E WHATSAPP -->
+      <div id="cli-catalogo" class="subtab-painel ativa">
+        <div class="grid-equal">
+          <div class="card">
+            <div class="card-header">
+              <h2>Tabela de Procedimentos</h2>
+              <span class="badge">Valores Fixos</span>
+            </div>
+            <div class="catalogo-item"><span>Aplicação de Lóbulo (Direito ou Esquerdo)</span><strong>R$ 75,00</strong></div>
+            <div class="catalogo-item"><span>Aplicação dos Dois Lóbulos</span><strong>R$ 150,00</strong></div>
+            <div class="catalogo-item"><span>Aplicação de Piercing</span><strong>R$ 150,00</strong></div>
+            <div class="catalogo-item"><span>Serviço de Limpeza</span><strong>R$ 100,00</strong></div>
+            <div class="catalogo-item"><span>Serviço de Troca ou Remoção</span><strong>R$ 30,00</strong></div>
+            <div class="catalogo-item"><span>Serviço de Lobuloplastia</span><strong>R$ 350,00</strong></div>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:16px;">
+            <div>
+              <div class="card-header">
+                <h2>Tatuagem & Joias Especiais</h2>
+                <span class="badge">Sob Consulta</span>
+              </div>
+              <p style="color:var(--muted); font-size:0.92rem; line-height:1.5;">
+                Orçamentos de <strong>Tatuagem</strong> e escolha de joias em <strong>Titânio, Aço Cirúrgico ou Ouro</strong> são personalizados conforme tamanho, local e modelo.
+              </p>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <button class="btn-primary" onclick="abrirWhatsApp('Olá! Quero acertar o valor de uma Tatuagem.')">
+                Orçar Tatuagem no WhatsApp
+              </button>
+              <button class="btn-outline" onclick="abrirWhatsApp('Olá! Quero ver opções e valores de joias de Piercing (Titânio/Aço/Ouro).')">
+                Escolher Joia de Piercing no WhatsApp
+              </button>
+              <span class="badge-soon" style="text-align:center;">Agenda Online Automática · Em Breve</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FICHA DE ANAMNESE COM ASSINATURA -->
+      <div id="cli-anamnese" class="subtab-painel">
+        <div class="card">
+          <div class="card-header">
+            <h2>Ficha de Anamnese & Termo de Autorização</h2>
+            <span class="badge">Assinatura na Tela</span>
+          </div>
+
+          <form id="form-anamnese" style="display:flex; flex-direction:column; gap:14px;">
+            <div class="grid-equal">
+              <div class="campo">
+                <label>Nome Completo</label>
+                <input type="text" id="ana-nome" placeholder="Seu nome completo" required>
+              </div>
+              <div class="campo">
+                <label>WhatsApp / Telefone</label>
+                <input type="tel" id="ana-tel" placeholder="(00) 00000-0000" required>
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Marque caso possua alguma das condições abaixo:</label>
+              <div class="check-grid">
+                <label class="check-item"><input type="checkbox" value="Alergia a metais/medicamentos"> Alergias</label>
+                <label class="check-item"><input type="checkbox" value="Queloide / Cicatrização difícil"> Queloide</label>
+                <label class="check-item"><input type="checkbox" value="Diabetes / Hipertensão"> Diabetes / Pressão</label>
+                <label class="check-item"><input type="checkbox" value="Gestante ou Lactante"> Gestante / Lactante</label>
+                <label class="check-item"><input type="checkbox" value="Uso de anticoagulantes"> Anticoagulantes</label>
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Observações adicionais de saúde (opcional)</label>
+              <input type="text" id="ana-obs" placeholder="Informe medicamentos ou alergias específicas">
+            </div>
+
+            <div class="campo">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label>Assinatura do Cliente (desenhe com o dedo ou mouse)</label>
+                <button type="button" id="btn-limpar-assinatura" class="btn-mini">Limpar Assinatura</button>
+              </div>
+              <canvas id="canvas-assinatura" class="canvas-assinatura" width="600" height="140"></canvas>
+            </div>
+
+            <button type="submit" class="btn-primary">Confirmar & Salvar Anamnese</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- CUIDADOS PÓS-PROCEDIMENTO -->
+      <div id="cli-cuidados" class="subtab-painel">
+        <div class="grid-equal">
+          <div class="card">
+            <div class="card-header">
+              <h2>Cuidados com seu Piercing</h2>
+              <span class="badge">Cicatrização</span>
+            </div>
+            <ul style="padding-left:18px; color:var(--muted); line-height:1.7; font-size:0.92rem;">
+              <li>Higienize 2x ao dia apenas com soro fisiológico 0,9% e sabonete neutro.</li>
+              <li>Não gire, não aperte e evite tocar na joia com as mãos sujas.</li>
+              <li>Evite piscina, mar, sauna e alimentos muito gordurosos nos primeiros 15 dias.</li>
+              <li>Não durma sobre o local recém-perfurado.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Cuidados com sua Tatuagem</h2>
+              <span class="badge">Pós-Tattoo</span>
+            </div>
+            <ul style="padding-left:18px; color:var(--muted); line-height:1.7; font-size:0.92rem;">
+              <li>Lave suavemente com água fria e sabonete neutro 3x ao dia.</li>
+              <li>Aplique uma camada fina da pomada cicatrizante recomendada.</li>
+              <li>Jamais arranque casquinhas ou coce a região.</li>
+              <li>Evite exposição solar direta, mar e piscina por 30 dias.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 3. VISÃO GERÊNCIA                                         -->
+    <!-- ========================================================= -->
+    <section id="perfil-gerencia" class="visao-perfil">
+      <div class="grid-4">
+        <div class="kpi destaque">
+          <span>Faturamento Geral da Loja</span>
+          <strong id="ger-total">R$ 0,00</strong>
+        </div>
+        <div class="kpi">
+          <span>Ticket Médio por Venda</span>
+          <strong id="ger-ticket">R$ 0,00</strong>
+        </div>
+        <div class="kpi">
+          <span>Anamneses Assinadas</span>
+          <strong id="ger-anamneses">0</strong>
+        </div>
+        <div class="kpi">
+          <span>Cadastros Pendentes</span>
+          <strong>2</strong>
+        </div>
+      </div>
+
+      <div class="grid-equal">
+        <div class="card">
+          <div class="card-header">
+            <h2>Desempenho por Atendente</h2>
+            <span class="badge-soon">Multiusuário em Nuvem · Em Breve</span>
+          </div>
+          <div class="lista-metas">
+            <div class="meta-item">
+              <div class="meta-linha">
+                <strong>Atendente Principal (Você)</strong>
+                <span id="ger-atendente-atual" style="color:var(--accent); font-weight:700;">R$ 0,00</span>
+              </div>
+              <div class="barra-fundo"><div id="ger-barra-atual" class="barra-preenchida"></div></div>
+            </div>
+            <div class="meta-item" style="opacity:0.7;">
+              <div class="meta-linha">
+                <span>Camila (Exemplo Equipe)</span>
+                <span>R$ 32.400,00 · 3ª Meta</span>
+              </div>
+              <div class="barra-fundo"><div class="barra-preenchida" style="width:65%;"></div></div>
+            </div>
+          </div>
         </div>
 
-        <div class="controles-diaria">
-          <div class="campo">
-            <label for="select-meta-alvo">Qual meta você quer mirar?</label>
-            <select id="select-meta-alvo">
-              <option value="30000">3ª Meta — R$ 30.000 (Comissão R$ 300)</option>
-              <option value="40000">2ª Meta — R$ 40.000 (Comissão R$ 400)</option>
-              <option value="50000" selected>1ª Meta — R$ 50.000 (Comissão R$ 500)</option>
-            </select>
+        <div class="card">
+          <div class="card-header">
+            <h2>Controle de Acessos (Aprovação)</h2>
+            <span class="badge-soon">Protótipo Visual</span>
           </div>
-
-          <div class="campo">
-            <label for="input-dias-totais">Dias de trabalho no mês</label>
-            <input type="number" id="input-dias-totais" min="1" max="31" value="26">
-          </div>
-
-          <div class="campo">
-            <label for="input-dias-restantes">Dias restantes (incluindo hoje)</label>
-            <input type="number" id="input-dias-restantes" min="1" max="31" value="15">
-          </div>
-        </div>
-
-        <div class="grid-resumo">
-          <div class="kpi">
-            <span>Meta Diária Base</span>
-            <strong id="diaria-base">R$ 0,00</strong>
-          </div>
-          <div class="kpi destaque">
-            <span>Ritmo Necessário / Dia</span>
-            <strong id="diaria-recalculada">R$ 0,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Vendido Hoje</span>
-            <strong id="diaria-hoje">R$ 0,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Falta Hoje</span>
-            <strong id="diaria-falta-hoje">R$ 0,00</strong>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div class="item-venda">
+              <div>
+                <strong>Juliana Mendes</strong>
+                <small style="display:block; color:var(--muted);">Solicitou acesso: Atendente</small>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn-mini" onclick="alert('Protótipo: No sistema conectado ao banco de dados, este clique libera o login da atendente.')">Aprovar</button>
+                <button class="btn-mini">Recusar</button>
+              </div>
+            </div>
+            <div class="item-venda">
+              <div>
+                <strong>Carla Souza</strong>
+                <small style="display:block; color:var(--muted);">Solicitou acesso: Gerência</small>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn-mini" onclick="alert('Protótipo: Permissão de Gerência aprovada na demonstração!')">Aprovar</button>
+                <button class="btn-mini">Recusar</button>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div style="margin-top: 20px;">
-          <div class="meta-valores">
-            <span>Progresso da Meta de Hoje</span>
-            <strong id="diaria-pct-hoje">0%</strong>
+    <!-- ========================================================= -->
+    <!-- 4. VISÃO DESENVOLVEDOR (VOCÊ)                             -->
+    <!-- ========================================================= -->
+    <section id="perfil-dev" class="visao-perfil">
+      <div class="grid-equal">
+        <div class="card">
+          <div class="card-header">
+            <h2>Status Técnico & Backup</h2>
+            <span class="badge">Ambiente Local Ativo</span>
           </div>
-          <div class="barra-fundo" style="height: 14px;">
-            <div id="diaria-barra-hoje" class="barra-preenchida"></div>
+          <p style="color:var(--muted); font-size:0.9rem; margin-bottom:14px;">
+            Use os botões abaixo para salvar uma cópia completa dos dados ou restaurar em outro computador.
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="btn-backup-json" class="btn-primary">Exportar Backup (.json)</button>
+            <label class="btn-outline" style="cursor:pointer; display:inline-block;">
+              Importar Backup
+              <input type="file" id="input-importar-json" accept=".json" style="display:none;">
+            </label>
+            <button id="btn-zerar-tudo" class="btn-outline">Zerar Dados de Teste</button>
           </div>
-          <p id="diaria-feedback" class="frase-motivacao" style="margin-top: 14px; text-align: center;"></p>
+          <p id="dev-memoria" style="margin-top:14px; font-size:0.82rem; color:var(--muted);"></p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Próximas Etapas do Projeto</h2>
+            <span class="badge-soon">Roadmap</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px; font-size:0.9rem;">
+            <div class="item-venda"><span>1. Transformar em Aplicativo Instalável (PWA)</span><span class="badge-soon">Em Breve</span></div>
+            <div class="item-venda"><span>2. Banco de Dados em Nuvem + Login por Cargo</span><span class="badge-soon">Em Breve</span></div>
+            <div class="item-venda"><span>3. Ponte com Sistema de Notas Fiscais da Loja</span><span class="badge-soon">Em Breve</span></div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ================= MODAL: ADICIONAR / EDITAR VENDA ================= -->
+  <!-- ========================================================= -->
+  <!-- MODAL: REGISTRAR / EDITAR VENDA (COM CARRINHO MULTI-ITENS) -->
+  <!-- ========================================================= -->
   <div class="modal-fundo" id="modal-venda">
     <div class="modal">
-      <div class="card-titulo" style="margin-bottom:0;">
-        <h2 id="modal-titulo">Registrar Nova Venda</h2>
-        <span class="badge">Data/Hora automática</span>
+      <div class="card-header" style="margin-bottom:0;">
+        <h2 id="modal-venda-titulo">Registrar Venda</h2>
+        <button type="button" id="btn-fechar-venda" class="btn-mini">Fechar ✕</button>
       </div>
 
       <form id="form-venda" style="display:flex; flex-direction:column; gap:12px;">
         <input type="hidden" id="venda-edit-id">
 
-        <!-- SERVIÇO / PRODUTO -->
-        <div class="campo">
-          <label for="venda-servico">Procedimento ou Produto</label>
-          <select id="venda-servico" required>
+        <!-- ADICIONAR ITENS NA VENDA -->
+        <div class="carrinho-box">
+          <label style="font-size:0.82rem; font-weight:700;">Itens do Atendimento (adicione 1 ou mais)</label>
+          <select id="item-servico">
             <optgroup label="Procedimentos (Valor Fixo)">
-              <option value="Aplicação de Lóbulo Direito" data-fixo="75">Aplicação de Lóbulo Direito — R$ 75,00</option>
-              <option value="Aplicação de Lóbulo Esquerdo" data-fixo="75">Aplicação de Lóbulo Esquerdo — R$ 75,00</option>
-              <option value="Aplicação dos Dois Lóbulos" data-fixo="150">Aplicação dos Dois Lóbulos — R$ 150,00</option>
-              <option value="Aplicação de Piercing" data-fixo="150">Aplicação de Piercing — R$ 150,00</option>
-              <option value="Serviço de Remoção" data-fixo="30">Serviço de Remoção — R$ 30,00</option>
-              <option value="Serviço de Troca" data-fixo="30">Serviço de Troca — R$ 30,00</option>
-              <option value="Serviço de Limpeza" data-fixo="100">Serviço de Limpeza — R$ 100,00</option>
-              <option value="Serviço de Lobuloplastia" data-fixo="350">Serviço de Lobuloplastia — R$ 350,00</option>
+              <option value="Aplicação de Lóbulo Direito" data-fixo="75">Aplicação de Lóbulo Direito — R$ 75</option>
+              <option value="Aplicação de Lóbulo Esquerdo" data-fixo="75">Aplicação de Lóbulo Esquerdo — R$ 75</option>
+              <option value="Aplicação dos Dois Lóbulos" data-fixo="150">Aplicação dos Dois Lóbulos — R$ 150</option>
+              <option value="Aplicação de Piercing" data-fixo="150">Aplicação de Piercing — R$ 150</option>
+              <option value="Serviço de Remoção" data-fixo="30">Serviço de Remoção — R$ 30</option>
+              <option value="Serviço de Troca" data-fixo="30">Serviço de Troca — R$ 30</option>
+              <option value="Serviço de Limpeza" data-fixo="100">Serviço de Limpeza — R$ 100</option>
+              <option value="Serviço de Lobuloplastia" data-fixo="350">Serviço de Lobuloplastia — R$ 350</option>
             </optgroup>
             <optgroup label="Tatuagem & Joias (Valor Manual)">
-              <option value="Tatuagem" data-fixo="manual">Tatuagem — Valor manual</option>
-              <option value="Piercing de Titânio" data-fixo="manual">Piercing de Titânio — Valor manual</option>
-              <option value="Piercing de Aço Cirúrgico" data-fixo="manual">Piercing de Aço Cirúrgico — Valor manual</option>
-              <option value="Piercing de Ouro" data-fixo="manual">Piercing de Ouro — Valor manual</option>
+              <option value="Tatuagem" data-fixo="manual">Tatuagem (Manual)</option>
+              <option value="Piercing de Titânio" data-fixo="manual">Piercing de Titânio (Manual)</option>
+              <option value="Piercing de Aço Cirúrgico" data-fixo="manual">Piercing de Aço Cirúrgico (Manual)</option>
+              <option value="Piercing de Ouro" data-fixo="manual">Piercing de Ouro (Manual)</option>
             </optgroup>
           </select>
+
+          <div style="display:grid; grid-template-columns: 1fr auto; gap:8px;">
+            <input type="number" id="item-valor" step="0.01" min="0" value="75">
+            <button type="button" id="btn-add-item" class="btn-outline">+ Incluir na Venda</button>
+          </div>
+
+          <ul class="carrinho-lista" id="carrinho-lista"></ul>
         </div>
 
-        <!-- VALOR BASE -->
-        <div class="campo">
-          <label for="venda-valor-base" id="label-valor-base">Valor Fixo (R$)</label>
-          <input type="number" id="venda-valor-base" step="0.01" min="0" required>
-        </div>
-
-        <!-- EDIÇÃO E OBSERVAÇÕES DE VALOR (AGREGA OU RETIRA DA META) -->
-        <div class="box-ajuste">
-          <label style="font-size:0.83rem; font-weight:700; color:var(--text);">Edição / Ajuste de Valor (Opcional)</label>
-          <div class="linha-dupla">
+        <!-- AJUSTE DE VALOR (+ / -) E OBSERVAÇÃO -->
+        <div class="carrinho-box">
+          <label style="font-size:0.82rem; font-weight:700;">Ajuste ou Observação de Valor (Agrega ou Retira da Meta)</label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
             <select id="venda-ajuste-tipo">
               <option value="nenhum">Sem ajuste</option>
-              <option value="mais">+ Acrescentar valor</option>
-              <option value="menos">- Retirar / Desconto</option>
+              <option value="mais">+ Acrescentar</option>
+              <option value="menos">- Desconto / Retirar</option>
             </select>
-            <input type="number" id="venda-ajuste-valor" placeholder="Valor do ajuste" step="0.01" min="0" disabled>
+            <input type="number" id="venda-ajuste-valor" placeholder="R$ 0,00" step="0.01" min="0" disabled>
           </div>
-          <input type="text" id="venda-obs" placeholder="Observação do valor (ex: desconto, taxa extra...)">
+          <input type="text" id="venda-obs" placeholder="Motivo / observação (ex: combo, desconto à vista...)">
         </div>
 
-        <div class="resumo-valor-final">
-          <span>Valor Final que entra na Meta:</span>
-          <strong id="preview-valor-final">R$ 75,00</strong>
+        <div class="resumo-final">
+          <span>Total que entra na Meta:</span>
+          <strong id="venda-total-preview">R$ 0,00</strong>
         </div>
 
-        <!-- BOTÕES OPCIONAIS -->
+        <!-- DATA/HORA AUTOMÁTICA (COM OPÇÃO DE ALTERAR) + OPCIONAIS -->
         <div class="campo">
-          <label>Informações Opcionais (clique para adicionar)</label>
-          <div class="pills-opcionais">
-            <button type="button" class="pill-btn" data-alvo="opt-cliente">+ Nome Cliente</button>
-            <button type="button" class="pill-btn" data-alvo="opt-pagamento">+ Pagamento</button>
-            <button type="button" class="pill-btn" data-alvo="opt-foto">+ Foto</button>
-            <button type="button" class="pill-btn" data-alvo="opt-ficha">+ Ficha Cadastral</button>
+          <label>Detalhes Opcionais</label>
+          <div class="pills">
+            <button type="button" class="pill-btn" data-opt="opt-cliente">+ Cliente</button>
+            <button type="button" class="pill-btn" data-opt="opt-pag">+ Pagamento</button>
+            <button type="button" class="pill-btn" data-opt="opt-datahora">Alterar Data/Hora</button>
+            <button type="button" class="pill-btn" data-opt="opt-anexos">+ Foto / Ficha</button>
           </div>
         </div>
 
-        <div id="opt-cliente" class="bloco-opcional">
-          <label for="venda-cliente">Nome do Cliente</label>
-          <input type="text" id="venda-cliente" placeholder="Ex: Ana Beatriz">
+        <div id="opt-cliente" class="bloco-opt">
+          <label>Nome do Cliente</label>
+          <input type="text" id="venda-cliente" placeholder="Ex: Mariana Costa">
         </div>
 
-        <div id="opt-pagamento" class="bloco-opcional">
-          <label for="venda-pagamento">Método de Pagamento</label>
+        <div id="opt-pag" class="bloco-opt">
+          <label>Método de Pagamento</label>
           <select id="venda-pagamento">
             <option value="">Não informado</option>
             <option value="Pix">Pix</option>
@@ -836,34 +1201,72 @@
           </select>
         </div>
 
-        <div id="opt-foto" class="bloco-opcional">
-          <label for="venda-foto">Foto do Procedimento / Joia</label>
+        <div id="opt-datahora" class="bloco-opt">
+          <label>Data e Hora da Venda (automática se não mexer)</label>
+          <input type="datetime-local" id="venda-datahora">
+        </div>
+
+        <div id="opt-anexos" class="bloco-opt">
+          <label>Foto do Procedimento (opcional)</label>
           <input type="file" id="venda-foto" accept="image/*">
-          <img id="preview-foto" class="preview-img" alt="Prévia da foto">
-        </div>
-
-        <div id="opt-ficha" class="bloco-opcional">
-          <label for="venda-ficha">Ficha Cadastral do Cliente (scaneada / foto)</label>
+          <label>Ficha Cadastral Escaneada (opcional)</label>
           <input type="file" id="venda-ficha" accept="image/*">
-          <img id="preview-ficha" class="preview-img" alt="Prévia da ficha">
         </div>
 
-        <div class="modal-acoes">
-          <button type="button" id="btn-fechar-modal" class="btn-outline">Cancelar</button>
-          <button type="submit" class="btn-primary" id="btn-salvar-venda">Finalizar Venda</button>
+        <button type="submit" class="btn-primary">Finalizar Cadastro da Venda</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: AJUSTE MANUAL / EDIÇÃO DE PONTO                    -->
+  <!-- ========================================================= -->
+  <div class="modal-fundo" id="modal-ponto">
+    <div class="modal" style="max-width:440px;">
+      <div class="card-header" style="margin-bottom:0;">
+        <h2 id="modal-ponto-titulo">Ajuste Manual de Ponto</h2>
+        <button type="button" id="btn-fechar-ponto" class="btn-mini">Fechar ✕</button>
+      </div>
+
+      <form id="form-ponto" style="display:flex; flex-direction:column; gap:12px;">
+        <input type="hidden" id="ponto-edit-id">
+
+        <div class="campo">
+          <label for="ponto-tipo">Tipo de Marcação</label>
+          <select id="ponto-tipo" required>
+            <option value="Entrada">Entrada</option>
+            <option value="Início Intervalo">Início Intervalo</option>
+            <option value="Fim Intervalo">Volta Intervalo</option>
+            <option value="Saída">Saída</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="ponto-datahora">Data e Horário Corretos</label>
+          <input type="datetime-local" id="ponto-datahora" required>
+        </div>
+
+        <div class="campo">
+          <label for="ponto-obs">Motivo / Justificativa do Ajuste</label>
+          <input type="text" id="ponto-obs" placeholder="Ex: Esqueci de registrar na chegada" required>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
+          <button type="button" id="btn-cancelar-ponto" class="btn-outline">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar Ponto</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL VISUALIZADOR DE IMAGEM (FOTO / FICHA) -->
-  <div class="modal-fundo" id="modal-imagem">
-    <div class="modal" style="max-width:600px;">
-      <div class="card-titulo" style="margin-bottom:0;">
-        <h2 id="lightbox-titulo">Visualização</h2>
-        <button type="button" id="btn-fechar-lightbox" class="btn-outline" style="padding:6px 12px;">Fechar</button>
+  <!-- MODAL: RECIBO DO CLIENTE -->
+  <div class="modal-fundo" id="modal-recibo">
+    <div class="modal" style="max-width:440px;">
+      <div class="recibo-card" id="conteudo-recibo"></div>
+      <div class="no-print" style="display:flex; justify-content:flex-end; gap:8px;">
+        <button type="button" class="btn-outline" onclick="document.getElementById('modal-recibo').classList.remove('aberto')">Fechar</button>
+        <button type="button" class="btn-primary" onclick="window.print()">Imprimir / Salvar PDF</button>
       </div>
-      <img id="lightbox-img" class="lightbox-img" alt="Anexo da venda">
     </div>
   </div>
 
@@ -876,30 +1279,39 @@
     ];
 
     let vendas = JSON.parse(localStorage.getItem('vendas_v2')) || [];
+    let pontos = JSON.parse(localStorage.getItem('pontos_v1')) || [];
+    let anamneses = JSON.parse(localStorage.getItem('anamneses_v1')) || [];
     let configDiaria = JSON.parse(localStorage.getItem('config_diaria_v2')) || {
       metaAlvo: 50000,
       diasTotais: 26,
-      diasRestantes: Math.max(1, new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate() - new Date().getDate() + 1)
+      diasRestantes: 15
     };
-    let nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
 
-    // Imagens temporárias do formulário
+    // Garante ID em registros antigos de ponto
+    pontos = pontos.map((p, idx) => ({ id: p.id || (Date.now() - idx), ...p }));
+
+    let carrinhoAtual = [];
     let fotoTemp = '';
     let fichaTemp = '';
+    let nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
 
     // UTILITÁRIOS
-    function hojeISO(d = new Date()) {
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    }
-
-    function formatarDataHoraAtual(d = new Date()) {
-      const data = d.toLocaleDateString('pt-BR');
-      const hora = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-      return `${data} às ${hora}`;
-    }
-
     function formatarMoeda(v) {
       return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function agoraLocalISO() {
+      const d = new Date();
+      const off = d.getTimezoneOffset();
+      const local = new Date(d.getTime() - off * 60000);
+      return local.toISOString().slice(0, 16);
+    }
+
+    function formatarDataHoraBR(isoLocal) {
+      if (!isoLocal) return '';
+      const d = new Date(isoLocal);
+      if (isNaN(d)) return isoLocal;
+      return `${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
     }
 
     function calcularNivel(total) {
@@ -916,46 +1328,14 @@
       return 0;
     }
 
-    function salvar() {
-      try {
-        localStorage.setItem('vendas_v2', JSON.stringify(vendas));
-        localStorage.setItem('config_diaria_v2', JSON.stringify(configDiaria));
-      } catch (e) {
-        alert('Limite de armazenamento do navegador atingido pelas imagens. Tente excluir vendas antigas ou salvar sem foto.');
-      }
+    function salvarDados() {
+      localStorage.setItem('vendas_v2', JSON.stringify(vendas));
+      localStorage.setItem('pontos_v1', JSON.stringify(pontos));
+      localStorage.setItem('anamneses_v1', JSON.stringify(anamneses));
+      localStorage.setItem('config_diaria_v2', JSON.stringify(configDiaria));
     }
 
-    // COMPRESSÃO DE IMAGEM PARA CABER NO NAVEGADOR
-    function comprimirImagem(file, callback) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const maxW = 700;
-          const escala = Math.min(1, maxW / img.width);
-          canvas.width = img.width * escala;
-          canvas.height = img.height * escala;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          callback(canvas.toDataURL('image/jpeg', 0.72));
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // ABAS
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('ativa'));
-        document.querySelectorAll('.tab-conteudo').forEach(c => c.classList.remove('ativa'));
-        btn.classList.add('ativa');
-        document.getElementById(`tab-${btn.dataset.tab}`).classList.add('ativa');
-      });
-    });
-
-    // ALTERNAR TEMA
+    // TEMA PRETO & ROSA / PRETO & BRANCO
     const btnTema = document.getElementById('btn-tema');
     if (localStorage.getItem('tema_pb') === '1') {
       document.body.classList.add('tema-pb');
@@ -963,468 +1343,685 @@
     }
     btnTema.addEventListener('click', () => {
       document.body.classList.toggle('tema-pb');
-      const isPB = document.body.classList.contains('tema-pb');
-      btnTema.textContent = isPB ? 'Preto & Rosa' : 'Preto & Branco';
-      localStorage.setItem('tema_pb', isPB ? '1' : '0');
+      const pb = document.body.classList.contains('tema-pb');
+      btnTema.textContent = pb ? 'Preto & Rosa' : 'Preto & Branco';
+      localStorage.setItem('tema_pb', pb ? '1' : '0');
     });
 
-    // LÓGICA DO MODAL DE VENDA
-    const modal = document.getElementById('modal-venda');
-    const elServico = document.getElementById('venda-servico');
-    const elValorBase = document.getElementById('venda-valor-base');
-    const elLabelBase = document.getElementById('label-valor-base');
+    // NAVEGAÇÃO ENTRE PERFIS (MODO APRESENTAÇÃO)
+    const descricoesPerfil = {
+      atendente: 'Painel de Vendas, Comissões e Metas Diárias',
+      cliente: 'Autoatendimento: Valores, Ficha de Anamnese e Cuidados',
+      gerencia: 'Visão Geral da Loja, Equipe e Liberação de Acessos',
+      dev: 'Painel do Desenvolvedor, Backup e Próximas Fases'
+    };
+
+    document.querySelectorAll('.perfil-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.perfil;
+        document.querySelectorAll('.perfil-btn').forEach(b => b.classList.remove('ativo'));
+        document.querySelectorAll('.visao-perfil').forEach(v => v.classList.remove('ativa'));
+        btn.classList.add('ativo');
+        document.getElementById(`perfil-${p}`).classList.add('ativa');
+        document.getElementById('subtitulo-perfil').textContent = descricoesPerfil[p];
+        document.getElementById('btn-nova-venda').style.display = (p === 'cliente') ? 'none' : 'inline-block';
+      });
+    });
+
+    // SUB-ABAS
+    document.querySelectorAll('.subtab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const secaoPai = btn.closest('.visao-perfil');
+        secaoPai.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('ativa'));
+        secaoPai.querySelectorAll('.subtab-painel').forEach(p => p.classList.remove('ativa'));
+        btn.classList.add('ativa');
+        document.getElementById(btn.dataset.subtab).classList.add('ativa');
+      });
+    });
+
+    // MODAL DE VENDA E CARRINHO MULTI-ITENS
+    const modalVenda = document.getElementById('modal-venda');
+    const elItemServico = document.getElementById('item-servico');
+    const elItemValor = document.getElementById('item-valor');
     const elAjusteTipo = document.getElementById('venda-ajuste-tipo');
     const elAjusteValor = document.getElementById('venda-ajuste-valor');
-    const elPreviewFinal = document.getElementById('preview-valor-final');
 
-    function atualizarCampoServico(manterValor = false) {
-      const opt = elServico.options[elServico.selectedIndex];
-      const fixo = opt.dataset.fixo;
+    function sincronizarCampoItem() {
+      const fixo = elItemServico.options[elItemServico.selectedIndex].dataset.fixo;
       if (fixo === 'manual') {
-        elLabelBase.textContent = 'Valor Manual (R$)';
-        elValorBase.readOnly = false;
-        if (!manterValor) elValorBase.value = '';
-        elValorBase.placeholder = 'Digite o valor (ex: 250.00)';
+        elItemValor.readOnly = false;
+        elItemValor.value = '';
+        elItemValor.placeholder = 'Digite o valor (R$)';
       } else {
-        elLabelBase.textContent = 'Valor Fixo do Procedimento (R$)';
-        elValorBase.readOnly = true;
-        elValorBase.value = fixo;
+        elItemValor.readOnly = true;
+        elItemValor.value = fixo;
       }
-      calcularValorFinalPreview();
+    }
+    elItemServico.addEventListener('change', sincronizarCampoItem);
+
+    document.getElementById('btn-add-item').addEventListener('click', () => {
+      const val = parseFloat(elItemValor.value);
+      if (isNaN(val) || val <= 0) {
+        alert('Informe um valor válido para incluir o item.');
+        return;
+      }
+      carrinhoAtual.push({ nome: elItemServico.value, valor: val });
+      renderizarCarrinho();
+      if (!elItemValor.readOnly) elItemValor.value = '';
+    });
+
+    function removerItemCarrinho(idx) {
+      carrinhoAtual.splice(idx, 1);
+      renderizarCarrinho();
     }
 
-    function calcularValorFinalPreview() {
-      const base = parseFloat(elValorBase.value) || 0;
-      const tipo = elAjusteTipo.value;
-      const ajuste = parseFloat(elAjusteValor.value) || 0;
-      let final = base;
-      if (tipo === 'mais') final += ajuste;
-      if (tipo === 'menos') final = Math.max(0, final - ajuste);
-      elPreviewFinal.textContent = formatarMoeda(final);
+    function calcularTotalVenda() {
+      const somaItens = carrinhoAtual.length > 0
+        ? carrinhoAtual.reduce((s, i) => s + i.valor, 0)
+        : (parseFloat(elItemValor.value) || 0);
+
+      const aj = parseFloat(elAjusteValor.value) || 0;
+      let final = somaItens;
+      if (elAjusteTipo.value === 'mais') final += aj;
+      if (elAjusteTipo.value === 'menos') final = Math.max(0, final - aj);
+      document.getElementById('venda-total-preview').textContent = formatarMoeda(final);
       return final;
     }
 
-    elServico.addEventListener('change', () => atualizarCampoServico(false));
-    elValorBase.addEventListener('input', calcularValorFinalPreview);
+    function renderizarCarrinho() {
+      const ul = document.getElementById('carrinho-lista');
+      ul.innerHTML = carrinhoAtual.map((item, i) => `
+        <li class="carrinho-item">
+          <span>${item.nome} — <strong>${formatarMoeda(item.valor)}</strong></span>
+          <button type="button" class="btn-mini" onclick="removerItemCarrinho(${i})">✕</button>
+        </li>
+      `).join('');
+      calcularTotalVenda();
+    }
+
+    elItemValor.addEventListener('input', calcularTotalVenda);
     elAjusteTipo.addEventListener('change', () => {
       elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
       if (elAjusteValor.disabled) elAjusteValor.value = '';
-      calcularValorFinalPreview();
+      calcularTotalVenda();
     });
-    elAjusteValor.addEventListener('input', calcularValorFinalPreview);
+    elAjusteValor.addEventListener('input', calcularTotalVenda);
 
-    // BOTÕES OPCIONAIS (PILLS)
+    // PILLS OPCIONAIS
     document.querySelectorAll('.pill-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         btn.classList.toggle('ativo');
-        document.getElementById(btn.dataset.alvo).classList.toggle('visivel');
+        document.getElementById(btn.dataset.opt).classList.toggle('visivel');
       });
     });
 
-    // UPLOAD DE FOTO E FICHA
-    document.getElementById('venda-foto').addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      comprimirImagem(file, dataUrl => {
-        fotoTemp = dataUrl;
-        const img = document.getElementById('preview-foto');
-        img.src = dataUrl;
-        img.style.display = 'block';
+    // COMPRESSÃO DE IMAGEM
+    function lerImagem(input, cb) {
+      input.addEventListener('change', e => {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = ev => {
+          const img = new Image();
+          img.onload = () => {
+            const c = document.createElement('canvas');
+            const esc = Math.min(1, 650 / img.width);
+            c.width = img.width * esc;
+            c.height = img.height * esc;
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            cb(c.toDataURL('image/jpeg', 0.7));
+          };
+          img.src = ev.target.result;
+        };
+        r.readAsDataURL(f);
       });
-    });
+    }
+    lerImagem(document.getElementById('venda-foto'), d => fotoTemp = d);
+    lerImagem(document.getElementById('venda-ficha'), d => fichaTemp = d);
 
-    document.getElementById('venda-ficha').addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      comprimirImagem(file, dataUrl => {
-        fichaTemp = dataUrl;
-        const img = document.getElementById('preview-ficha');
-        img.src = dataUrl;
-        img.style.display = 'block';
-      });
-    });
-
-    function resetarModal() {
+    function abrirModalNovaVenda() {
       document.getElementById('form-venda').reset();
       document.getElementById('venda-edit-id').value = '';
-      document.getElementById('modal-titulo').textContent = 'Registrar Nova Venda';
-      document.getElementById('btn-salvar-venda').textContent = 'Finalizar Venda';
-      elAjusteValor.disabled = true;
+      document.getElementById('modal-venda-titulo').textContent = 'Registrar Nova Venda';
+      carrinhoAtual = [];
       fotoTemp = '';
       fichaTemp = '';
-      document.getElementById('preview-foto').style.display = 'none';
-      document.getElementById('preview-ficha').style.display = 'none';
+      elAjusteValor.disabled = true;
+      document.getElementById('venda-datahora').value = agoraLocalISO();
       document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('ativo'));
-      document.querySelectorAll('.bloco-opcional').forEach(b => b.classList.remove('visivel'));
-      atualizarCampoServico(false);
+      document.querySelectorAll('.bloco-opt').forEach(b => b.classList.remove('visivel'));
+      sincronizarCampoItem();
+      renderizarCarrinho();
+      modalVenda.classList.add('aberto');
     }
 
-    document.getElementById('btn-abrir-modal').addEventListener('click', () => {
-      resetarModal();
-      modal.classList.add('aberto');
-    });
+    document.getElementById('btn-nova-venda').addEventListener('click', abrirModalNovaVenda);
+    document.getElementById('btn-fechar-venda').addEventListener('click', () => modalVenda.classList.remove('aberto'));
 
-    document.getElementById('btn-fechar-modal').addEventListener('click', () => modal.classList.remove('aberto'));
-    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('aberto'); });
-
-    // EDITAR VENDA EXISTENTE
-    function editarVenda(id) {
-      const v = vendas.find(item => item.id === id);
-      if (!v) return;
-      resetarModal();
-
-      document.getElementById('venda-edit-id').value = v.id;
-      document.getElementById('modal-titulo').textContent = 'Editar Venda';
-      document.getElementById('btn-salvar-venda').textContent = 'Salvar Alterações';
-
-      elServico.value = v.servico || 'Tatuagem';
-      atualizarCampoServico(true);
-      elValorBase.value = v.valorBase ?? v.valor;
-
-      elAjusteTipo.value = v.ajusteTipo || 'nenhum';
-      elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
-      elAjusteValor.value = v.ajusteValor || '';
-      document.getElementById('venda-obs').value = v.obs || '';
-
-      if (v.cliente) {
-        ativarOpcional('opt-cliente');
-        document.getElementById('venda-cliente').value = v.cliente;
-      }
-      if (v.pagamento) {
-        ativarOpcional('opt-pagamento');
-        document.getElementById('venda-pagamento').value = v.pagamento;
-      }
-      if (v.foto) {
-        ativarOpcional('opt-foto');
-        fotoTemp = v.foto;
-        const img = document.getElementById('preview-foto');
-        img.src = v.foto;
-        img.style.display = 'block';
-      }
-      if (v.ficha) {
-        ativarOpcional('opt-ficha');
-        fichaTemp = v.ficha;
-        const img = document.getElementById('preview-ficha');
-        img.src = v.ficha;
-        img.style.display = 'block';
-      }
-
-      calcularValorFinalPreview();
-      modal.classList.add('aberto');
-    }
-
-    function ativarOpcional(idAlvo) {
-      document.getElementById(idAlvo).classList.add('visivel');
-      const pill = document.querySelector(`.pill-btn[data-alvo="${idAlvo}"]`);
-      if (pill) pill.classList.add('ativo');
-    }
-
-    // SALVAR VENDA (NOVA OU EDITADA)
     document.getElementById('form-venda').addEventListener('submit', e => {
       e.preventDefault();
-      const valorFinal = calcularValorFinalPreview();
-      if (valorFinal <= 0) {
-        alert('O valor final da venda precisa ser maior que zero.');
-        return;
+      if (carrinhoAtual.length === 0) {
+        const v = parseFloat(elItemValor.value);
+        if (isNaN(v) || v <= 0) {
+          alert('Informe o valor ou inclua ao menos 1 item na venda.');
+          return;
+        }
+        carrinhoAtual.push({ nome: elItemServico.value, valor: v });
       }
 
+      const valorFinal = calcularTotalVenda();
+      const dhEscolhida = document.getElementById('venda-datahora').value || agoraLocalISO();
+      const dataISO = dhEscolhida.slice(0, 10);
       const editId = Number(document.getElementById('venda-edit-id').value);
-      const agora = new Date();
 
-      const dadosVenda = {
+      const registro = {
         id: editId || Date.now(),
-        servico: elServico.value,
-        valorBase: parseFloat(elValorBase.value) || 0,
+        itens: [...carrinhoAtual],
+        servico: carrinhoAtual.map(i => i.nome).join(' + '),
         ajusteTipo: elAjusteTipo.value,
         ajusteValor: parseFloat(elAjusteValor.value) || 0,
         obs: document.getElementById('venda-obs').value.trim(),
         valor: valorFinal,
         cliente: document.getElementById('venda-cliente').value.trim(),
         pagamento: document.getElementById('venda-pagamento').value,
+        data: dataISO,
+        isoHora: dhEscolhida,
+        dataHora: formatarDataHoraBR(dhEscolhida),
         foto: fotoTemp,
         ficha: fichaTemp
       };
 
       if (editId) {
         const idx = vendas.findIndex(v => v.id === editId);
-        if (idx !== -1) {
-          dadosVenda.data = vendas[idx].data;
-          dadosVenda.dataHora = vendas[idx].dataHora;
-          vendas[idx] = dadosVenda;
-        }
+        if (idx !== -1) vendas[idx] = registro;
       } else {
-        dadosVenda.data = hojeISO(agora);
-        dadosVenda.dataHora = formatarDataHoraAtual(agora);
-        vendas.unshift(dadosVenda);
+        vendas.unshift(registro);
       }
 
-      salvar();
+      salvarDados();
 
       const novoTotal = vendas.reduce((s, v) => s + v.valor, 0);
       const novoNivel = calcularNivel(novoTotal);
       if (novoNivel > nivelAnterior) dispararConfete();
       nivelAnterior = novoNivel;
 
-      modal.classList.remove('aberto');
-      atualizarTudo();
+      modalVenda.classList.remove('aberto');
+      atualizarSistema();
     });
 
-    function removerVenda(id) {
+    function editarVenda(id) {
+      const v = vendas.find(x => x.id === id);
+      if (!v) return;
+      abrirModalNovaVenda();
+      document.getElementById('venda-edit-id').value = v.id;
+      document.getElementById('modal-venda-titulo').textContent = 'Editar Venda';
+      carrinhoAtual = v.itens ? [...v.itens] : [{ nome: v.servico || 'Venda', valor: v.valor }];
+      elAjusteTipo.value = v.ajusteTipo || 'nenhum';
+      elAjusteValor.disabled = elAjusteTipo.value === 'nenhum';
+      elAjusteValor.value = v.ajusteValor || '';
+      document.getElementById('venda-obs').value = v.obs || '';
+      document.getElementById('venda-cliente').value = v.cliente || '';
+      document.getElementById('venda-pagamento').value = v.pagamento || '';
+      document.getElementById('venda-datahora').value = v.isoHora || agoraLocalISO();
+      fotoTemp = v.foto || '';
+      fichaTemp = v.ficha || '';
+      renderizarCarrinho();
+    }
+
+    function excluirVenda(id) {
+      if (!confirm('Deseja remover esta venda?')) return;
       vendas = vendas.filter(v => v.id !== id);
       nivelAnterior = calcularNivel(vendas.reduce((s, v) => s + v.valor, 0));
-      salvar();
-      atualizarTudo();
+      salvarDados();
+      atualizarSistema();
     }
 
-    document.getElementById('btn-limpar').addEventListener('click', () => {
-      if (vendas.length === 0) return;
-      if (confirm('Tem certeza que deseja zerar todas as vendas deste mês?')) {
-        vendas = [];
-        nivelAnterior = 0;
-        salvar();
-        atualizarTudo();
-      }
+    // RECIBO DO CLIENTE
+    function abrirRecibo(id) {
+      const v = vendas.find(x => x.id === id);
+      if (!v) return;
+      const itensHtml = (v.itens || [{ nome: v.servico, valor: v.valor }])
+        .map(i => `<div style="display:flex; justify-content:space-between; font-size:0.88rem;"><span>${i.nome}</span><span>${formatarMoeda(i.valor)}</span></div>`)
+        .join('');
+
+      document.getElementById('conteudo-recibo').innerHTML = `
+        <div style="text-align:center; border-bottom:1px dashed var(--border); padding-bottom:10px;">
+          <h3 style="color:var(--accent);">STUDIO FLOW</h3>
+          <small style="color:var(--muted);">Comprovante de Atendimento</small>
+        </div>
+        <div style="font-size:0.85rem; color:var(--muted);">
+          <div><strong>Data:</strong> ${v.dataHora || v.data}</div>
+          ${v.cliente ? `<div><strong>Cliente:</strong> ${v.cliente}</div>` : ''}
+          ${v.pagamento ? `<div><strong>Pagamento:</strong> ${v.pagamento}</div>` : ''}
+        </div>
+        <div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:10px 0; display:flex; flex-direction:column; gap:6px;">
+          ${itensHtml}
+          ${v.obs ? `<small style="color:var(--accent-2);">Obs: ${v.obs}</small>` : ''}
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:1.1rem;">
+          <strong>Total Pago</strong>
+          <strong style="color:var(--accent);">${formatarMoeda(v.valor)}</strong>
+        </div>
+        <small style="color:var(--muted); text-align:center; margin-top:6px;">
+          Siga higienizando conforme as recomendações de pós-procedimento!
+        </small>
+      `;
+      document.getElementById('modal-recibo').classList.add('aberto');
+    }
+
+    // =========================================================
+    // PONTO RÁPIDO + AJUSTE MANUAL / EDIÇÃO DE PONTO
+    // =========================================================
+    const modalPonto = document.getElementById('modal-ponto');
+
+    setInterval(() => {
+      const el = document.getElementById('relogio-ponto');
+      if (el) el.textContent = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }, 1000);
+
+    function baterPonto(tipo) {
+      const iso = agoraLocalISO();
+      pontos.unshift({
+        id: Date.now(),
+        tipo,
+        isoHora: iso,
+        dataHora: formatarDataHoraBR(iso),
+        ajustado: false,
+        obs: ''
+      });
+      salvarDados();
+      atualizarSistema();
+    }
+
+    document.getElementById('btn-abrir-ajuste-ponto').addEventListener('click', () => {
+      document.getElementById('form-ponto').reset();
+      document.getElementById('ponto-edit-id').value = '';
+      document.getElementById('modal-ponto-titulo').textContent = 'Ajuste Manual de Ponto';
+      document.getElementById('ponto-datahora').value = agoraLocalISO();
+      modalPonto.classList.add('aberto');
     });
 
-    // VISUALIZAR FOTO OU FICHA
-    const modalImg = document.getElementById('modal-imagem');
-    function abrirAnexo(id, tipo) {
-      const v = vendas.find(item => item.id === id);
-      if (!v || !v[tipo]) return;
-      document.getElementById('lightbox-titulo').textContent = tipo === 'foto' ? 'Foto da Venda' : 'Ficha Cadastral';
-      document.getElementById('lightbox-img').src = v[tipo];
-      modalImg.classList.add('aberto');
+    function fecharModalPonto() {
+      modalPonto.classList.remove('aberto');
     }
-    document.getElementById('btn-fechar-lightbox').addEventListener('click', () => modalImg.classList.remove('aberto'));
-    modalImg.addEventListener('click', e => { if (e.target === modalImg) modalImg.classList.remove('aberto'); });
+    document.getElementById('btn-fechar-ponto').addEventListener('click', fecharModalPonto);
+    document.getElementById('btn-cancelar-ponto').addEventListener('click', fecharModalPonto);
+    modalPonto.addEventListener('click', e => { if (e.target === modalPonto) fecharModalPonto(); });
 
-    // CONTROLES DA ABA META DIÁRIA
-    const elSelectMeta = document.getElementById('select-meta-alvo');
-    const elDiasTotais = document.getElementById('input-dias-totais');
-    const elDiasRestantes = document.getElementById('input-dias-restantes');
+    function editarPonto(id) {
+      const p = pontos.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('ponto-edit-id').value = p.id;
+      document.getElementById('modal-ponto-titulo').textContent = 'Editar Registro de Ponto';
+      document.getElementById('ponto-tipo').value = p.tipo || 'Entrada';
+      document.getElementById('ponto-datahora').value = p.isoHora || agoraLocalISO();
+      document.getElementById('ponto-obs').value = p.obs || '';
+      modalPonto.classList.add('aberto');
+    }
 
-    elSelectMeta.value = configDiaria.metaAlvo;
-    elDiasTotais.value = configDiaria.diasTotais;
-    elDiasRestantes.value = configDiaria.diasRestantes;
+    function excluirPonto(id) {
+      if (!confirm('Deseja excluir este registro de ponto?')) return;
+      pontos = pontos.filter(x => x.id !== id);
+      salvarDados();
+      atualizarSistema();
+    }
 
-    [elSelectMeta, elDiasTotais, elDiasRestantes].forEach(el => {
-      el.addEventListener('change', () => {
-        configDiaria.metaAlvo = Number(elSelectMeta.value);
-        configDiaria.diasTotais = Math.max(1, Number(elDiasTotais.value) || 1);
-        configDiaria.diasRestantes = Math.max(1, Number(elDiasRestantes.value) || 1);
-        salvar();
-        atualizarTudo();
+    document.getElementById('form-ponto').addEventListener('submit', e => {
+      e.preventDefault();
+      const editId = Number(document.getElementById('ponto-edit-id').value);
+      const tipo = document.getElementById('ponto-tipo').value;
+      const iso = document.getElementById('ponto-datahora').value || agoraLocalISO();
+      const obs = document.getElementById('ponto-obs').value.trim();
+
+      const registroPonto = {
+        id: editId || Date.now(),
+        tipo,
+        isoHora: iso,
+        dataHora: formatarDataHoraBR(iso),
+        ajustado: true,
+        obs
+      };
+
+      if (editId) {
+        const idx = pontos.findIndex(x => x.id === editId);
+        if (idx !== -1) pontos[idx] = registroPonto;
+      } else {
+        pontos.unshift(registroPonto);
+      }
+
+      // Ordena do mais recente para o mais antigo quando houver isoHora
+      pontos.sort((a, b) => (b.isoHora || '').localeCompare(a.isoHora || ''));
+
+      salvarDados();
+      fecharModalPonto();
+      atualizarSistema();
+    });
+
+    // WHATSAPP E ANAMNESE COM ASSINATURA
+    function abrirWhatsApp(msg) {
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    const canvasAss = document.getElementById('canvas-assinatura');
+    const ctxAss = canvasAss.getContext('2d');
+    let desenhando = false;
+    let assinou = false;
+
+    function posCanvas(e) {
+      const r = canvasAss.getBoundingClientRect();
+      const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      const cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      return { x: cx * (canvasAss.width / r.width), y: cy * (canvasAss.height / r.height) };
+    }
+
+    ['mousedown', 'touchstart'].forEach(ev => canvasAss.addEventListener(ev, e => {
+      e.preventDefault();
+      desenhando = true;
+      assinou = true;
+      const p = posCanvas(e);
+      ctxAss.beginPath();
+      ctxAss.moveTo(p.x, p.y);
+    }));
+
+    ['mousemove', 'touchmove'].forEach(ev => canvasAss.addEventListener(ev, e => {
+      if (!desenhando) return;
+      e.preventDefault();
+      const p = posCanvas(e);
+      ctxAss.lineWidth = 2.4;
+      ctxAss.lineCap = 'round';
+      ctxAss.strokeStyle = '#ff2e88';
+      ctxAss.lineTo(p.x, p.y);
+      ctxAss.stroke();
+    }));
+
+    ['mouseup', 'mouseleave', 'touchend'].forEach(ev => canvasAss.addEventListener(ev, () => desenhando = false));
+
+    document.getElementById('btn-limpar-assinatura').addEventListener('click', () => {
+      ctxAss.clearRect(0, 0, canvasAss.width, canvasAss.height);
+      assinou = false;
+    });
+
+    document.getElementById('form-anamnese').addEventListener('submit', e => {
+      e.preventDefault();
+      if (!assinou) {
+        alert('Por favor, assine no quadro antes de salvar.');
+        return;
+      }
+      anamneses.unshift({
+        nome: document.getElementById('ana-nome').value,
+        tel: document.getElementById('ana-tel').value,
+        data: formatarDataHoraBR(agoraLocalISO())
+      });
+      salvarDados();
+      ctxAss.clearRect(0, 0, canvasAss.width, canvasAss.height);
+      assinou = false;
+      e.target.reset();
+      atualizarSistema();
+      alert('Ficha de Anamnese assinada e registrada com sucesso!');
+    });
+
+    // FILTROS, CSV E BACKUP
+    ['filtro-busca', 'filtro-pagamento', 'filtro-data'].forEach(id => {
+      document.getElementById(id).addEventListener('input', atualizarSistema);
+    });
+
+    document.getElementById('btn-exportar-csv').addEventListener('click', () => {
+      if (vendas.length === 0) return alert('Nenhuma venda para exportar.');
+      const linhas = [['DataHora', 'Cliente', 'Procedimentos', 'Pagamento', 'ValorFinal', 'Observacao']];
+      vendas.forEach(v => linhas.push([
+        `"${v.dataHora || v.data}"`,
+        `"${v.cliente || ''}"`,
+        `"${v.servico || ''}"`,
+        `"${v.pagamento || ''}"`,
+        v.valor.toFixed(2),
+        `"${v.obs || ''}"`
+      ]));
+      const blob = new Blob([linhas.map(l => l.join(';')).join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'vendas-studio.csv';
+      a.click();
+    });
+
+    document.getElementById('btn-backup-json').addEventListener('click', () => {
+      const pacote = { vendas, pontos, anamneses, configDiaria };
+      const blob = new Blob([JSON.stringify(pacote, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'backup-studio-flow.json';
+      a.click();
+    });
+
+    document.getElementById('input-importar-json').addEventListener('change', e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        try {
+          const d = JSON.parse(ev.target.result);
+          if (d.vendas) vendas = d.vendas;
+          if (d.pontos) pontos = d.pontos;
+          if (d.anamneses) anamneses = d.anamneses;
+          salvarDados();
+          atualizarSistema();
+          alert('Backup restaurado com sucesso!');
+        } catch {
+          alert('Arquivo inválido.');
+        }
+      };
+      r.readAsText(f);
+    });
+
+    document.getElementById('btn-zerar-tudo').addEventListener('click', () => {
+      if (!confirm('Apagar todos os registros locais de teste?')) return;
+      vendas = [];
+      pontos = [];
+      anamneses = [];
+      salvarDados();
+      atualizarSistema();
+    });
+
+    // CONTROLES META DIÁRIA
+    ['select-meta-alvo', 'input-dias-totais', 'input-dias-restantes'].forEach(id => {
+      document.getElementById(id).addEventListener('change', () => {
+        configDiaria.metaAlvo = Number(document.getElementById('select-meta-alvo').value);
+        configDiaria.diasTotais = Math.max(1, Number(document.getElementById('input-dias-totais').value) || 1);
+        configDiaria.diasRestantes = Math.max(1, Number(document.getElementById('input-dias-restantes').value) || 1);
+        salvarDados();
+        atualizarSistema();
       });
     });
 
-    // ATUALIZAÇÃO GERAL DA TELA
-    function atualizarTudo() {
+    // RENDERIZAÇÃO PRINCIPAL
+    function atualizarSistema() {
       const total = vendas.reduce((s, v) => s + v.valor, 0);
       const comissao = calcularComissao(total);
+      const hoje = agoraLocalISO().slice(0, 10);
 
       document.getElementById('kpi-vendido').textContent = formatarMoeda(total);
       document.getElementById('kpi-comissao').textContent = formatarMoeda(comissao);
       document.getElementById('kpi-qtd').textContent = vendas.length;
 
-      const proxima = METAS.find(m => total < m.alvo);
-      document.getElementById('kpi-falta').textContent = proxima ? formatarMoeda(proxima.alvo - total) : 'Todas batidas!';
-      document.getElementById('badge-status').textContent = proxima ? `Rumo à ${proxima.nome}` : '1ª Meta Batida!';
+      const prox = METAS.find(m => total < m.alvo);
+      document.getElementById('kpi-falta').textContent = prox ? formatarMoeda(prox.alvo - total) : 'Todas batidas!';
+      document.getElementById('badge-status').textContent = prox ? `Rumo à ${prox.nome}` : '1ª Meta Batida!';
 
-      // CARDS DAS 3 METAS
-      const elMetas = document.getElementById('lista-metas');
-      elMetas.innerHTML = '';
-      METAS.forEach(m => {
+      // Metas
+      document.getElementById('lista-metas').innerHTML = METAS.map(m => {
         const pct = Math.min((total / m.alvo) * 100, 100);
-        const batida = total >= m.alvo;
-        const falta = Math.max(0, m.alvo - total);
-
-        elMetas.innerHTML += `
-          <div class="meta-item ${batida ? 'batida' : ''}">
-            <div class="meta-topo">
-              <span class="meta-nome">${m.nome} — ${formatarMoeda(m.alvo)}</span>
-              <span class="meta-comissao">${batida ? '✓ ' : ''}Comissão ${formatarMoeda(m.comissao)}</span>
+        const ok = total >= m.alvo;
+        return `
+          <div class="meta-item ${ok ? 'batida' : ''}">
+            <div class="meta-linha">
+              <strong>${m.nome} — ${formatarMoeda(m.alvo)}</strong>
+              <span class="badge">${ok ? '✓ ' : ''}Comissão ${formatarMoeda(m.comissao)}</span>
             </div>
-            <div class="meta-valores">
-              <span>${batida ? 'Meta alcançada!' : 'Faltam ' + formatarMoeda(falta)}</span>
+            <div class="meta-linha" style="color:var(--muted); font-size:0.8rem;">
+              <span>${ok ? 'Concluída!' : 'Faltam ' + formatarMoeda(m.alvo - total)}</span>
               <strong>${pct.toFixed(1)}%</strong>
             </div>
-            <div class="barra-fundo">
-              <div class="barra-preenchida" style="width:${pct}%"></div>
-            </div>
+            <div class="barra-fundo"><div class="barra-preenchida" style="width:${pct}%"></div></div>
           </div>
         `;
-      });
+      }).join('');
 
-      // FOGUETE INTERATIVO
-      const pctMax = Math.min((total / 50000) * 100, 100);
-      const yAtual = 200 - (pctMax / 100) * 180;
-      document.getElementById('pct-topo').textContent = `${pctMax.toFixed(1)}%`;
-      document.getElementById('svg-trilha-ativa').setAttribute('y2', yAtual);
-      document.getElementById('svg-foguete').setAttribute('transform', `translate(55, ${yAtual})`);
-
-      [
-        { id: 'marco-3', alvo: 30000 },
-        { id: 'marco-2', alvo: 40000 },
-        { id: 'marco-1', alvo: 50000 }
-      ].forEach(marco => {
-        const g = document.getElementById(marco.id);
-        const circle = g.querySelector('circle');
-        const text = g.querySelector('text');
-        if (total >= marco.alvo) {
-          circle.setAttribute('fill', 'var(--accent)');
-          circle.setAttribute('stroke', 'var(--accent)');
-          text.setAttribute('fill', 'var(--text)');
-        } else {
-          circle.setAttribute('fill', 'var(--surface-2)');
-          circle.setAttribute('stroke', 'var(--border)');
-          text.setAttribute('fill', 'var(--muted)');
-        }
-      });
+      // Foguete
+      const pct50 = Math.min((total / 50000) * 100, 100);
+      const y = 195 - (pct50 / 100) * 175;
+      document.getElementById('pct-topo').textContent = `${pct50.toFixed(1)}%`;
+      document.getElementById('svg-trilha').setAttribute('y2', y);
+      document.getElementById('svg-foguete').setAttribute('transform', `translate(50, ${y})`);
 
       const elFrase = document.getElementById('frase-motivacao');
-      if (total === 0) elFrase.textContent = 'Registre sua primeira venda para dar a partida!';
-      else if (total < 30000) elFrase.textContent = `Faltam ${formatarMoeda(30000 - total)} para garantir seus primeiros R$ 300 de comissão!`;
-      else if (total < 40000) elFrase.textContent = `3ª Meta batida! R$ 300 garantidos — bora buscar os R$ 400!`;
-      else if (total < 50000) elFrase.textContent = `2ª Meta no bolso (R$ 400)! Faltam só ${formatarMoeda(50000 - total)} para o topo!`;
-      else elFrase.textContent = `1ª META BATIDA! Você destravou a comissão máxima de R$ 500!`;
+      if (total === 0) elFrase.textContent = 'Registre uma venda para iniciar a subida!';
+      else if (total < 30000) elFrase.textContent = `Faltam ${formatarMoeda(30000 - total)} para destravar R$ 300 de comissão!`;
+      else if (total < 40000) elFrase.textContent = '3ª Meta garantida! Rumo aos R$ 400 de comissão.';
+      else if (total < 50000) elFrase.textContent = '2ª Meta batida! Reta final para o topo de R$ 500!';
+      else elFrase.textContent = '1ª META ALCANÇADA! Comissão máxima garantida!';
 
-      // META DIÁRIA
+      // Meta Diária
       const metaBaseDia = configDiaria.metaAlvo / configDiaria.diasTotais;
-      const faltaAlvo = Math.max(0, configDiaria.metaAlvo - total);
-      const ritmoNecessario = faltaAlvo / configDiaria.diasRestantes;
-      const hoje = hojeISO();
+      const faltaMes = Math.max(0, configDiaria.metaAlvo - total);
+      const ritmoDia = faltaMes / configDiaria.diasRestantes;
       const vendidoHoje = vendas.filter(v => v.data === hoje).reduce((s, v) => s + v.valor, 0);
-      const alvoHoje = faltaAlvo === 0 ? metaBaseDia : Math.max(ritmoNecessario, 0);
-      const faltaHoje = Math.max(0, alvoHoje - vendidoHoje);
+      const alvoHoje = faltaMes === 0 ? metaBaseDia : ritmoDia;
       const pctHoje = alvoHoje > 0 ? Math.min((vendidoHoje / alvoHoje) * 100, 100) : 100;
 
       document.getElementById('diaria-base').textContent = formatarMoeda(metaBaseDia);
-      document.getElementById('diaria-recalculada').textContent = formatarMoeda(ritmoNecessario);
+      document.getElementById('diaria-recalculada').textContent = formatarMoeda(ritmoDia);
       document.getElementById('diaria-hoje').textContent = formatarMoeda(vendidoHoje);
-      document.getElementById('diaria-falta-hoje').textContent = formatarMoeda(faltaHoje);
+      document.getElementById('diaria-falta-hoje').textContent = formatarMoeda(Math.max(0, alvoHoje - vendidoHoje));
       document.getElementById('diaria-pct-hoje').textContent = `${pctHoje.toFixed(1)}%`;
       document.getElementById('diaria-barra-hoje').style.width = `${pctHoje}%`;
 
-      const elFeedbackDia = document.getElementById('diaria-feedback');
-      if (faltaAlvo === 0) elFeedbackDia.textContent = 'Você já bateu a meta escolhida! Tudo que vender hoje é lucro extra.';
-      else if (vendidoHoje >= alvoHoje) elFeedbackDia.textContent = 'Meta de hoje batida! Você está no ritmo perfeito para fechar o mês no topo.';
-      else elFeedbackDia.textContent = `Vendendo mais ${formatarMoeda(faltaHoje)} hoje, você mantém o ritmo exato para bater a meta!`;
-
-      renderizarGrafico(metaBaseDia);
-
-      // HISTÓRICO
-      const elLista = document.getElementById('lista-vendas');
-      if (vendas.length === 0) {
-        elLista.innerHTML = `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhuma venda registrada ainda. Clique em <strong>+ Adicionar Venda</strong> para começar.</li>`;
-      } else {
-        elLista.innerHTML = vendas.map(v => {
-          const nomeItem = v.servico || v.desc || 'Venda';
-          const ajusteTxt = v.ajusteTipo === 'mais' && v.ajusteValor > 0
-            ? `<span class="tag destaque">+${formatarMoeda(v.ajusteValor)}</span>`
-            : (v.ajusteTipo === 'menos' && v.ajusteValor > 0
-              ? `<span class="tag destaque">-${formatarMoeda(v.ajusteValor)}</span>`
-              : '');
-
-          return `
-            <li class="item-venda">
-              <div class="venda-info">
-                <strong>${nomeItem}</strong>
-                <small>${v.dataHora || v.data}</small>
-                <div class="venda-tags">
-                  ${v.cliente ? `<span class="tag">Cliente: ${v.cliente}</span>` : ''}
-                  ${v.pagamento ? `<span class="tag">${v.pagamento}</span>` : ''}
-                  ${ajusteTxt}
-                  ${v.foto ? `<span class="tag clicavel" onclick="abrirAnexo(${v.id}, 'foto')">Ver Foto</span>` : ''}
-                  ${v.ficha ? `<span class="tag clicavel" onclick="abrirAnexo(${v.id}, 'ficha')">Ver Ficha</span>` : ''}
-                </div>
-                ${v.obs ? `<div class="venda-obs">Obs: ${v.obs}</div>` : ''}
-              </div>
-              <div class="venda-direita">
-                <strong>${formatarMoeda(v.valor)}</strong>
-                <div class="venda-acoes">
-                  <button class="btn-mini" onclick="editarVenda(${v.id})">Editar</button>
-                  <button class="btn-mini excluir" onclick="removerVenda(${v.id})">Excluir</button>
-                </div>
-              </div>
-            </li>
-          `;
-        }).join('');
-      }
-    }
-
-    function renderizarGrafico(metaDia) {
-      document.getElementById('badge-grafico-meta').textContent = `Meta diária: ${formatarMoeda(metaDia)}`;
+      // Gráfico 14 dias
+      document.getElementById('badge-grafico-meta').textContent = `Meta diária: ${formatarMoeda(metaBaseDia)}`;
       const dias = [];
       for (let i = 13; i >= 0; i--) {
         const d = new Date();
         d.setDate(d.getDate() - i);
-        const iso = hojeISO(d);
+        const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         const label = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
         const soma = vendas.filter(v => v.data === iso).reduce((s, v) => s + v.valor, 0);
-        dias.push({ iso, label, soma });
+        dias.push({ label, soma });
       }
-
-      const maiorValor = Math.max(metaDia * 1.15, ...dias.map(d => d.soma), 100);
-      const area = document.getElementById('grafico-area');
-      const posMetaPct = Math.min((metaDia / maiorValor) * 100, 96);
-
-      let html = `
-        <div class="linha-meta-diaria" style="bottom: calc(30px + ${posMetaPct}% * 0.75);">
-          <span class="linha-meta-label">Meta: ${formatarMoeda(metaDia)}</span>
+      const maior = Math.max(metaBaseDia * 1.15, ...dias.map(d => d.soma), 100);
+      const posMeta = Math.min((metaBaseDia / maior) * 100, 95);
+      document.getElementById('grafico-area').innerHTML = `
+        <div class="linha-meta-diaria" style="bottom: calc(28px + ${posMeta}% * 0.75);">
+          <span class="linha-meta-label">Meta: ${formatarMoeda(metaBaseDia)}</span>
         </div>
+        ${dias.map(d => {
+          const h = Math.max((d.soma / maior) * 100, d.soma > 0 ? 4 : 1);
+          const cl = d.soma >= metaBaseDia ? 'meta-batida' : (d.soma > 0 ? 'com-venda' : '');
+          return `
+            <div class="coluna-dia">
+              <div class="tooltip-dia">${d.label}: ${formatarMoeda(d.soma)}</div>
+              <div class="barra-dia ${cl}" style="height:${h * 0.82}%;"></div>
+              <span class="dia-label">${d.label}</span>
+            </div>
+          `;
+        }).join('')}
       `;
 
-      dias.forEach(d => {
-        const alturaPct = Math.max((d.soma / maiorValor) * 100, d.soma > 0 ? 4 : 1);
-        const classe = d.soma >= metaDia ? 'meta-batida' : (d.soma > 0 ? 'com-venda' : '');
-        html += `
-          <div class="coluna-dia">
-            <div class="tooltip-dia">${d.label}: ${formatarMoeda(d.soma)}</div>
-            <div class="barra-dia ${classe}" style="height: ${alturaPct * 0.85}%;"></div>
-            <span class="dia-label">${d.label}</span>
-          </div>
-        `;
+      // Resumo por Pagamento
+      const meios = ['Pix', 'Crédito', 'Débito', 'Dinheiro'];
+      document.getElementById('resumo-pagamentos').innerHTML = meios.map(m => {
+        const s = vendas.filter(v => v.pagamento === m).reduce((acc, v) => acc + v.valor, 0);
+        return `<div class="kpi"><span>Total em ${m}</span><strong>${formatarMoeda(s)}</strong></div>`;
+      }).join('');
+
+      // Histórico filtrado
+      const termo = document.getElementById('filtro-busca').value.toLowerCase();
+      const fPag = document.getElementById('filtro-pagamento').value;
+      const fData = document.getElementById('filtro-data').value;
+
+      const filtradas = vendas.filter(v => {
+        const textoOk = !termo || (v.servico || '').toLowerCase().includes(termo) || (v.cliente || '').toLowerCase().includes(termo);
+        const pagOk = !fPag || v.pagamento === fPag;
+        const dataOk = !fData || v.data === fData;
+        return textoOk && pagOk && dataOk;
       });
 
-      area.innerHTML = html;
+      const elLista = document.getElementById('lista-vendas');
+      elLista.innerHTML = filtradas.length === 0
+        ? `<li style="color:var(--muted); text-align:center; padding:18px;">Nenhuma venda encontrada.</li>`
+        : filtradas.map(v => `
+          <li class="item-venda">
+            <div>
+              <strong>${v.servico || 'Venda'}</strong>
+              <small style="display:block; color:var(--muted);">${v.dataHora || v.data}</small>
+              <div class="venda-tags">
+                ${v.cliente ? `<span class="tag">${v.cliente}</span>` : ''}
+                ${v.pagamento ? `<span class="tag accent">${v.pagamento}</span>` : ''}
+                ${v.obs ? `<span class="tag">Obs: ${v.obs}</span>` : ''}
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+              <strong>${formatarMoeda(v.valor)}</strong>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button class="btn-mini" onclick="abrirRecibo(${v.id})">Recibo</button>
+                <button class="btn-mini" onclick="editarVenda(${v.id})">Editar</button>
+                <button class="btn-mini" onclick="excluirVenda(${v.id})">Excluir</button>
+              </div>
+            </div>
+          </li>
+        `).join('');
+
+      // Ponto (com etiqueta de ajuste manual + botões Editar e Excluir)
+      document.getElementById('lista-ponto').innerHTML = pontos.length === 0
+        ? `<li style="color:var(--muted); text-align:center; padding:14px;">Nenhum ponto registrado hoje.</li>`
+        : pontos.map(p => `
+          <li class="item-venda">
+            <div>
+              <strong>${p.tipo}</strong>
+              <small style="display:block; color:var(--muted);">${p.dataHora}</small>
+              <div class="venda-tags">
+                ${p.ajustado ? `<span class="tag accent">Ajustado Manualmente</span>` : ''}
+                ${p.obs ? `<span class="tag">Motivo: ${p.obs}</span>` : ''}
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button class="btn-mini" onclick="editarPonto(${p.id})">Editar</button>
+              <button class="btn-mini" onclick="excluirPonto(${p.id})">Excluir</button>
+            </div>
+          </li>
+        `).join('');
+
+      // Gerência & Dev
+      document.getElementById('ger-total').textContent = formatarMoeda(total + 32400);
+      document.getElementById('ger-ticket').textContent = formatarMoeda(vendas.length ? total / vendas.length : 0);
+      document.getElementById('ger-anamneses').textContent = anamneses.length;
+      document.getElementById('ger-atendente-atual').textContent = formatarMoeda(total);
+      document.getElementById('ger-barra-atual').style.width = `${pct50}%`;
+
+      const kb = (JSON.stringify(localStorage).length / 1024).toFixed(1);
+      document.getElementById('dev-memoria').textContent = `Armazenamento local utilizado: ${kb} KB`;
     }
 
     function dispararConfete() {
-      const canvas = document.getElementById('confetti-canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const cores = document.body.classList.contains('tema-pb')
-        ? ['#ffffff', '#cccccc', '#888888']
-        : ['#ff2e88', '#ff7eb6', '#ffffff', '#ffd1e6'];
-
-      const particulas = Array.from({ length: 90 }, () => ({
-        x: Math.random() * canvas.width,
-        y: -20 - Math.random() * 120,
+      const c = document.getElementById('confetti-canvas');
+      const ctx = c.getContext('2d');
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+      const ps = Array.from({ length: 80 }, () => ({
+        x: Math.random() * c.width,
+        y: -20 - Math.random() * 100,
         r: 4 + Math.random() * 5,
-        cor: cores[Math.floor(Math.random() * cores.length)],
         vy: 3 + Math.random() * 4,
         vx: (Math.random() - 0.5) * 3
       }));
-
-      let frames = 0;
-      function animar() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particulas.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          ctx.fillStyle = p.cor;
-          ctx.fillRect(p.x, p.y, p.r, p.r * 1.4);
-        });
-        frames++;
-        if (frames < 120) requestAnimationFrame(animar);
-        else ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-      animar();
+      let f = 0;
+      (function anim() {
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.fillStyle = '#ff2e88';
+        ps.forEach(p => { p.x += p.vx; p.y += p.vy; ctx.fillRect(p.x, p.y, p.r, p.r); });
+        if (++f < 100) requestAnimationFrame(anim);
+        else ctx.clearRect(0, 0, c.width, c.height);
+      })();
     }
 
-    atualizarTudo();
+    atualizarSistema();
   </script>
 </body>
 </html>
